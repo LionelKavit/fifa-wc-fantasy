@@ -1,0 +1,43 @@
+schema: spec-driven
+
+context: |
+  Product: an agentic web app built around the FIFA World Cup 2026 (live now;
+  tournament runs 2026-06-11 to 2026-07-19). First product direction is a
+  "Qualification Scenario Engine": for any national team, compute what result it
+  needs to advance, and the probability it advances — including the hard
+  8-best-third-placed cross-group comparison — explained in plain English by an
+  agent (Claude) and updated live as results come in.
+
+  Tech stack: TypeScript, Next.js (note: target repo uses a non-standard Next.js —
+  read node_modules/next/dist/docs/ before writing app code), Tailwind, Vitest.
+  LLM features use Claude via @anthropic-ai/sdk; the Scout agent uses
+  claude-sonnet-4-6 (adaptive thinking). Architecture is
+  ported from a sibling app (~/Desktop/fpl-advisor): data fetch+cache+validate →
+  typed normalization → engine → LLM chat.
+
+  Verified data layer (public, no auth, base https://play.fifa.com/json/fantasy/):
+  - players.json   ~1489 players {id, squadId, position GK|DEF|MID|FWD, price,
+                   status, percentSelected, stats{...}}.
+  - squads.json    THE team join: 48 teams, id space 1–48, 1:1 with player.squadId;
+                   fields {id,name,abbr,group(a–l),isEliminated}. NOT squads_fifa.json
+                   (that file is a 32-team partial in a different id space — wrong key).
+  - rounds.json    8 rounds (3 GROUP + R32,R16,QF,SF,F). Each round embeds fixtures
+                   in tournaments[] with home/awaySquadId (1–48 space), scores,
+                   goalscorers. No external schedule source needed.
+  - Format: 12 groups of 4; top 2 + 8 best third-placed → Round of 32.
+  Add a thin fetch+cache+zod-style validation layer; expect undocumented shape drift.
+  Secrets/cookies (for any future authed user-team feature) are server-side only,
+  never committed.
+
+  Conventions: small, tested, pure-function engine core independent of UI/Next.js;
+  spec-first via this OpenSpec workflow.
+
+# Per-artifact rules (optional)
+# Add custom rules for specific artifacts.
+# Example:
+#   rules:
+#     proposal:
+#       - Keep proposals under 500 words
+#       - Always include a "Non-goals" section
+#     tasks:
+#       - Break tasks into chunks of max 2 hours
