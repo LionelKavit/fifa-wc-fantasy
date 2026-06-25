@@ -5,7 +5,7 @@ TBD - created by archiving change scout-agent. Update Purpose after archive.
 ## Requirements
 ### Requirement: Grounded tool-use conversation
 
-The Scout SHALL answer a user question by running a tool-use loop with `claude-sonnet-4-6` and adaptive thinking: calling engine-backed tools to obtain facts, then composing an answer from those facts.
+The Scout SHALL answer a user question by running a tool-use loop with `claude-sonnet-4-6` (thinking disabled, low effort, for token efficiency): calling engine-backed tools to obtain facts, then composing an answer from those facts.
 
 #### Scenario: Question answered via tools
 
@@ -40,10 +40,19 @@ The Scout SHALL base every qualification or probability claim on tool output, di
 
 The Scout SHALL adopt a concise, knowledgeable World Cup analyst persona via a frozen system prompt, and stay scoped to the 2026 group-stage qualification domain.
 
-#### Scenario: Concise, plain-English answers
+#### Scenario: Very brief, plain-English answers
 
 - **WHEN** the Scout answers
-- **THEN** the reply is plain-English and concise, explaining the scenario rather than dumping raw tables
+- **THEN** the reply is plain-English and very brief (one or two short sentences), leading with the answer, with no preamble, lists, raw tables, or Markdown formatting (no asterisks/bold)
+
+### Requirement: Token efficiency
+
+The Scout SHALL minimize token usage: run with thinking disabled and low effort, instruct the model to answer in one or two sentences within a bounded output limit, expose a minimal tool surface, return compact grounded tool results, and apply prompt caching to the stable prompt prefix (tools + system).
+
+#### Scenario: Lean configuration
+
+- **WHEN** the Scout runs a turn
+- **THEN** it uses thinking-disabled low-effort generation, a bounded `max_tokens`, compact tool results, and a cache breakpoint on the stable tools+system prefix
 
 ### Requirement: Multi-turn conversation
 

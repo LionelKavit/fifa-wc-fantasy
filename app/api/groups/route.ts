@@ -6,12 +6,14 @@ export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
 
 export async function GET() {
-  const { snapshot, report } = await getTournamentData();
+  const { snapshot, report, live } = await getTournamentData();
   const groups = snapshot.groups.map((g) => {
-    const s = buildGroupSituation(snapshot, g.id, report);
+    const s = buildGroupSituation(snapshot, g.id, report, { provisional: live });
     return {
       groupId: g.id,
       narration: s.narration,
+      provisional: s.provisional,
+      liveFixtures: s.liveFixtures,
       table: s.table.map((r) => ({
         rank: r.rank,
         teamId: r.teamId,
@@ -30,5 +32,5 @@ export async function GET() {
     };
   });
 
-  return Response.json({ fetchedAt: snapshot.fetchedAt, groups });
+  return Response.json({ fetchedAt: snapshot.fetchedAt, live, groups });
 }

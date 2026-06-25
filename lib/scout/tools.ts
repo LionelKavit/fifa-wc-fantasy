@@ -100,78 +100,67 @@ function asNonEmptyString(v: unknown): string | null {
   return typeof v === "string" && v.trim() ? v : null;
 }
 
-/** Tool definitions in Anthropic Messages API shape. */
+// A small percentage helper for compact, model-friendly tool output.
+const asPct = (p: number | null): string | null => (p === null ? null : `${Math.round(p * 100)}%`);
+
+/** Tool definitions in Anthropic Messages API shape. Kept minimal (two tools) to
+ * shrink the prompt and avoid extra round-trips; both resolve names internally. */
 export const SCOUT_TOOLS = [
-  {
-    name: "resolve_team",
-    description: "Resolve a national team from a name or abbreviation. Use when unsure which team the user means.",
-    input_schema: {
-      type: "object",
-      properties: { name: { type: "string", description: "Team name or abbreviation, e.g. 'Mexico' or 'MEX'." } },
-      required: ["name"],
-    },
-  },
   {
     name: "get_team_situation",
     description:
-      "Get a team's grounded qualification situation: current position, what it needs to advance, and its advancement probability. Call this for any 'what does X need / what are X's chances' question.",
+      "A team's qualification facts: status, what it needs, and its chance to reach the Round of 32. Use for any team question (resolves the team name itself).",
     input_schema: {
       type: "object",
-      properties: { team: { type: "string", description: "Team name or abbreviation." } },
+      properties: { team: { type: "string", description: "Team name or abbreviation, e.g. 'Mexico' or 'MEX'." } },
       required: ["team"],
     },
   },
   {
     name: "get_group_situation",
-    description: "Get a group's grounded situation: standings and every team's status. Call this for any group-level question.",
+    description: "A group's facts: each team's status and chance. Use for any group question (resolves the group name itself).",
     input_schema: {
       type: "object",
       properties: { group: { type: "string", description: "Group name or letter, e.g. 'Group F' or 'F'." } },
       required: ["group"],
     },
   },
-  {
-    name: "get_advancement_probabilities",
-    description: "Get a team's Round-of-32 advancement probability and its win/draw/loss conditional split.",
-    input_schema: {
-      type: "object",
-      properties: { team: { type: "string", description: "Team name or abbreviation." } },
-      required: ["team"],
-    },
-  },
 ] as const;
 
-/** Execute a tool call against grounded data. Returns a tool error rather than throwing. */
+/** Execute a tool call against grounded data, returning a COMPACT result to keep
+ * tool-result tokens small. Returns a tool error rather than throwing. */
 export function executeTool(name: string, input: unknown, ctx: ScoutContext): ToolResult {
   const args = (input ?? {}) as Record<string, unknown>;
   try {
     switch (name) {
-      case "resolve_team": {
-        const q = asNonEmptyString(args.name);
-        if (!q) return fail("'name' is required");
-        return ok(resolveTeam(ctx.snapshot, q) ?? { found: false });
-      }
       case "get_team_situation": {
         const q = asNonEmptyString(args.team);
         if (!q) return fail("'team' is required");
         const team = resolveTeam(ctx.snapshot, q);
         if (!team) return ok({ found: false, query: q });
-        return ok(buildTeamSituation(ctx.snapshot, team.teamId, ctx.report));
+        const s = buildTeamSituation(ctx.snapshot, team.teamId, ctx.report);
+        return ok({
+          team: s.name,
+          group: s.groupId,
+          status: s.advancement,
+          chance: asPct(s.advancementProbability),
+          conditional: s.conditionalProbability
+            ? { win: asPct(s.conditionalProbability.win), draw: asPct(s.conditionalProbability.draw), loss: asPct(s.conditionalProbability.loss) }
+            : null,
+          summary: s.narration,
+        });
       }
       case "get_group_situation": {
         const q = asNonEmptyString(args.group);
         if (!q) return fail("'group' is required");
         const groupId = resolveGroup(ctx.snapshot, q);
         if (!groupId) return ok({ found: false, query: q });
-        return ok(buildGroupSituation(ctx.snapshot, groupId, ctx.report));
-      }
-      case "get_advancement_probabilities": {
-        const q = asNonEmptyString(args.team);
-        if (!q) return fail("'team' is required");
-        const team = resolveTeam(ctx.snapshot, q);
-        if (!team) return ok({ found: false, query: q });
-        const s = buildTeamSituation(ctx.snapshot, team.teamId, ctx.report);
-        return ok({ team: s.name, advancementProbability: s.advancementProbability, conditional: s.conditionalProbability });
+        const g = buildGroupSituation(ctx.snapshot, groupId, ctx.report);
+        return ok({
+          group: g.groupId,
+          summary: g.narration,
+          teams: g.teams.map((t) => ({ team: t.abbr, status: t.advancement, chance: asPct(t.advancementProbability) })),
+        });
       }
       default:
         return fail(`unknown tool '${name}'`);

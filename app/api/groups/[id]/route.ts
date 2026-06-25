@@ -7,11 +7,11 @@ export const dynamic = "force-dynamic";
 
 export async function GET(_req: Request, { params }: { params: Promise<{ id: string }> }) {
   const { id } = await params;
-  const { snapshot, report } = await getTournamentData();
+  const { snapshot, report, live } = await getTournamentData();
 
   if (!snapshot.groups.some((g) => g.id === id)) {
     return Response.json({ error: `Unknown group '${id}'` }, { status: 404 });
   }
 
-  return Response.json(buildGroupSituation(snapshot, id, report));
+  return Response.json(buildGroupSituation(snapshot, id, report, { provisional: live }));
 }

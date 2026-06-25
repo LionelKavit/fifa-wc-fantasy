@@ -13,8 +13,9 @@ export type {
   ConditionalProbability,
   ProbabilityMethod,
 } from "./probability";
-export { simulate, DEFAULT_TRIALS } from "./montecarlo";
+export { simulate, DEFAULT_TRIALS, DEFAULT_LIVE_REMAINING_LAMBDA } from "./montecarlo";
 export type { SimulateOptions, SimulationResult } from "./montecarlo";
+export { hasLiveFixtures, liveFixtures, liveFixturesForGroup, type LiveFixture } from "./live";
 export { rankThirdPlaced, type ThirdPlaceResult } from "./thirdPlace";
 export { createPoissonModel, type OutcomeModel, type PoissonModelOptions } from "./outcome";
 export { mulberry32, samplePoisson, type Rng } from "./rng";

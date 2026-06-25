@@ -5,21 +5,23 @@ import { getTournamentData } from "../lib/server/tournament";
 import { buildGroupSituation } from "../lib/grounding";
 import GroupCard, { type GroupView } from "./components/GroupCard";
 import ScoutChat from "./components/ScoutChat";
+import LiveRefresher from "./components/LiveRefresher";
 import { completedResultsFor } from "./components/teamResults";
 
 export const dynamic = "force-dynamic";
 
 export default async function Home() {
-  const { snapshot, report } = await getTournamentData();
+  const { snapshot, report, live } = await getTournamentData();
 
   const groups: GroupView[] = snapshot.groups
     .slice()
     .sort((a, b) => a.id.localeCompare(b.id))
     .map((g) => {
-      const s = buildGroupSituation(snapshot, g.id, report);
+      const s = buildGroupSituation(snapshot, g.id, report, { provisional: live });
       return {
         groupId: g.id,
         narration: s.narration,
+        liveFixtures: s.liveFixtures,
         teams: s.teams.map((t) => ({
           teamId: t.teamId,
           abbr: t.abbr,
@@ -41,6 +43,7 @@ export default async function Home() {
 
   return (
     <main className="mx-auto max-w-7xl px-4 py-8">
+      <LiveRefresher live={live} />
       {/* gold · teal · orange accent */}
       <div className="mx-auto mb-6 h-1 w-24 rounded-full bg-gradient-to-r from-teal-400 via-amber-400 to-orange-500" />
       <header className="mb-8 text-center">

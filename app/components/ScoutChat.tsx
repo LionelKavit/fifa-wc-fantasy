@@ -14,6 +14,13 @@ interface Msg {
 
 const SUGGESTIONS = ["What does Mexico need?", "What are Sweden's chances?", "How does Group F look?"];
 
+// The Scout answers in plain text; strip any stray Markdown emphasis just in case
+// (operates on the full accumulated string, so markers split across stream chunks
+// are still removed).
+function clean(text: string): string {
+  return text.replace(/\*+/g, "").replace(/`+/g, "").replace(/__/g, "");
+}
+
 function SourceTag({ source }: { source?: string | null }) {
   if (!source) return null;
   const isLlm = source === "llm";
@@ -70,7 +77,7 @@ export default function ScoutChat() {
         acc += decoder.decode(value, { stream: true });
         setMessages((cur) => {
           const copy = cur.slice();
-          copy[copy.length - 1] = { role: "assistant", content: acc, source };
+          copy[copy.length - 1] = { role: "assistant", content: clean(acc), source };
           return copy;
         });
       }

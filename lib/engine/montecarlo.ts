@@ -8,15 +8,20 @@ import type { StandingRow } from "./types";
 import { buildOrderedRows, type MatchResult } from "./standings";
 import { splitGroupFixtures } from "./scenarios";
 import { rankThirdPlaced } from "./thirdPlace";
-import { mulberry32 } from "./rng";
-import { createPoissonModel, type OutcomeModel, type FixtureMatchup } from "./outcome";
+import { mulberry32, samplePoisson } from "./rng";
+import { createPoissonModel, type OutcomeModel } from "./outcome";
 
 export const DEFAULT_TRIALS = 50_000;
+/** Expected additional goals per team for the rest of an in-progress match
+ * (a fixed fallback for the unknown remaining time). */
+export const DEFAULT_LIVE_REMAINING_LAMBDA = 0.7;
 
 export interface SimulateOptions {
   trials?: number;
   seed?: number;
   model?: OutcomeModel;
+  /** Expected remaining goals per team for live matches. */
+  liveRemainingLambda?: number;
 }
 
 export interface BranchCounts {
@@ -38,6 +43,14 @@ interface GroupSim {
   remaining: { homeId: number; awayId: number; gidx: number }[];
 }
 
+interface RemSlot {
+  homeId: number;
+  awayId: number;
+  live: boolean;
+  liveHome: number;
+  liveAway: number;
+}
+
 function emptyBranch(): BranchCounts {
   return { trials: 0, advanced: 0 };
 }
@@ -47,16 +60,23 @@ export function simulate(snapshot: TournamentSnapshot, opts: SimulateOptions = {
   const seed = opts.seed ?? 1;
   const rng = mulberry32(seed);
   const model = opts.model ?? createPoissonModel();
+  const liveLambda = opts.liveRemainingLambda ?? DEFAULT_LIVE_REMAINING_LAMBDA;
 
   // Build per-group inputs and a flat list of all remaining fixtures (the global
   // sample space shared across groups).
   const groups: GroupSim[] = [];
-  const globalRemaining: FixtureMatchup[] = [];
+  const globalRemaining: RemSlot[] = [];
   for (const g of snapshot.groups) {
     const { completed, remaining } = splitGroupFixtures(snapshot, g.id);
     const rem = remaining.map((r) => {
       const gidx = globalRemaining.length;
-      globalRemaining.push({ homeId: r.homeId, awayId: r.awayId });
+      globalRemaining.push({
+        homeId: r.homeId,
+        awayId: r.awayId,
+        live: r.live,
+        liveHome: r.liveHomeScore,
+        liveAway: r.liveAwayScore,
+      });
       return { homeId: r.homeId, awayId: r.awayId, gidx };
     });
     groups.push({ teams: g.teams, completed, remaining: rem });
@@ -87,7 +107,13 @@ export function simulate(snapshot: TournamentSnapshot, opts: SimulateOptions = {
 
   for (let t = 0; t < trials; t++) {
     for (let i = 0; i < globalRemaining.length; i++) {
-      sampled[i] = model(globalRemaining[i]!, rng);
+      const slot = globalRemaining[i]!;
+      if (slot.live) {
+        // Seed the current scoreline and sample only the remaining goals.
+        sampled[i] = [slot.liveHome + samplePoisson(liveLambda, rng), slot.liveAway + samplePoisson(liveLambda, rng)];
+      } else {
+        sampled[i] = model({ homeId: slot.homeId, awayId: slot.awayId }, rng);
+      }
     }
 
     const advancing = new Set<number>();

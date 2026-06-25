@@ -51,18 +51,24 @@ describe("name resolution", () => {
 });
 
 describe("tool execution", () => {
-  it("returns a grounded team situation", () => {
+  it("returns a compact grounded team situation", () => {
     const r = executeTool("get_team_situation", { team: "Mexico" }, ctx);
     expect(r.isError).toBe(false);
     const data = JSON.parse(r.output);
-    expect(data.name).toBe("Mexico");
-    expect(data.advancement).toBe("clinched");
+    expect(data.team).toBe("Mexico");
+    expect(data.status).toBe("clinched");
+    expect(data.summary).toContain("Mexico"); // grounded one-liner
+    // compact: no heavy fields like the full ownMatch / table
+    expect(data.ownMatch).toBeUndefined();
   });
 
-  it("returns a grounded group situation", () => {
+  it("returns a compact grounded group situation", () => {
     const r = executeTool("get_group_situation", { group: "Group A" }, ctx);
     expect(r.isError).toBe(false);
-    expect(JSON.parse(r.output).teams).toHaveLength(4);
+    const data = JSON.parse(r.output);
+    expect(data.teams).toHaveLength(4);
+    expect(data.teams[0]).toHaveProperty("status");
+    expect(data.table).toBeUndefined(); // compact: full table omitted
   });
 
   it("reports not-found rather than guessing for an unknown team", () => {

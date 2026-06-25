@@ -22,10 +22,19 @@ export interface TeamRow {
   results: TeamResult[];
 }
 
+export interface GroupLive {
+  homeAbbr: string;
+  awayAbbr: string;
+  homeScore: number;
+  awayScore: number;
+}
+
 export interface GroupView {
   groupId: string;
   narration: string;
   teams: TeamRow[];
+  /** In-progress fixtures in this group (for the live indicator). */
+  liveFixtures?: GroupLive[];
 }
 
 // Shared column template keeps header + rows aligned. The team column has a real
@@ -44,9 +53,21 @@ function qualClass(a: Advancement): string {
 export default function GroupCard({ group }: { group: GroupView }) {
   return (
     <section className="rounded-2xl border border-white/10 bg-[#111726]/80 p-5 shadow-lg shadow-black/20 transition hover:border-white/20">
-      <h2 className="mb-3 text-xs font-semibold uppercase tracking-[0.2em] text-amber-300/80">
-        Group {group.groupId.toUpperCase()}
-      </h2>
+      <div className="mb-3 flex items-center justify-between gap-2">
+        <h2 className="text-xs font-semibold uppercase tracking-[0.2em] text-amber-300/80">
+          Group {group.groupId.toUpperCase()}
+        </h2>
+        {group.liveFixtures?.length ? (
+          <div className="flex flex-wrap items-center justify-end gap-x-2 gap-y-0.5 text-[11px] font-semibold text-rose-400">
+            {group.liveFixtures.map((f, i) => (
+              <span key={i} className="inline-flex items-center gap-1 tabular-nums">
+                <span className="inline-block h-1.5 w-1.5 animate-pulse rounded-full bg-rose-500" aria-hidden />
+                LIVE {f.homeAbbr} {f.homeScore}–{f.awayScore} {f.awayAbbr}
+              </span>
+            ))}
+          </div>
+        ) : null}
+      </div>
 
       {/* column headers */}
       <div className={`${COLS} pb-2 text-[10px] font-medium uppercase leading-tight tracking-wide text-slate-500`}>

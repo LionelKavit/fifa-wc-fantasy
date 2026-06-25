@@ -3,5 +3,12 @@
 // LLM grounding context and as a standalone non-LLM explainer.
 
 export { buildTeamSituation, buildGroupSituation } from "./situation";
-export type { TeamSituation, GroupSituation, TeamFacts, GroupFacts } from "./situation";
+export type {
+  TeamSituation,
+  GroupSituation,
+  TeamFacts,
+  GroupFacts,
+  SituationOptions,
+  GroupLiveFixture,
+} from "./situation";
 export { narrateTeam, narrateGroup } from "./narrate";

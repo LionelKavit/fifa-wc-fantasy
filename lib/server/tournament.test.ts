@@ -19,7 +19,11 @@ function loadData(): TournamentData {
   };
   const snapshot = normalize(raw, "2026-06-24T00:00:00Z");
   const report = advancementProbabilities(snapshot, { trials: 500, seed: 1 });
-  return { snapshot, report, computedAt: 0 };
+  return { snapshot, report, computedAt: 0, live: false };
+}
+
+function loadDataLive(): TournamentData {
+  return { ...loadData(), live: true };
 }
 
 describe("tournament data provider caching", () => {
@@ -49,5 +53,30 @@ describe("tournament data provider caching", () => {
     await getTournamentData({ loader, now: 1000 + 61_000, ttlMs: 60_000 });
 
     expect(calls).toBe(2);
+  });
+
+  it("uses a short cadence while live and the normal cadence when idle", async () => {
+    // Live: cached for ~12s, recompute after.
+    let liveCalls = 0;
+    const liveLoader = async () => {
+      liveCalls++;
+      return loadDataLive();
+    };
+    await getTournamentData({ loader: liveLoader, now: 1000 }); // compute (live)
+    await getTournamentData({ loader: liveLoader, now: 1000 + 11_000 }); // within 12s → cached
+    await getTournamentData({ loader: liveLoader, now: 1000 + 13_000 }); // past 12s → recompute
+    expect(liveCalls).toBe(2);
+
+    __resetTournamentDataForTests();
+
+    // Idle: cached for ~60s.
+    let idleCalls = 0;
+    const idleLoader = async () => {
+      idleCalls++;
+      return loadData();
+    };
+    await getTournamentData({ loader: idleLoader, now: 1000 }); // compute (idle)
+    await getTournamentData({ loader: idleLoader, now: 1000 + 13_000 }); // within 60s → cached
+    expect(idleCalls).toBe(1);
   });
 });

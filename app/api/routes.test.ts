@@ -18,7 +18,22 @@ function loadData(): TournamentData {
   };
   const snapshot = normalize(raw, "2026-06-24T00:00:00Z");
   const report = advancementProbabilities(snapshot, { trials: 500, seed: 1 });
-  return { snapshot, report, computedAt: Date.now() };
+  return { snapshot, report, computedAt: Date.now(), live: false };
+}
+
+// A variant where group A's last fixture is in progress (CZE vs MEX, 1–1).
+function loadDataWithLiveFixture(): TournamentData {
+  const base = loadData();
+  const snapshot = structuredClone(base.snapshot);
+  const a = new Set(snapshot.groups.find((g) => g.id === "a")!.teams.map((t) => t.id));
+  const fx = snapshot.fixtures.find(
+    (f) => f.stage === "GROUP" && f.status === "scheduled" && a.has(f.homeTeamId) && a.has(f.awayTeamId),
+  )!;
+  fx.status = "live";
+  fx.homeScore = 1;
+  fx.awayScore = 1;
+  const report = advancementProbabilities(snapshot, { trials: 500, seed: 1 });
+  return { snapshot, report, computedAt: Date.now(), live: true };
 }
 
 const data = loadData();
@@ -45,6 +60,21 @@ describe("GET /api/groups", () => {
     expect(a.table).toHaveLength(4);
     const mex = a.teams.find((t: { abbr: string }) => t.abbr === "MEX");
     expect(mex.advancement).toBe("clinched");
+  });
+});
+
+describe("GET /api/groups (live state)", () => {
+  it("flags live and returns a provisional view for the group with an in-progress fixture", async () => {
+    __setTournamentDataForTests(loadDataWithLiveFixture());
+    const res = await getGroups();
+    const json = await res.json();
+    expect(json.live).toBe(true);
+    const a = json.groups.find((g: { groupId: string }) => g.groupId === "a");
+    expect(a.provisional).toBe(true);
+    expect(a.liveFixtures.length).toBeGreaterThanOrEqual(1);
+    // a non-live group should not be flagged provisional
+    const other = json.groups.find((g: { provisional: boolean }) => g.provisional === false);
+    expect(other).toBeDefined();
   });
 });
 

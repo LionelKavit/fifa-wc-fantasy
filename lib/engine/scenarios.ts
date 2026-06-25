@@ -16,6 +16,11 @@ export interface RemainingMatch {
   fixtureId: number;
   homeId: number;
   awayId: number;
+  /** True if the match is in progress. */
+  live: boolean;
+  /** Current scoreline when live (0 otherwise). */
+  liveHomeScore: number;
+  liveAwayScore: number;
 }
 
 export interface GroupScenarioInputs {
@@ -38,7 +43,15 @@ export function splitGroupFixtures(snapshot: TournamentSnapshot, groupId: GroupI
     if (f.status === "complete" && f.homeScore !== null && f.awayScore !== null) {
       completed.push({ homeId: f.homeTeamId, awayId: f.awayTeamId, homeGoals: f.homeScore, awayGoals: f.awayScore });
     } else {
-      remaining.push({ fixtureId: f.id, homeId: f.homeTeamId, awayId: f.awayTeamId });
+      const live = f.status === "live";
+      remaining.push({
+        fixtureId: f.id,
+        homeId: f.homeTeamId,
+        awayId: f.awayTeamId,
+        live,
+        liveHomeScore: live ? (f.homeScore ?? 0) : 0,
+        liveAwayScore: live ? (f.awayScore ?? 0) : 0,
+      });
     }
   }
   return { completed, remaining };

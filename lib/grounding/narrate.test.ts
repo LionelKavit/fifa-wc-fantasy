@@ -107,6 +107,8 @@ describe("narrateGroup", () => {
         team({ teamId: 4, abbr: "TUN", advancement: "eliminated" }),
       ],
       decidedPlaces: { qualified: [1], eliminated: [4] },
+      provisional: false,
+      liveFixtures: [],
     };
     const n = narrateGroup(g);
     expect(n).toContain("Group F");
@@ -122,6 +124,8 @@ describe("narrateGroup", () => {
       table: [],
       teams: [1, 2, 3, 4].map((id) => team({ teamId: id, abbr: `T${id}`, advancement: "contention" })),
       decidedPlaces: { qualified: [], eliminated: [] },
+      provisional: false,
+      liveFixtures: [],
     };
     // all contending → no clinched/eliminated, but contending present
     expect(narrateGroup(g)).toContain("still fighting");

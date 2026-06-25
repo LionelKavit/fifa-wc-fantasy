@@ -1,7 +1,7 @@
 // The Scout conversation runner. Two paths:
 //  - LLM path (when a key/client is available): a streaming tool-use loop with
-//    claude-sonnet-4-6 + adaptive thinking; the model calls grounded tools and
-//    composes an answer that streams back.
+//    claude-sonnet-4-6 (thinking off, low effort, brief answers); the model calls
+//    grounded tools and composes a short answer that streams back.
 //  - Deterministic fallback (keyless): resolve the team/group in the question and
 //    return the grounding narration directly — no model call.
 
@@ -142,9 +142,13 @@ export async function* streamScout(
   for (let i = 0; i < MAX_TOOL_ITERATIONS; i++) {
     const stream = client.messages.stream({
       model: SCOUT_MODEL,
-      max_tokens: 2048,
-      thinking: { type: "adaptive" },
-      system: SCOUT_SYSTEM_PROMPT,
+      max_tokens: 512,
+      // Thinking off + low effort: this is grounded Q&A, not a reasoning task — saves
+      // most of the would-be output tokens.
+      thinking: { type: "disabled" },
+      output_config: { effort: "low" },
+      // Cache the stable prefix (tools + system) so it isn't re-billed each turn.
+      system: [{ type: "text", text: SCOUT_SYSTEM_PROMPT, cache_control: { type: "ephemeral" } }],
       tools: SCOUT_TOOLS,
       messages,
     });

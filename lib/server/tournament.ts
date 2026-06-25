@@ -4,15 +4,19 @@
 // coalesced so a cold cache triggers at most one computation.
 
 import { loadTournamentSnapshot, type TournamentSnapshot } from "../data";
-import { advancementProbabilities, type AdvancementReport } from "../engine";
+import { advancementProbabilities, hasLiveFixtures, type AdvancementReport } from "../engine";
 
 export interface TournamentData {
   snapshot: TournamentSnapshot;
   report: AdvancementReport;
   computedAt: number;
+  /** True when any fixture is currently in progress. */
+  live: boolean;
 }
 
 const DEFAULT_TTL_MS = 60_000;
+/** Shorter refresh cadence while matches are live, so scores flow through fast. */
+const LIVE_TTL_MS = 12_000;
 const TRIALS = 50_000;
 const SEED = 1;
 
@@ -22,7 +26,7 @@ let inflight: Promise<TournamentData> | null = null;
 async function computeFresh(): Promise<TournamentData> {
   const snapshot = await loadTournamentSnapshot();
   const report = advancementProbabilities(snapshot, { trials: TRIALS, seed: SEED });
-  return { snapshot, report, computedAt: 0 };
+  return { snapshot, report, computedAt: 0, live: hasLiveFixtures(snapshot) };
 }
 
 export interface ProviderOptions {
@@ -32,10 +36,11 @@ export interface ProviderOptions {
   loader?: () => Promise<TournamentData>;
 }
 
-/** Get the current tournament data, served from cache within the TTL. */
+/** Get the current tournament data, served from cache within the TTL. The TTL is
+ * shortened automatically while matches are live so live scores refresh quickly. */
 export async function getTournamentData(opts: ProviderOptions = {}): Promise<TournamentData> {
   const now = opts.now ?? Date.now();
-  const ttl = opts.ttlMs ?? DEFAULT_TTL_MS;
+  const ttl = opts.ttlMs ?? (cache?.live ? LIVE_TTL_MS : DEFAULT_TTL_MS);
 
   if (cache && now - cache.computedAt < ttl) return cache;
   if (inflight) return inflight;
