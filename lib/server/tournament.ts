@@ -5,6 +5,7 @@
 
 import { loadTournamentSnapshot, type TournamentSnapshot } from "../data";
 import { advancementProbabilities, hasLiveFixtures, type AdvancementReport } from "../engine";
+import { buildOutcomeModel } from "./model";
 
 export interface TournamentData {
   snapshot: TournamentSnapshot;
@@ -25,7 +26,8 @@ let inflight: Promise<TournamentData> | null = null;
 
 async function computeFresh(): Promise<TournamentData> {
   const snapshot = await loadTournamentSnapshot();
-  const report = advancementProbabilities(snapshot, { trials: TRIALS, seed: SEED });
+  const model = buildOutcomeModel(snapshot);
+  const report = advancementProbabilities(snapshot, { trials: TRIALS, seed: SEED, model });
   return { snapshot, report, computedAt: 0, live: hasLiveFixtures(snapshot) };
 }
 

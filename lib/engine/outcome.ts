@@ -20,6 +20,10 @@ export interface PoissonModelOptions {
   /** Per-team attacking strength multiplier (teamId → factor). Absent teams
    * default to 1 (neutral), so the model is unbiased without a ratings source. */
   strengths?: Map<number, number>;
+  /** When provided, the home-advantage boost applies ONLY when the home team is in
+   * this set (e.g. tournament hosts on home soil); all other matches are treated as
+   * neutral. When omitted, home advantage applies to every home team (legacy). */
+  hosts?: Set<number>;
 }
 
 const DEFAULT_BASE_RATE = 1.3;
@@ -34,10 +38,12 @@ export function createPoissonModel(opts: PoissonModelOptions = {}): OutcomeModel
   const baseRate = opts.baseRate ?? DEFAULT_BASE_RATE;
   const homeAdvantage = opts.homeAdvantage ?? DEFAULT_HOME_ADVANTAGE;
   const strengths = opts.strengths;
+  const hosts = opts.hosts;
   const strength = (id: number): number => strengths?.get(id) ?? 1;
+  const homeBoost = (homeId: number): number => (!hosts || hosts.has(homeId) ? homeAdvantage : 1);
 
   return (match, rng) => {
-    const homeRate = baseRate * homeAdvantage * strength(match.homeId);
+    const homeRate = baseRate * homeBoost(match.homeId) * strength(match.homeId);
     const awayRate = baseRate * strength(match.awayId);
     return [samplePoisson(homeRate, rng), samplePoisson(awayRate, rng)];
   };

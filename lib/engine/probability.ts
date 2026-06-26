@@ -24,6 +24,8 @@ export interface TeamAdvancement {
   /** Advancement probability given the team's own next result; null when the team
    * has no single remaining fixture. */
   conditional: ConditionalProbability | null;
+  /** Probability of finishing 1st / 2nd / 3rd in the group, each in [0, 1]. */
+  finish: { first: number; second: number; third: number };
 }
 
 export interface AdvancementReport {
@@ -80,6 +82,13 @@ export function advancementProbabilities(
           };
       }
 
+      const pos = sim.positionCount.get(t.id);
+      const finish = {
+        first: freq(pos?.first ?? 0, sim.trials),
+        second: freq(pos?.second ?? 0, sim.trials),
+        third: freq(pos?.third ?? 0, sim.trials),
+      };
+
       teams.push({
         teamId: t.id,
         abbr: t.abbr,
@@ -88,6 +97,7 @@ export function advancementProbabilities(
         probability,
         method,
         conditional,
+        finish,
       });
     }
   }
