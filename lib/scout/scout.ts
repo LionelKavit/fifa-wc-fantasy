@@ -7,15 +7,57 @@
 
 import Anthropic from "@anthropic-ai/sdk";
 import type { TournamentSnapshot } from "../data/models";
-import { advancementProbabilities, type AdvancementReport } from "../engine";
+import {
+  advancementProbabilities,
+  type AdvancementReport,
+  type Prediction,
+  type R32Projection,
+  type OutcomeModel,
+} from "../engine";
 import { loadTournamentSnapshot } from "../data";
 import { buildTeamSituation, buildGroupSituation } from "../grounding";
 import { SCOUT_SYSTEM_PROMPT } from "./prompt";
 import { SCOUT_TOOLS, executeTool, resolveTeam, resolveGroup, type ScoutContext } from "./tools";
+import type { KnowledgeSnippet } from "../knowledge/parse";
 
 export const SCOUT_MODEL = "claude-sonnet-4-6";
 const DEFAULT_TRIALS = 20_000;
 const MAX_TOOL_ITERATIONS = 6;
+
+// Prompt caching. The cached prefix (tools + system) must clear the provider's
+// 1024-token minimum for Sonnet or the breakpoint is silently ignored — the scope
+// + security rules in the system prompt keep it well above that. A 1-hour TTL
+// (extended-cache-ttl beta) suits a casual chat cadence, where turns routinely
+// arrive more than the default 5 minutes apart.
+const CACHE_CONTROL = { type: "ephemeral", ttl: "1h" } as const;
+const EXTENDED_CACHE_TTL_BETA = "extended-cache-ttl-2025-04-11";
+
+type ContentBlock = Record<string, unknown> & { type: string };
+
+/**
+ * Return a copy of `messages` with a cache breakpoint on the tail — the last
+ * content block of the last message — so accumulated history (prior turns and the
+ * tool-use loop's assistant/tool-result messages) is cached too, not just the
+ * static prefix. We mark only the request copy, never the persistent `messages`,
+ * so exactly one tail breakpoint exists at a time (keeping us within the 4-breakpoint
+ * limit: one prefix + one tail).
+ */
+function withTailCache(
+  messages: Array<{ role: string; content: unknown }>,
+): Array<{ role: string; content: unknown }> {
+  const last = messages[messages.length - 1];
+  if (!last) return messages;
+  const blocks: ContentBlock[] =
+    typeof last.content === "string"
+      ? [{ type: "text", text: last.content }]
+      : (last.content as ContentBlock[]).map((b) => ({ ...b }));
+  const tail = blocks[blocks.length - 1];
+  if (!tail) return messages;
+  blocks[blocks.length - 1] = { ...tail, cache_control: CACHE_CONTROL };
+  const out = messages.slice();
+  out[out.length - 1] = { ...last, content: blocks };
+  return out;
+}
 
 export type AnswerSource = "llm" | "deterministic";
 
@@ -41,6 +83,22 @@ export interface AskScoutOptions {
   apiKey?: string | null;
   trials?: number;
   seed?: number;
+  /** Optional bracket context for the unified Scout (predictor/tracker chat). */
+  bracket?: BracketContext;
+}
+
+/** Bracket-aware context for the Scout's bracket/tracker tools. */
+export interface BracketContext {
+  prediction?: Prediction | null;
+  poolSize?: number | null;
+  model?: OutcomeModel;
+  projection?: R32Projection;
+  ratings?: Map<number, number>;
+  championOdds?: Record<number, number>;
+  /** P(a beats b) from the single head-to-head model — the source for compare_teams. */
+  matchupWinProb?: (a: number, b: number) => number;
+  /** Unverified expert/pundit snippets from the user's knowledge sources (may be empty). */
+  expertNotes?: KnowledgeSnippet[];
 }
 
 // Minimal structural view of the Anthropic client we depend on (the real SDK
@@ -60,8 +118,24 @@ export interface StreamingClient {
   messages: { stream(params: Record<string, unknown>): MessageStreamLike };
 }
 
-function buildContext(snapshot: TournamentSnapshot, report: AdvancementReport): ScoutContext {
-  return { snapshot, report };
+function buildContext(
+  snapshot: TournamentSnapshot,
+  report: AdvancementReport,
+  bracket?: BracketContext,
+): ScoutContext {
+  return {
+    snapshot,
+    report,
+    prediction: bracket?.prediction ?? null,
+    poolSize: bracket?.poolSize ?? null,
+    model: bracket?.model,
+    projection: bracket?.projection,
+    ratings: bracket?.ratings,
+    championOdds: bracket?.championOdds,
+    matchupWinProb: bracket?.matchupWinProb,
+    expertNotes: bracket?.expertNotes,
+    _eval: null,
+  };
 }
 
 // A follow-up that refers back to the conversation rather than naming a subject.
@@ -124,7 +198,14 @@ export async function* streamScout(
 
   const apiKey = opts.apiKey === null ? null : (opts.apiKey ?? process.env.ANTHROPIC_API_KEY ?? null);
   const client: StreamingClient | null =
-    opts.client ?? (apiKey ? (new Anthropic({ apiKey }) as unknown as StreamingClient) : null);
+    opts.client ??
+    (apiKey
+      ? (new Anthropic({
+          apiKey,
+          // Enable the 1-hour cache TTL used on the cache_control breakpoints below.
+          defaultHeaders: { "anthropic-beta": EXTENDED_CACHE_TTL_BETA },
+        }) as unknown as StreamingClient)
+      : null);
 
   const history = opts.history ?? [];
 
@@ -133,7 +214,7 @@ export async function* streamScout(
     return "deterministic";
   }
 
-  const ctx = buildContext(snapshot, report);
+  const ctx = buildContext(snapshot, report, opts.bracket);
   const messages: Array<{ role: string; content: unknown }> = [
     ...history.map((t) => ({ role: t.role, content: t.content })),
     { role: "user", content: question },
@@ -147,10 +228,12 @@ export async function* streamScout(
       // most of the would-be output tokens.
       thinking: { type: "disabled" },
       output_config: { effort: "low" },
-      // Cache the stable prefix (tools + system) so it isn't re-billed each turn.
-      system: [{ type: "text", text: SCOUT_SYSTEM_PROMPT, cache_control: { type: "ephemeral" } }],
+      // Cache the stable prefix (tools + system) so it isn't re-billed each turn,
+      // plus a second breakpoint on the conversation tail so accumulated history
+      // (prior turns + tool-loop messages) is read from cache rather than reprocessed.
+      system: [{ type: "text", text: SCOUT_SYSTEM_PROMPT, cache_control: CACHE_CONTROL }],
       tools: SCOUT_TOOLS,
-      messages,
+      messages: withTailCache(messages),
     });
 
     for await (const event of stream) {

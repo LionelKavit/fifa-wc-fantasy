@@ -12,7 +12,18 @@ interface Msg {
   source?: string | null;
 }
 
-const SUGGESTIONS = ["What does Mexico need?", "What are Sweden's chances?", "How does Group F look?"];
+/** A suggestion is either plain text (label === sent), or a separate label + sent value. */
+type Suggestion = string | { label: string; value: string };
+const DEFAULT_SUGGESTIONS: Suggestion[] = ["What does Mexico need?", "What are Sweden's chances?", "How does Group F look?"];
+
+export interface ScoutChatProps {
+  title?: string;
+  subtitle?: string;
+  suggestions?: Suggestion[];
+  placeholder?: string;
+  /** Extra fields merged into each /api/chat request (e.g. the current picks + pool size). */
+  extraBody?: () => Record<string, unknown>;
+}
 
 // The Scout answers in plain text; strip any stray Markdown emphasis just in case
 // (operates on the full accumulated string, so markers split across stream chunks
@@ -29,14 +40,15 @@ function SourceTag({ source }: { source?: string | null }) {
       className={`ml-2 rounded px-1.5 py-0.5 text-[10px] font-semibold ${
         isLlm ? "bg-emerald-400/15 text-emerald-300" : "bg-white/10 text-slate-400"
       }`}
-      title={isLlm ? "Answered by the Scout (LLM)" : "Answered from deterministic stats (no API key)"}
+      title={isLlm ? "Answered by the Analyst (LLM)" : "Answered from deterministic stats (no API key)"}
     >
-      {isLlm ? "Scout" : "Stats"}
+      {isLlm ? "Analyst" : "Stats"}
     </span>
   );
 }
 
-export default function ScoutChat() {
+export default function ScoutChat({ title, subtitle, suggestions, placeholder, extraBody }: ScoutChatProps = {}) {
+  const SUGGESTIONS = suggestions ?? DEFAULT_SUGGESTIONS;
   const [messages, setMessages] = useState<Msg[]>([]);
   const [input, setInput] = useState("");
   const [busy, setBusy] = useState(false);
@@ -61,7 +73,7 @@ export default function ScoutChat() {
       const res = await fetch("/api/chat", {
         method: "POST",
         headers: { "content-type": "application/json" },
-        body: JSON.stringify({ question, history }),
+        body: JSON.stringify({ question, history, ...(extraBody?.() ?? {}) }),
       });
       if (!res.ok || !res.body) {
         const body = await res.json().catch(() => ({ error: `Request failed (${res.status})` }));
@@ -92,23 +104,27 @@ export default function ScoutChat() {
   return (
     <div className="flex h-full min-h-[28rem] flex-col rounded-2xl border border-white/10 bg-[#111726]/80 shadow-lg shadow-black/20">
       <div className="border-b border-white/10 px-4 py-3">
-        <h2 className="text-sm font-bold text-slate-100">Ask the Scout</h2>
-        <p className="text-[11px] text-slate-500">Qualification questions, grounded in the numbers.</p>
+        <h2 className="text-sm font-bold text-slate-100">{title ?? "Ask the Analyst"}</h2>
+        <p className="text-[11px] text-slate-500">{subtitle ?? "World Cup questions, grounded in the numbers."}</p>
       </div>
 
       <div ref={scrollRef} className="flex-1 space-y-3 overflow-y-auto px-4 py-3">
         {messages.length === 0 ? (
           <div className="space-y-2">
             <p className="text-xs text-slate-500">Try asking:</p>
-            {SUGGESTIONS.map((s) => (
-              <button
-                key={s}
-                onClick={() => send(s)}
-                className="block w-full rounded-lg border border-white/10 px-3 py-2 text-left text-sm text-slate-300 transition hover:border-amber-300/40 hover:bg-amber-300/5"
-              >
-                {s}
-              </button>
-            ))}
+            {SUGGESTIONS.map((s) => {
+              const label = typeof s === "string" ? s : s.label;
+              const value = typeof s === "string" ? s : s.value;
+              return (
+                <button
+                  key={label}
+                  onClick={() => send(value)}
+                  className="block w-full rounded-lg border border-white/10 px-3 py-2 text-left text-sm text-slate-300 transition hover:border-amber-300/40 hover:bg-amber-300/5"
+                >
+                  {label}
+                </button>
+              );
+            })}
           </div>
         ) : (
           messages.map((m, i) => (
@@ -141,7 +157,7 @@ export default function ScoutChat() {
         <input
           value={input}
           onChange={(e) => setInput(e.target.value)}
-          placeholder="Ask about a team or group…"
+          placeholder={placeholder ?? "Ask about a team or group…"}
           className="min-w-0 flex-1 rounded-lg border border-white/10 bg-white/5 px-3 py-2 text-sm text-slate-100 placeholder-slate-500 outline-none focus:border-amber-300/60"
         />
         <button

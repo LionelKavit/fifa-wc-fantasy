@@ -2,8 +2,13 @@ import { describe, it, expect, beforeEach } from "vitest";
 import { GET as getBracket } from "./bracket/route";
 import { POST as postEvaluate } from "./predictor/evaluate/route";
 import { __setTournamentDataForTests, type TournamentData } from "../../lib/server/tournament";
-import { __resetBracketCacheForTests } from "../../lib/server/predictor";
-import { advancementProbabilities } from "../../lib/engine";
+import { __resetBracketCacheForTests, cardSummary } from "../../lib/server/predictor";
+import { advancementProbabilities, poissonHeadToHead } from "../../lib/engine";
+import { STRENGTHS } from "../../lib/server/model";
+import { executeTool, type ScoutContext } from "../../lib/scout";
+
+/** The app's neutral head-to-head, mirrored for the test assertion. */
+const hh = (a: number, b: number) => poissonHeadToHead(STRENGTHS.get(a)!, STRENGTHS.get(b)!);
 import type { TournamentSnapshot, Team, Fixture } from "../../lib/data/models";
 
 const LETTERS = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l"] as const;
@@ -56,6 +61,24 @@ describe("GET /api/bracket", () => {
     for (const m of r32) for (const s of m.slots) expect(s.team).not.toBeNull();
     expect(json.matches.find((m: { id: string }) => m.id === "M104").stage).toBe("F");
   }, 20000);
+
+  it("shows the Poisson head-to-head as the R32 win prob, matching the Analyst", async () => {
+    type Slot = { team: { teamId: number; abbr: string } | null; winProb?: number };
+    const json = await (await getBracket()).json();
+    const m = json.matches.find((x: { stage: string; slots: Slot[] }) => x.stage === "R32" && x.slots[0]?.team && x.slots[1]?.team);
+    const a = m.slots[0].team.teamId as number;
+    const b = m.slots[1].team.teamId as number;
+    const expected = hh(a, b);
+
+    expect(m.slots[0].winProb).toBeCloseTo(expected, 10);
+    expect(m.slots[1].winProb).toBeCloseTo(1 - expected, 10);
+
+    // The Analyst's compare_teams reports the same (rounded) number for the same pairing.
+    const ctx = { snapshot: allFinalSnapshot(), matchupWinProb: hh } as ScoutContext;
+    const out = JSON.parse(executeTool("compare_teams", { teamA: m.slots[0].team.abbr, teamB: m.slots[1].team.abbr }, ctx).output);
+    const analystPct = Number((out.headToHead.match(/(\d+)%/) ?? [])[1]);
+    expect(analystPct).toBe(Math.round(expected * 100));
+  }, 20000);
 });
 
 describe("POST /api/predictor/evaluate", () => {
@@ -85,4 +108,15 @@ describe("POST /api/predictor/evaluate", () => {
     );
     expect(res.status).toBe(400);
   });
+});
+
+describe("cardSummary (share card figures)", () => {
+  it("returns grounded figures for a prediction", async () => {
+    const s = await cardSummary([["M75", groupTeamId(5, 1)]]); // pick Winner F
+    expect(typeof s.projectedScore).toBe("number");
+    expect(s.stillAlive).toBeGreaterThanOrEqual(0);
+    expect(s.stillAlive).toBeLessThanOrEqual(1);
+    expect(typeof s.boldness).toBe("number");
+    expect(s.champion).toBeNull(); // no M104 pick
+  }, 20000);
 });

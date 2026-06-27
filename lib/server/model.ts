@@ -6,7 +6,14 @@ import { createPoissonModel, eloStrengths, hostTeamIds, type OutcomeModel } from
 import type { TournamentSnapshot } from "../data";
 import ratingsData from "../data/ratings.json";
 
-const STRENGTHS = eloStrengths(ratingsData.ratings as Record<string, number>);
+/** teamId → Poisson strength multiplier (mean ≈ 1) — the input to the model and to the
+ * closed-form head-to-head, so displayed odds match the simulation. */
+export const STRENGTHS = eloStrengths(ratingsData.ratings as Record<string, number>);
+
+/** teamId → Elo rating (raw), retained for any rating-based display. */
+export const TEAM_ELO: Map<number, number> = new Map(
+  Object.entries(ratingsData.ratings as Record<string, number>).map(([id, elo]) => [Number(id), elo]),
+);
 
 /** Elo-strength Poisson model with home advantage limited to the host nations. */
 export function buildOutcomeModel(snapshot: TournamentSnapshot): OutcomeModel {

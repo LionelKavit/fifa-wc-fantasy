@@ -1,19 +1,29 @@
 @import "tailwindcss";
 
-/* FIFA World Cup 2026 website-inspired dark theme: deep navy base with the
-   tournament's gold / teal / navy accents. Original styling, no copyrighted
-   assets. */
+/* FIFA World Cup 2026-grounded theme: restrained near-black base with GOLD as the
+   primary accent and a malachite GREEN counter-accent (the tournament's gold-and-
+   green trophy). Original styling, no copyrighted assets. */
 :root {
-  --wc-gold: #f5c518;
-  --wc-teal: #2dd4bf;
-  --wc-navy: #2a398d;
+  --wc-gold: #f6c640;
+  --wc-green: #1f9d6b;
+  --wc-base: #080c17;
+  --wc-surface: #131a2b;
+  --wc-surface-2: #0f1524;
+  --wc-border: rgba(255, 255, 255, 0.12);
+  --wc-text: #eaeefb; /* bright foreground for comfortable reading */
+  --wc-muted: #a7b2c9; /* readable secondary text (replaces dim slate-500) */
 }
 
 body {
+  color: var(--wc-text);
   background:
-    radial-gradient(1100px 480px at 50% -10%, rgba(42, 57, 141, 0.4), transparent 70%),
-    radial-gradient(820px 420px at 85% 4%, rgba(45, 212, 191, 0.12), transparent 70%),
-    radial-gradient(720px 380px at 8% 0%, rgba(245, 197, 24, 0.08), transparent 70%),
-    #070b16;
+    radial-gradient(1100px 520px at 50% -12%, rgba(246, 198, 64, 0.1), transparent 70%),
+    radial-gradient(880px 460px at 88% 2%, rgba(31, 157, 107, 0.1), transparent 72%),
+    var(--wc-base);
   background-attachment: fixed;
+}
+
+/* Readable secondary text helper, brighter than the old slate-500 micro-labels. */
+.wc-muted {
+  color: var(--wc-muted);
 }

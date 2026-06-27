@@ -31,9 +31,37 @@ export {
   completeness,
   derivePrediction,
 } from "./prediction";
-export { scorePrediction, DEFAULT_STAGE_WEIGHTS, type ScoreOptions } from "./predictionScore";
+export {
+  scorePrediction,
+  DEFAULT_STAGE_WEIGHTS,
+  UPSET_MULTIPLIER_CUTOFFS,
+  upsetMultiplier,
+  type ScoreOptions,
+  type UpsetCutoffs,
+} from "./predictionScore";
 export { compareToModel, DEFAULT_UPSET_FACTOR, type CompareOptions } from "./predictionVsModel";
-export { createPoissonModel, type OutcomeModel, type PoissonModelOptions } from "./outcome";
+export {
+  evaluatePoolFinish,
+  pickLeverage,
+  PUBLIC_CHALK_GAMMA,
+  type PoolFinishOptions,
+  type PoolFinishResult,
+  type PointsRange,
+  type PickLeverage,
+  type MatchupWinProb,
+} from "./poolFinish";
+export {
+  generateBracket,
+  recommendRisk,
+  type RiskLevel,
+  type GenerateBracketOptions,
+  type RiskRecommendation,
+  type StageWinProb,
+} from "./bracketGenerator";
+export { generateByLeverage, type LeverageGenerateOptions, type LeverageResult } from "./leverageGenerator";
+export { analyzeStrategy } from "./bracketStrategy";
+export type { StrategyAssessment, SwapSuggestion, StrategyVerdict, StrategyOptions } from "./bracketStrategy";
+export { createPoissonModel, poissonHeadToHead, type OutcomeModel, type PoissonModelOptions, type HeadToHeadOptions } from "./outcome";
 export { eloStrengths, hostTeamIds, DEFAULT_ELO_K, HOST_ABBRS } from "./strength";
 export { mulberry32, samplePoisson, type Rng } from "./rng";
 

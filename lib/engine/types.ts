@@ -170,15 +170,23 @@ export interface PickScore {
   stage: KnockoutStage;
   pickedTeamId: number;
   status: PickStatus;
-  /** Points awarded (the stage weight when `correct`, else 0). */
+  /** That round's base weight, before the upset multiplier. */
+  roundBase: number;
+  /** Picked team's matchup win probability vs. its implied opponent, in [0, 1];
+   * `undefined` when no matchup probabilities were supplied. */
+  winProb?: number;
+  /** Upset multiplier from the underdog band: 1 (favorite/coin-flip), 2 (underdog),
+   * 3 (big underdog). Always 1 when no win probability is available. */
+  multiplier: 1 | 2 | 3;
+  /** Points awarded: `roundBase × multiplier` when `correct`, else 0. */
   pointsEarned: number;
 }
 
 export interface PredictionScore {
   picks: PickScore[];
-  /** Sum of weights of all `correct` picks. */
+  /** Sum of `roundBase × multiplier` over all `correct` picks. */
   current: number;
-  /** `current` plus the weights of all still-`pending` picks. */
+  /** `current` plus `roundBase × multiplier` for all still-`pending` picks. */
   maxAchievable: number;
 }
 

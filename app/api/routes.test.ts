@@ -129,4 +129,98 @@ describe("POST /api/chat", () => {
     const res = await postChat(chatRequest("not json"));
     expect(res.status).toBe(400);
   });
+
+  it("accepts optional bracket context (picks + poolSize) without breaking", async () => {
+    const res = await postChat(
+      chatRequest({ question: "How does Group F look?", picks: [["M75", 1]], poolSize: 12 }),
+    );
+    expect(res.status).toBe(200);
+    expect((await res.text()).length).toBeGreaterThan(0);
+  }, 20000);
+
+  it("tolerates malformed bracket context", async () => {
+    const res = await postChat(
+      chatRequest({ question: "What does Mexico need?", picks: "nonsense", poolSize: "lots" }),
+    );
+    expect(res.status).toBe(200);
+    expect(await res.text()).toContain("Mexico");
+  });
+});
+
+import { POST as postVerdictNote } from "./predictor/verdict-note/route";
+
+describe("POST /api/predictor/verdict-note", () => {
+  const facts = {
+    winProbability: 0.12,
+    chalkWinProbability: 0.06,
+    expectedFinish: 5,
+    poolSize: 20,
+    pointsRange: { p10: 13, p50: 22, p90: 40, mean: 24 },
+  };
+  const req = (body: unknown) =>
+    new Request("http://localhost/api/predictor/verdict-note", {
+      method: "POST",
+      headers: { "content-type": "application/json" },
+      body: typeof body === "string" ? body : JSON.stringify(body),
+    });
+
+  it("returns a verdict sentence and source for valid facts", async () => {
+    const res = await postVerdictNote(req(facts));
+    expect(res.status).toBe(200);
+    const data = (await res.json()) as { text: string; source: string };
+    expect(typeof data.text).toBe("string");
+    expect(data.text.length).toBeGreaterThan(0);
+    expect(["llm", "template"]).toContain(data.source);
+  }, 20000);
+
+  it("rejects malformed facts", async () => {
+    const res = await postVerdictNote(req({ winProbability: "lots" }));
+    expect(res.status).toBe(400);
+  });
+});
+
+import { POST as postGenerate } from "./predictor/generate/route";
+
+describe("POST /api/predictor/generate (seed)", () => {
+  const req = (body: unknown) =>
+    new Request("http://localhost/api/predictor/generate", {
+      method: "POST",
+      headers: { "content-type": "application/json" },
+      body: typeof body === "string" ? body : JSON.stringify(body),
+    });
+  const picksOf = async (body: unknown) => {
+    const res = await postGenerate(req(body));
+    expect(res.status).toBe(200);
+    return ((await res.json()) as { picks: [string, number][] }).picks;
+  };
+
+  it("is reproducible for the same seed and varies across seeds", async () => {
+    const base = await picksOf({ poolSize: 20, risk: "bold", seed: 1 });
+    expect(base).toHaveLength(31);
+    expect(await picksOf({ poolSize: 20, risk: "bold", seed: 1 })).toEqual(base); // same seed → same bracket
+
+    let differs = false;
+    for (const seed of [2, 3, 4, 5, 6, 7, 8]) {
+      const p = await picksOf({ poolSize: 20, risk: "bold", seed });
+      if (JSON.stringify(p) !== JSON.stringify(base)) {
+        differs = true;
+        break;
+      }
+    }
+    expect(differs).toBe(true); // a new seed yields a different bracket (variety)
+  });
+
+  it("returns a complete bracket with no seed and ignores a non-numeric seed", async () => {
+    expect(await picksOf({ poolSize: 20, risk: "balanced" })).toHaveLength(31);
+    expect(await picksOf({ poolSize: 20, risk: "balanced", seed: "nope" })).toHaveLength(31);
+  });
+
+  it("supports the leverage strategy and falls back to heuristic for an unknown one", async () => {
+    // Real leverage path (small pool keeps the nested Monte Carlo quick).
+    expect(await picksOf({ poolSize: 8, risk: "safe", seed: 1, strategy: "leverage" })).toHaveLength(31);
+    // Unknown strategy → heuristic, reproducible for the same seed.
+    const a = await picksOf({ poolSize: 8, risk: "safe", seed: 1, strategy: "bogus" });
+    expect(a).toHaveLength(31);
+    expect(await picksOf({ poolSize: 8, risk: "safe", seed: 1 })).toEqual(a);
+  }, 30000);
 });

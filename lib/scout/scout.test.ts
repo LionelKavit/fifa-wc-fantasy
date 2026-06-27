@@ -1,6 +1,8 @@
 import { describe, it, expect } from "vitest";
 import { readFileSync } from "node:fs";
 import { askScout, type StreamingClient } from "./scout";
+import { SCOUT_SYSTEM_PROMPT } from "./prompt";
+import { SCOUT_TOOLS } from "./tools";
 import { advancementProbabilities } from "../engine";
 import { normalize, type RawPayloads } from "../data/normalize";
 import { PlayersPayloadSchema, SquadsPayloadSchema, RoundsPayloadSchema, validate } from "../data/schema";
@@ -170,5 +172,83 @@ describe("LLM tool-use loop (mocked streaming client)", () => {
     const ans = await askScout("hi", { ...base, client });
     expect(count).toBe(1);
     expect(ans.text).toContain("Ask me about");
+  });
+});
+
+describe("prompt caching", () => {
+  const CACHE = { type: "ephemeral", ttl: "1h" };
+
+  function fakeFinalStream(text: string) {
+    return {
+      async *[Symbol.asyncIterator]() {
+        yield { type: "content_block_delta", delta: { type: "text_delta", text } };
+      },
+      finalMessage: async () => ({ stop_reason: "end_turn", content: [{ type: "text", text }] }),
+    };
+  }
+
+  it("cached prefix (tools + system) clears the provider's 1024-token minimum", () => {
+    // ~4 chars/token; below 1024 tokens the cache_control breakpoint is silently ignored.
+    const prefixChars = SCOUT_SYSTEM_PROMPT.length + JSON.stringify(SCOUT_TOOLS).length;
+    expect(prefixChars / 4).toBeGreaterThanOrEqual(1024);
+  });
+
+  it("caches the prefix and the conversation tail with a 1h TTL", async () => {
+    let params: Record<string, unknown> | undefined;
+    const client = {
+      messages: {
+        stream(p: Record<string, unknown>) {
+          params ??= p;
+          return fakeFinalStream("ok");
+        },
+      },
+    } as unknown as StreamingClient;
+
+    await askScout("How does Group F look?", { ...base, client });
+
+    // Prefix breakpoint: cache_control on the system block, with the extended TTL.
+    const system = params!.system as Array<Record<string, unknown>>;
+    expect(system[0]!.cache_control).toEqual(CACHE);
+
+    // Tail breakpoint: the last message's last content block carries cache_control,
+    // and the per-request question lives there (after the prefix), not in it.
+    const messages = params!.messages as Array<{ role: string; content: unknown }>;
+    const lastBlocks = messages[messages.length - 1]!.content as Array<Record<string, unknown>>;
+    expect(Array.isArray(lastBlocks)).toBe(true);
+    const tail = lastBlocks[lastBlocks.length - 1]!;
+    expect(tail.cache_control).toEqual(CACHE);
+    expect(tail.text).toBe("How does Group F look?");
+  });
+
+  it("moves the tail breakpoint onto the tool_result during the tool-use loop", async () => {
+    const calls: Array<Record<string, unknown>> = [];
+    const client = {
+      messages: {
+        stream(p: Record<string, unknown>) {
+          calls.push(p);
+          if (calls.length === 1) {
+            return {
+              async *[Symbol.asyncIterator]() {},
+              finalMessage: async () => ({
+                stop_reason: "tool_use",
+                content: [{ type: "tool_use", id: "tu_1", name: "get_team_situation", input: { team: "Mexico" } }],
+              }),
+            };
+          }
+          return fakeFinalStream("Mexico are through.");
+        },
+      },
+    } as unknown as StreamingClient;
+
+    await askScout("What about Mexico?", { ...base, client });
+
+    // Second request: the tail breakpoint sits on the user tool_result message.
+    const msgs = calls[1]!.messages as Array<{ role: string; content: unknown }>;
+    const last = msgs[msgs.length - 1]!;
+    expect(last.role).toBe("user");
+    const blocks = last.content as Array<Record<string, unknown>>;
+    const tail = blocks[blocks.length - 1]!;
+    expect(tail.type).toBe("tool_result");
+    expect(tail.cache_control).toEqual(CACHE);
   });
 });

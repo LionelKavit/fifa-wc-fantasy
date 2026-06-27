@@ -1,6 +1,6 @@
 import { describe, it, expect } from "vitest";
 import type { TournamentSnapshot, Team, Fixture } from "../data/models";
-import { scorePrediction, DEFAULT_STAGE_WEIGHTS } from "./predictionScore";
+import { scorePrediction, DEFAULT_STAGE_WEIGHTS, upsetMultiplier } from "./predictionScore";
 import type { Prediction } from "./types";
 
 const LETTERS = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l"] as const;
@@ -108,6 +108,65 @@ describe("prediction scoring — weights and totals", () => {
       weights: { R32: 5, R16: 6, QF: 7, SF: 8, F: 9 },
     });
     expect(score.current).toBe(5);
+  });
+});
+
+describe("prediction scoring — upset multiplier", () => {
+  it("maps win probability to bands with inclusive lower bounds", () => {
+    expect(upsetMultiplier(0.8)).toBe(1);
+    expect(upsetMultiplier(0.4)).toBe(1); // exactly upper → ×1
+    expect(upsetMultiplier(0.3)).toBe(2);
+    expect(upsetMultiplier(0.2)).toBe(2); // exactly lower → ×2
+    expect(upsetMultiplier(0.1)).toBe(3);
+  });
+
+  it("a correct favorite pick scores the bare base (×1) and reports its win prob", () => {
+    const score = scorePrediction(snapshot, predOf([["M75", F1]]), { matchupWinProb: () => 0.7 });
+    expect(score.picks[0]!.multiplier).toBe(1);
+    expect(score.picks[0]!.winProb).toBe(0.7);
+    expect(score.picks[0]!.roundBase).toBe(DEFAULT_STAGE_WEIGHTS.R32);
+    expect(score.picks[0]!.pointsEarned).toBe(DEFAULT_STAGE_WEIGHTS.R32);
+  });
+
+  it("a correct underdog scores base × 2", () => {
+    const score = scorePrediction(snapshot, predOf([["M75", F1]]), { matchupWinProb: () => 0.3 });
+    expect(score.picks[0]!.multiplier).toBe(2);
+    expect(score.picks[0]!.pointsEarned).toBe(DEFAULT_STAGE_WEIGHTS.R32 * 2);
+  });
+
+  it("a correct big underdog scores base × 3", () => {
+    const score = scorePrediction(snapshot, predOf([["M75", F1]]), { matchupWinProb: () => 0.1 });
+    expect(score.picks[0]!.multiplier).toBe(3);
+    expect(score.picks[0]!.pointsEarned).toBe(DEFAULT_STAGE_WEIGHTS.R32 * 3);
+  });
+
+  it("custom cutoffs change the bands", () => {
+    const score = scorePrediction(snapshot, predOf([["M75", F1]]), {
+      matchupWinProb: () => 0.3,
+      cutoffs: { upper: 0.25, lower: 0.1 }, // 0.30 ≥ 0.25 → ×1 now
+    });
+    expect(score.picks[0]!.multiplier).toBe(1);
+  });
+
+  it("the multiplier never creates points on a non-correct pick", () => {
+    const score = scorePrediction(snapshot, predOf([["M75", C2]]), { matchupWinProb: () => 0.1 });
+    expect(score.picks[0]!.status).toBe("wrong");
+    expect(score.picks[0]!.multiplier).toBe(3); // detail still exposed
+    expect(score.picks[0]!.pointsEarned).toBe(0);
+  });
+
+  it("maxAchievable includes the multiplier on a pending bold pick", () => {
+    const A2 = groupTeamId(0, 2); // M73 pending
+    const score = scorePrediction(snapshot, predOf([["M73", A2]]), { matchupWinProb: () => 0.1 });
+    expect(score.picks[0]!.status).toBe("pending");
+    expect(score.current).toBe(0);
+    expect(score.maxAchievable).toBe(DEFAULT_STAGE_WEIGHTS.R32 * 3);
+  });
+
+  it("defaults to ×1 with undefined win prob when no probabilities are supplied", () => {
+    const score = scorePrediction(snapshot, predOf([["M75", F1]]));
+    expect(score.picks[0]!.multiplier).toBe(1);
+    expect(score.picks[0]!.winProb).toBeUndefined();
   });
 });
 
