@@ -44,6 +44,23 @@ const COLS = "grid grid-cols-[1rem_minmax(4rem,1fr)_1.75rem_2.5rem_1.75rem_4rem]
 const pct = (p: number) => `${Math.round(p * 100)}%`;
 const gd = (n: number) => (n > 0 ? `+${n}` : `${n}`);
 
+function joinList(items: string[]): string {
+  if (items.length <= 1) return items[0] ?? "";
+  if (items.length === 2) return `${items[0]} and ${items[1]}`;
+  return `${items.slice(0, -1).join(", ")} and ${items[items.length - 1]}`;
+}
+
+/** Concise "who advanced" line, derived from the per-team advancement data. A team counts
+ * as advanced when it is effectively certain to (clinched, or its next-round probability is
+ * ~100% — which also captures a third-placed team through as a best third). */
+function advancedSummary(group: GroupView): string {
+  const G = group.groupId.toUpperCase();
+  const advanced = group.teams.filter((t) => t.advancement === "clinched" || (t.advancementProbability ?? 0) >= 0.999);
+  if (!advanced.length) return `Group ${G}: still being decided.`;
+  const abbrs = advanced.map((t) => t.abbr);
+  return `Group ${G}: ${joinList(abbrs)} ${abbrs.length === 1 ? "has" : "have"} advanced.`;
+}
+
 function qualClass(a: Advancement): string {
   if (a === "clinched") return "text-emerald-400";
   if (a === "eliminated") return "text-slate-600";
@@ -101,7 +118,7 @@ export default function GroupCard({ group }: { group: GroupView }) {
         ))}
       </ul>
 
-      <p className="mt-4 text-[11px] leading-relaxed text-slate-500">{group.narration}</p>
+      <p className="mt-4 text-[11px] leading-relaxed text-slate-500">{advancedSummary(group)}</p>
     </section>
   );
 }

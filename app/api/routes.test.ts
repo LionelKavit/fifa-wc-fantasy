@@ -129,4 +129,80 @@ describe("POST /api/chat", () => {
     const res = await postChat(chatRequest("not json"));
     expect(res.status).toBe(400);
   });
+
+  it("accepts optional bracket context (picks + poolSize) without breaking", async () => {
+    const res = await postChat(
+      chatRequest({ question: "How does Group F look?", picks: [["M75", 1]], poolSize: 12 }),
+    );
+    expect(res.status).toBe(200);
+    expect((await res.text()).length).toBeGreaterThan(0);
+  }, 20000);
+
+  it("tolerates malformed bracket context", async () => {
+    const res = await postChat(
+      chatRequest({ question: "What does Mexico need?", picks: "nonsense", poolSize: "lots" }),
+    );
+    expect(res.status).toBe(200);
+    expect(await res.text()).toContain("Mexico");
+  });
+});
+
+import { POST as postGenerate } from "./predictor/generate/route";
+
+describe("POST /api/predictor/generate (seed)", () => {
+  const req = (body: unknown) =>
+    new Request("http://localhost/api/predictor/generate", {
+      method: "POST",
+      headers: { "content-type": "application/json" },
+      body: typeof body === "string" ? body : JSON.stringify(body),
+    });
+  const picksOf = async (body: unknown) => {
+    const res = await postGenerate(req(body));
+    expect(res.status).toBe(200);
+    return ((await res.json()) as { picks: [string, number][] }).picks;
+  };
+
+  it("is reproducible for the same seed and varies across seeds", async () => {
+    const base = await picksOf({ poolSize: 20, risk: "bold", seed: 1 });
+    expect(base).toHaveLength(31);
+    expect(await picksOf({ poolSize: 20, risk: "bold", seed: 1 })).toEqual(base); // same seed → same bracket
+
+    let differs = false;
+    for (const seed of [2, 3, 4, 5, 6, 7, 8]) {
+      const p = await picksOf({ poolSize: 20, risk: "bold", seed });
+      if (JSON.stringify(p) !== JSON.stringify(base)) {
+        differs = true;
+        break;
+      }
+    }
+    expect(differs).toBe(true); // a new seed yields a different bracket (variety)
+  });
+
+  it("returns a complete bracket with no seed and ignores a non-numeric seed", async () => {
+    expect(await picksOf({ poolSize: 20, risk: "balanced" })).toHaveLength(31);
+    expect(await picksOf({ poolSize: 20, risk: "balanced", seed: "nope" })).toHaveLength(31);
+  });
+
+  it("supports the leverage strategy and falls back to heuristic for an unknown one", async () => {
+    // Real leverage path (small pool keeps the nested Monte Carlo quick).
+    expect(await picksOf({ poolSize: 8, risk: "safe", seed: 1, strategy: "leverage" })).toHaveLength(31);
+    // Unknown strategy → heuristic, reproducible for the same seed.
+    const a = await picksOf({ poolSize: 8, risk: "safe", seed: 1, strategy: "bogus" });
+    expect(a).toHaveLength(31);
+    expect(await picksOf({ poolSize: 8, risk: "safe", seed: 1 })).toEqual(a);
+  }, 30000);
+
+  it("completes from supplied picks (keeps them); ignores malformed picks", async () => {
+    // A full from-scratch bracket; take a few R32 picks to 'lock'.
+    const full = await picksOf({ poolSize: 8, risk: "safe", seed: 1 });
+    const some = full.filter(([m]) => /^M(7[3-9]|8[0-8])$/.test(m)).slice(0, 3);
+    expect(some.length).toBe(3);
+    // Complete at a different risk/seed — the locked picks must be kept.
+    const completed = await picksOf({ poolSize: 8, risk: "bold", seed: 2, picks: some });
+    expect(completed).toHaveLength(31);
+    const cm = new Map(completed);
+    for (const [m, t] of some) expect(cm.get(m)).toBe(t);
+    // Malformed picks are ignored → still a full bracket, not a 500.
+    expect(await picksOf({ poolSize: 8, risk: "safe", picks: "nonsense" })).toHaveLength(31);
+  }, 30000);
 });

@@ -86,4 +86,24 @@ describe("tool execution", () => {
   it("returns a tool error for an unknown tool", () => {
     expect(executeTool("frobnicate", {}, ctx).isError).toBe(true);
   });
+
+  it("reports current 2026 top scorers from the live snapshot", () => {
+    const r = executeTool("get_current_top_scorers", {}, ctx);
+    expect(r.isError).toBeFalsy();
+    const data = JSON.parse(r.output);
+    // recorded snapshot has goals; expect a ranked, grounded list
+    expect(Array.isArray(data.topScorers)).toBe(true);
+    expect(data.topScorers.length).toBeGreaterThan(0);
+    expect(data.topScorers[0]).toMatch(/goal/);
+  });
+
+  it("reports the live all-time scoring record (history + 2026)", () => {
+    const r = executeTool("get_wc_scoring_record", {}, ctx);
+    expect(r.isError).toBeFalsy();
+    const data = JSON.parse(r.output);
+    expect(typeof data.recordBroken).toBe("boolean");
+    expect(data.previousRecord).toMatch(/through 2022/);
+    expect(Array.isArray(data.board)).toBe(true);
+    expect(data.board.length).toBeGreaterThan(0);
+  });
 });

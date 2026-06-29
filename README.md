@@ -1,34 +1,82 @@
-# Pocket Scout — FIFA World Cup 2026
+# FIFA World Cup 2026 Bracket Analyst
 
-A live **qualification scenario engine** for the FIFA World Cup 2026 group stage, with an AI **Scout** that answers questions in plain English — grounded in the numbers, never made up.
+**Your expert friend for filling out a World Cup bracket pool — and surviving it once the games start.**
 
-It answers the question every fan asks during the group stage: **"what does my team need to go through?"** — including the genuinely hard part that no scoreboard shows you: the **8 best third-placed teams** across the 12 groups.
+Millions of people fill out a World Cup bracket in a pool with friends, family, or coworkers.
+Most are casual fans. They don't know who Cape Verde is, they agonize for twenty minutes, they
+copy a friend or pick by flag — and they secretly want to beat their group. The Bracket Analyst
+is the knowledgeable friend they'd text for advice: it knows every team, runs the numbers, and
+gives a straight answer in plain English.
 
-> ⚠️ Unofficial hobby project. It reads FIFA's **undocumented** public JSON endpoints and uses **original** styling only (no FIFA logos or imagery). Not affiliated with FIFA.
+> ⚠️ Unofficial hobby project. It reads FIFA's **undocumented** public JSON endpoints and uses
+> **original** styling only (no FIFA logos or imagery). Not affiliated with FIFA.
 
-![Pocket Scout dashboard](docs/images/dashboard.png)
+![The Bracket Analyst — knockout predictor](docs/images/predictor-hero.png)
 
-## What it does
+## Who it's for, and when
 
-- **Group dashboard** — all 12 groups with standings, each team's status (**Through / In contention / 3rd-place race / Out**), and a **Next Round %** for every team, including clinched (100%) and eliminated (0%).
-- **Per-team detail** — click any team for its full name, its World Cup results with full-time scores, and a one-line qualifying status.
-- **Ask the Scout** — a chat that answers free-form questions ("What does Mexico need?", "What are Sweden's chances?") grounded in the engine. With an API key it's the conversational LLM Scout; **without a key it still works**, falling back to deterministic grounded "Stats" answers.
-- **Live-aware** — while a match is in progress, standings fold the live score ("as it stands"), the odds are conditioned on the current scoreline, and the dashboard auto-refreshes with a 🔴 LIVE badge. When nothing is live, it sits idle (no polling).
+A casual bracket player has two moments of need, and the product serves both:
 
-## Screenshots
+1. **Before the deadline** — *"Help me fill this out without looking clueless (and maybe win)."*
+2. **During the tournament** — *"What's happening to my bracket — is it still alive?"*
 
-| Ask the Scout | Team detail |
+## What you get
+
+- **Pick guidance.** Every pick shows its real odds, so you can tell at a glance whether a
+  favourite is safe or an upset is actually worth the risk — no more agonizing by vibes.
+- **Pool-winning strategy — "You vs. the Model."** Winning a *small* pool isn't about raw
+  accuracy; it's about **smart differentiation**. The Analyst measures how bold your bracket is
+  versus the chalk, weighs the contrarian payoff, and calibrates the risk to your pool size —
+  so you stand out enough to win without blowing it up.
+- **Grounded expertise, in plain English.** Probabilities come from a real Elo-strength model,
+  not opinions. The Analyst explains them like a friend would — and **never makes up a number**;
+  if it doesn't have it, it says so.
+- **The confusing format, demystified.** The 48-team, best-third-placed, who-plays-whom bracket
+  is genuinely hard to read. The app lays out the groups, the path to the Round of 32, and the
+  whole knockout tree so you can plan ahead.
+- **Live engagement.** Once the games kick off, track your bracket's fate as results land —
+  what's still alive, what busted, and how your picks are holding up.
+
+## What it is — and isn't
+
+It's an **advisor**, not a pool host. We don't run pools, store other players' brackets, or own
+a leaderboard. You play your pool wherever you already do (an office sheet, ESPN, a group chat);
+the Bracket Analyst is the expert you consult to decide your picks and to follow along.
+
+## The app, in three surfaces
+
+- **Bracket Predictor (Knockouts tab).** Fill the knockout bracket yourself, or let the Analyst
+  **autofill** a complete, editable one calibrated to your pool size and chosen risk level. Each
+  pick shows its head-to-head odds against the opponent it faces; bold underdog picks are
+  flagged. When you're happy, lock it and **export to CSV** to copy into your pool.
+- **Group dashboard (Group stage tab).** All 12 groups with live-aware standings, each team's
+  status (**Through / In contention / 3rd-place race / Out**), and a **Next Round %** for every
+  team — including the genuinely hard part no scoreboard shows you: the **8 best third-placed
+  teams**.
+- **Ask the Analyst.** A chat, available on both tabs, that answers free-form questions —
+  *"Is my bracket too safe to win?"*, *"Why are Netherlands favoured?"*, *"NED vs MAR"*,
+  *"Who's the top scorer so far?"* — grounded in the same engine the rest of the app uses.
+
+| Autofill with the Analyst | Ask the Analyst |
 |---|---|
-| ![The Scout chat](docs/images/scout-chat.png) | ![Team detail dialog](docs/images/team-dialog.png) |
+| ![Build your bracket with the Analyst](docs/images/build-your-bracket-with-ai.png) | ![Ask the Analyst](docs/images/analyst-bracket.png) |
+
+| Group stage dashboard | Team detail |
+|---|---|
+| ![Group dashboard](docs/images/group-dashboard.png) | ![Team detail](docs/images/team-detail.png) |
 
 ## How it works (in one breath)
 
 ```
-FIFA public JSON ─▶ data (fetch+validate+normalize) ─▶ engine (standings, verdicts,
-Monte Carlo) ─▶ grounding (facts + plain-English) ─▶ Scout (LLM chat) ─▶ Next.js UI
+FIFA public JSON ─▶ data (fetch + validate + normalize) ─▶ engine (standings, verdicts,
+Elo-strength Monte Carlo, knockout bracket + odds + pool-finish) ─▶ grounding (facts +
+plain English) ─▶ the Analyst (grounded LLM chat) ─▶ Next.js UI
 ```
 
-The engine is pure, framework-agnostic TypeScript; everything it produces is tested. The web app is a thin shell around it. See **[docs/ARCHITECTURE.md](docs/ARCHITECTURE.md)** for the full picture and **[docs/DATA.md](docs/DATA.md)** for the data sources.
+The engine is pure, framework-agnostic TypeScript and everything it produces is tested; the web
+app is a thin shell around it. See **[docs/ARCHITECTURE.md](docs/ARCHITECTURE.md)** for the full
+picture, **[docs/DATA.md](docs/DATA.md)** for the data sources, and
+**[docs/EVALUATION.md](docs/EVALUATION.md)** for how we keep the numbers and answers honest.
 
 ## Quick start
 
@@ -45,53 +93,27 @@ npm run typecheck
 npm run build    # production build
 ```
 
-### Optional: enable the conversational Scout
+### Optional: the conversational Analyst
 
-The app is fully usable with **no API key** — the chat answers with deterministic grounded "Stats". To get the conversational LLM Scout instead, add a key:
+The app is fully usable with **no API key** — the chat answers with deterministic grounded
+"Stats". To get the conversational LLM Analyst instead, add a key:
 
 ```bash
 # .env.local  (gitignored — never commit it)
 ANTHROPIC_API_KEY=sk-ant-...
 ```
 
-Then restart the dev server. The chat's tag flips from grey **Stats** to green **Scout** (model: `claude-sonnet-4-6`). Get a key at <https://console.anthropic.com/>.
+Restart the dev server; the chat upgrades from deterministic "Stats" to the conversational
+Analyst (model: `claude-sonnet-4-6`). Get a key at <https://console.anthropic.com/>.
 
-## Project structure
+## How it's built
 
-```
-lib/
-  data/        Fetch + cache + zod-validate + normalize the public FIFA JSON → TournamentSnapshot
-  engine/      Pure qualification math:
-                 standings.ts   FIFA tiebreakers (points → GD → goals → head-to-head → lots)
-                 verdict.ts     clinched / alive / eliminated + third-place hand-off
-                 scenarios.ts   boundary-margin enumeration of remaining results
-                 thirdPlace.ts  best-8-of-12 third-placed selection
-                 montecarlo.ts  simulate remaining fixtures (Poisson), live-conditioned
-                 probability.ts per-team advancement % (+ win/draw/loss conditional)
-                 live.ts        live-match detection
-  grounding/   Join engine outputs into per-team/group situations + plain-English narration
-  scout/       LLM agent: tools (grounded), prompt, tool-use loop, deterministic fallback
-  server/      Cached tournament-data provider (live-aware TTL)
-app/
-  page.tsx     Server-rendered dashboard
-  api/         /api/groups, /api/groups/[id], /api/chat (streaming)
-  components/  GroupCard, ScoutChat, TeamButton, LiveRefresher, flags, teamResults
-openspec/      Spec-driven development: canonical specs/ + archived changes/
-```
+Built **spec-first** with [OpenSpec](https://github.com/Fission-AI/OpenSpec): every behaviour is
+described in a spec before it's implemented. The canonical capability specs live in
+`openspec/specs/`; the history of changes that produced them is in `openspec/changes/archive/`.
 
-## Tech stack
-
-TypeScript · Next.js 16 (App Router) · React 19 · Tailwind CSS 4 · Vitest · zod · `@anthropic-ai/sdk` (`claude-sonnet-4-6`).
-
-## Development model
-
-This project is built **spec-first** with [OpenSpec](https://github.com/Fission-AI/OpenSpec): every behavior is described in a spec before it's implemented. The canonical capability specs live in `openspec/specs/`; the history of changes that produced them is in `openspec/changes/archive/`.
-
-## Testing notes
-
-- The suite is mostly pure unit tests over a committed data snapshot (`lib/data/__fixtures__/`).
-- A **live data smoke test** hits the real FIFA endpoints — set `SKIP_LIVE=1` to skip it offline.
-- A **live Scout smoke test** runs only when `ANTHROPIC_API_KEY` is set; otherwise it's skipped.
+**Tech stack:** TypeScript · Next.js 16 (App Router) · React 19 · Tailwind CSS 4 · Vitest · zod
+· `@anthropic-ai/sdk` (`claude-sonnet-4-6`).
 
 ## License
 

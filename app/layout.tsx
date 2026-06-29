@@ -3,8 +3,8 @@ import type { ReactNode } from "react";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "Pocket Scout — World Cup 2026",
-  description: "Live qualification scenarios and the Scout for the FIFA World Cup 2026.",
+  title: "FIFA World Cup 2026 Bracket Analyst",
+  description: "Fill your knockout bracket and get grounded strategy from the Analyst.",
 };
 
 export default function RootLayout({ children }: { children: ReactNode }) {

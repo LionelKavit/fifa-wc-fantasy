@@ -1,0 +1,7092 @@
+{
+ "source": "RSSSF (rsssf.org) full match archives, 1930–2022",
+ "attribution": "Data: RSSSF.org",
+ "generatedAt": "2026-06-28",
+ "coverage": "Through the 2022 World Cup — does NOT include the in-progress 2026 tournament. All-time records, Golden Boots, and head-to-heads are as of 2022.",
+ "note": "Match results parsed from RSSSF; tournament meta (champion/runner-up/host/final/Golden Boot) curated and cross-checked against parsed final winners. 958 of 964 matches captured; 6 obscure replay/playoff/edge matches (1954, 1986 x2, 1994, 2002, 2006) are not included. Head-to-head/records are per these RSSSF records.",
+ "allTimeTopScorers": [
+  {
+   "player": "Miroslav Klose",
+   "team": "Germany",
+   "goals": 16
+  },
+  {
+   "player": "Ronaldo",
+   "team": "Brazil",
+   "goals": 15
+  },
+  {
+   "player": "Gerd Müller",
+   "team": "West Germany",
+   "goals": 14
+  },
+  {
+   "player": "Just Fontaine",
+   "team": "France",
+   "goals": 13
+  },
+  {
+   "player": "Lionel Messi",
+   "team": "Argentina",
+   "goals": 13
+  },
+  {
+   "player": "Pelé",
+   "team": "Brazil",
+   "goals": 12
+  },
+  {
+   "player": "Kylian Mbappé",
+   "team": "France",
+   "goals": 12
+  },
+  {
+   "player": "Sándor Kocsis",
+   "team": "Hungary",
+   "goals": 11
+  },
+  {
+   "player": "Jürgen Klinsmann",
+   "team": "Germany",
+   "goals": 11
+  }
+ ],
+ "tournaments": [
+  {
+   "year": 1930,
+   "host": "Uruguay",
+   "champion": "Uruguay",
+   "runnerUp": "Argentina",
+   "finalScore": "4-2",
+   "goldenBoot": {
+    "player": "Guillermo Stábile",
+    "team": "Argentina",
+    "goals": 8,
+    "shared": false
+   },
+   "matches": [
+    {
+     "stage": "group",
+     "a": "France",
+     "b": "Mexico",
+     "sa": 4,
+     "sb": 1
+    },
+    {
+     "stage": "group",
+     "a": "Argentina",
+     "b": "France",
+     "sa": 1,
+     "sb": 0
+    },
+    {
+     "stage": "group",
+     "a": "Chile",
+     "b": "Mexico",
+     "sa": 3,
+     "sb": 0
+    },
+    {
+     "stage": "group",
+     "a": "Chile",
+     "b": "France",
+     "sa": 1,
+     "sb": 0
+    },
+    {
+     "stage": "group",
+     "a": "Argentina",
+     "b": "Mexico",
+     "sa": 6,
+     "sb": 3
+    },
+    {
+     "stage": "group",
+     "a": "Argentina",
+     "b": "Chile",
+     "sa": 3,
+     "sb": 1
+    },
+    {
+     "stage": "group",
+     "a": "Yugoslavia",
+     "b": "Brazil",
+     "sa": 2,
+     "sb": 1
+    },
+    {
+     "stage": "group",
+     "a": "Yugoslavia",
+     "b": "Bolivia",
+     "sa": 4,
+     "sb": 0
+    },
+    {
+     "stage": "group",
+     "a": "Brazil",
+     "b": "Bolivia",
+     "sa": 4,
+     "sb": 0
+    },
+    {
+     "stage": "group",
+     "a": "Romania",
+     "b": "Peru",
+     "sa": 3,
+     "sb": 1
+    },
+    {
+     "stage": "group",
+     "a": "Uruguay",
+     "b": "Peru",
+     "sa": 1,
+     "sb": 0
+    },
+    {
+     "stage": "group",
+     "a": "Uruguay",
+     "b": "Romania",
+     "sa": 4,
+     "sb": 0
+    },
+    {
+     "stage": "group",
+     "a": "USA",
+     "b": "Belgium",
+     "sa": 3,
+     "sb": 0
+    },
+    {
+     "stage": "group",
+     "a": "USA",
+     "b": "Paraguay",
+     "sa": 3,
+     "sb": 0
+    },
+    {
+     "stage": "group",
+     "a": "Paraguay",
+     "b": "Belgium",
+     "sa": 1,
+     "sb": 0
+    },
+    {
+     "stage": "SF",
+     "a": "Argentina",
+     "b": "USA",
+     "sa": 6,
+     "sb": 1
+    },
+    {
+     "stage": "SF",
+     "a": "Uruguay",
+     "b": "Yugoslavia",
+     "sa": 6,
+     "sb": 1
+    },
+    {
+     "stage": "final",
+     "a": "Uruguay",
+     "b": "Argentina",
+     "sa": 4,
+     "sb": 2
+    }
+   ]
+  },
+  {
+   "year": 1934,
+   "host": "Italy",
+   "champion": "Italy",
+   "runnerUp": "Czechoslovakia",
+   "finalScore": "2-1 (aet)",
+   "goldenBoot": {
+    "player": "Oldřich Nejedlý",
+    "team": "Czechoslovakia",
+    "goals": 5,
+    "shared": false
+   },
+   "matches": [
+    {
+     "stage": "group",
+     "a": "Italy",
+     "b": "USA",
+     "sa": 7,
+     "sb": 1
+    },
+    {
+     "stage": "group",
+     "a": "Czech Republic",
+     "b": "Romania",
+     "sa": 2,
+     "sb": 1
+    },
+    {
+     "stage": "group",
+     "a": "West Germany",
+     "b": "Belgium",
+     "sa": 5,
+     "sb": 2
+    },
+    {
+     "stage": "group",
+     "a": "Austria",
+     "b": "France",
+     "sa": 3,
+     "sb": 2
+    },
+    {
+     "stage": "group",
+     "a": "Spain",
+     "b": "Brazil",
+     "sa": 3,
+     "sb": 1
+    },
+    {
+     "stage": "group",
+     "a": "Switzerland",
+     "b": "Netherlands",
+     "sa": 3,
+     "sb": 2
+    },
+    {
+     "stage": "group",
+     "a": "Sweden",
+     "b": "Argentina",
+     "sa": 3,
+     "sb": 2
+    },
+    {
+     "stage": "group",
+     "a": "Hungary",
+     "b": "Egypt",
+     "sa": 4,
+     "sb": 2
+    },
+    {
+     "stage": "QF",
+     "a": "West Germany",
+     "b": "Sweden",
+     "sa": 2,
+     "sb": 1
+    },
+    {
+     "stage": "QF",
+     "a": "Austria",
+     "b": "Hungary",
+     "sa": 2,
+     "sb": 1
+    },
+    {
+     "stage": "QF",
+     "a": "Italy",
+     "b": "Spain",
+     "sa": 1,
+     "sb": 1
+    },
+    {
+     "stage": "QF",
+     "a": "Italy",
+     "b": "Spain",
+     "sa": 1,
+     "sb": 0
+    },
+    {
+     "stage": "QF",
+     "a": "Czech Republic",
+     "b": "Switzerland",
+     "sa": 3,
+     "sb": 2
+    },
+    {
+     "stage": "SF",
+     "a": "Italy",
+     "b": "Austria",
+     "sa": 1,
+     "sb": 0
+    },
+    {
+     "stage": "SF",
+     "a": "Czech Republic",
+     "b": "West Germany",
+     "sa": 3,
+     "sb": 1
+    },
+    {
+     "stage": "third",
+     "a": "West Germany",
+     "b": "Austria",
+     "sa": 3,
+     "sb": 2
+    },
+    {
+     "stage": "final",
+     "a": "Italy",
+     "b": "Czech Republic",
+     "sa": 2,
+     "sb": 1
+    }
+   ]
+  },
+  {
+   "year": 1938,
+   "host": "France",
+   "champion": "Italy",
+   "runnerUp": "Hungary",
+   "finalScore": "4-2",
+   "goldenBoot": {
+    "player": "Leônidas",
+    "team": "Brazil",
+    "goals": 7,
+    "shared": false
+   },
+   "matches": [
+    {
+     "stage": "group",
+     "a": "Switzerland",
+     "b": "West Germany",
+     "sa": 1,
+     "sb": 1
+    },
+    {
+     "stage": "group",
+     "a": "Switzerland",
+     "b": "West Germany",
+     "sa": 4,
+     "sb": 2
+    },
+    {
+     "stage": "group",
+     "a": "Cuba",
+     "b": "Romania",
+     "sa": 3,
+     "sb": 3
+    },
+    {
+     "stage": "group",
+     "a": "Cuba",
+     "b": "Romania",
+     "sa": 2,
+     "sb": 1
+    },
+    {
+     "stage": "group",
+     "a": "Czech Republic",
+     "b": "Netherlands",
+     "sa": 3,
+     "sb": 0
+    },
+    {
+     "stage": "group",
+     "a": "France",
+     "b": "Belgium",
+     "sa": 3,
+     "sb": 1
+    },
+    {
+     "stage": "group",
+     "a": "Hungary",
+     "b": "Dutch East Indies",
+     "sa": 6,
+     "sb": 0
+    },
+    {
+     "stage": "group",
+     "a": "Italy",
+     "b": "Norway",
+     "sa": 2,
+     "sb": 1
+    },
+    {
+     "stage": "group",
+     "a": "Brazil",
+     "b": "Poland",
+     "sa": 6,
+     "sb": 5
+    },
+    {
+     "stage": "QF",
+     "a": "Italy",
+     "b": "France",
+     "sa": 3,
+     "sb": 1
+    },
+    {
+     "stage": "QF",
+     "a": "Sweden",
+     "b": "Cuba",
+     "sa": 8,
+     "sb": 0
+    },
+    {
+     "stage": "QF",
+     "a": "Hungary",
+     "b": "Switzerland",
+     "sa": 2,
+     "sb": 0
+    },
+    {
+     "stage": "QF",
+     "a": "Brazil",
+     "b": "Czech Republic",
+     "sa": 1,
+     "sb": 1
+    },
+    {
+     "stage": "QF",
+     "a": "Brazil",
+     "b": "Czech Republic",
+     "sa": 2,
+     "sb": 1
+    },
+    {
+     "stage": "SF",
+     "a": "Hungary",
+     "b": "Sweden",
+     "sa": 5,
+     "sb": 1
+    },
+    {
+     "stage": "SF",
+     "a": "Italy",
+     "b": "Brazil",
+     "sa": 2,
+     "sb": 1
+    },
+    {
+     "stage": "third",
+     "a": "Brazil",
+     "b": "Sweden",
+     "sa": 4,
+     "sb": 2
+    },
+    {
+     "stage": "final",
+     "a": "Italy",
+     "b": "Hungary",
+     "sa": 4,
+     "sb": 2
+    }
+   ]
+  },
+  {
+   "year": 1950,
+   "host": "Brazil",
+   "champion": "Uruguay",
+   "runnerUp": "Brazil",
+   "finalScore": "final round",
+   "goldenBoot": {
+    "player": "Ademir",
+    "team": "Brazil",
+    "goals": 8,
+    "shared": false
+   },
+   "matches": [
+    {
+     "stage": "group",
+     "a": "Brazil",
+     "b": "Mexico",
+     "sa": 4,
+     "sb": 0
+    },
+    {
+     "stage": "group",
+     "a": "Yugoslavia",
+     "b": "Switzerland",
+     "sa": 3,
+     "sb": 0
+    },
+    {
+     "stage": "group",
+     "a": "Brazil",
+     "b": "Switzerland",
+     "sa": 2,
+     "sb": 2
+    },
+    {
+     "stage": "group",
+     "a": "Yugoslavia",
+     "b": "Mexico",
+     "sa": 4,
+     "sb": 1
+    },
+    {
+     "stage": "group",
+     "a": "Brazil",
+     "b": "Yugoslavia",
+     "sa": 2,
+     "sb": 0
+    },
+    {
+     "stage": "group",
+     "a": "Switzerland",
+     "b": "Mexico",
+     "sa": 2,
+     "sb": 1
+    },
+    {
+     "stage": "group",
+     "a": "England",
+     "b": "Chile",
+     "sa": 2,
+     "sb": 0
+    },
+    {
+     "stage": "group",
+     "a": "Spain",
+     "b": "USA",
+     "sa": 3,
+     "sb": 1
+    },
+    {
+     "stage": "group",
+     "a": "Spain",
+     "b": "Chile",
+     "sa": 2,
+     "sb": 0
+    },
+    {
+     "stage": "group",
+     "a": "USA",
+     "b": "England",
+     "sa": 1,
+     "sb": 0
+    },
+    {
+     "stage": "group",
+     "a": "Spain",
+     "b": "England",
+     "sa": 1,
+     "sb": 0
+    },
+    {
+     "stage": "group",
+     "a": "Chile",
+     "b": "USA",
+     "sa": 5,
+     "sb": 2
+    },
+    {
+     "stage": "group",
+     "a": "Sweden",
+     "b": "Italy",
+     "sa": 3,
+     "sb": 2
+    },
+    {
+     "stage": "group",
+     "a": "Sweden",
+     "b": "Paraguay",
+     "sa": 2,
+     "sb": 2
+    },
+    {
+     "stage": "group",
+     "a": "Italy",
+     "b": "Paraguay",
+     "sa": 2,
+     "sb": 0
+    },
+    {
+     "stage": "group",
+     "a": "Uruguay",
+     "b": "Bolivia",
+     "sa": 8,
+     "sb": 0
+    },
+    {
+     "stage": "group",
+     "a": "Brazil",
+     "b": "Sweden",
+     "sa": 7,
+     "sb": 1
+    },
+    {
+     "stage": "group",
+     "a": "Spain",
+     "b": "Uruguay",
+     "sa": 2,
+     "sb": 2
+    },
+    {
+     "stage": "group",
+     "a": "Brazil",
+     "b": "Spain",
+     "sa": 6,
+     "sb": 1
+    },
+    {
+     "stage": "group",
+     "a": "Uruguay",
+     "b": "Sweden",
+     "sa": 3,
+     "sb": 2
+    },
+    {
+     "stage": "group",
+     "a": "Sweden",
+     "b": "Spain",
+     "sa": 3,
+     "sb": 1
+    },
+    {
+     "stage": "group",
+     "a": "Uruguay",
+     "b": "Brazil",
+     "sa": 2,
+     "sb": 1
+    }
+   ]
+  },
+  {
+   "year": 1954,
+   "host": "Switzerland",
+   "champion": "West Germany",
+   "runnerUp": "Hungary",
+   "finalScore": "3-2",
+   "goldenBoot": {
+    "player": "Sándor Kocsis",
+    "team": "Hungary",
+    "goals": 11,
+    "shared": false
+   },
+   "matches": [
+    {
+     "stage": "group",
+     "a": "Yugoslavia",
+     "b": "France",
+     "sa": 1,
+     "sb": 0
+    },
+    {
+     "stage": "group",
+     "a": "Brazil",
+     "b": "Mexico",
+     "sa": 5,
+     "sb": 0
+    },
+    {
+     "stage": "group",
+     "a": "Brazil",
+     "b": "Yugoslavia",
+     "sa": 1,
+     "sb": 1
+    },
+    {
+     "stage": "group",
+     "a": "France",
+     "b": "Mexico",
+     "sa": 3,
+     "sb": 2
+    },
+    {
+     "stage": "group",
+     "a": "Hungary",
+     "b": "South Korea",
+     "sa": 9,
+     "sb": 0
+    },
+    {
+     "stage": "group",
+     "a": "Hungary",
+     "b": "West Germany",
+     "sa": 8,
+     "sb": 3
+    },
+    {
+     "stage": "group",
+     "a": "Turkey",
+     "b": "South Korea",
+     "sa": 7,
+     "sb": 0
+    },
+    {
+     "stage": "group",
+     "a": "West Germany",
+     "b": "Turkey",
+     "sa": 7,
+     "sb": 2
+    },
+    {
+     "stage": "group",
+     "a": "Austria",
+     "b": "Scotland",
+     "sa": 1,
+     "sb": 0
+    },
+    {
+     "stage": "group",
+     "a": "Uruguay",
+     "b": "Czech Republic",
+     "sa": 2,
+     "sb": 0
+    },
+    {
+     "stage": "group",
+     "a": "Austria",
+     "b": "Czech Republic",
+     "sa": 5,
+     "sb": 0
+    },
+    {
+     "stage": "group",
+     "a": "Uruguay",
+     "b": "Scotland",
+     "sa": 7,
+     "sb": 0
+    },
+    {
+     "stage": "group",
+     "a": "England",
+     "b": "Belgium",
+     "sa": 4,
+     "sb": 4
+    },
+    {
+     "stage": "group",
+     "a": "Switzerland",
+     "b": "Italy",
+     "sa": 2,
+     "sb": 1
+    },
+    {
+     "stage": "group",
+     "a": "England",
+     "b": "Switzerland",
+     "sa": 2,
+     "sb": 0
+    },
+    {
+     "stage": "group",
+     "a": "Italy",
+     "b": "Belgium",
+     "sa": 4,
+     "sb": 1
+    },
+    {
+     "stage": "group",
+     "a": "Switzerland",
+     "b": "Italy",
+     "sa": 4,
+     "sb": 1
+    },
+    {
+     "stage": "QF",
+     "a": "Austria",
+     "b": "Switzerland",
+     "sa": 7,
+     "sb": 5
+    },
+    {
+     "stage": "QF",
+     "a": "Uruguay",
+     "b": "England",
+     "sa": 4,
+     "sb": 2
+    },
+    {
+     "stage": "QF",
+     "a": "Hungary",
+     "b": "Brazil",
+     "sa": 4,
+     "sb": 2
+    },
+    {
+     "stage": "QF",
+     "a": "West Germany",
+     "b": "Yugoslavia",
+     "sa": 2,
+     "sb": 0
+    },
+    {
+     "stage": "SF",
+     "a": "Hungary",
+     "b": "Uruguay",
+     "sa": 4,
+     "sb": 2
+    },
+    {
+     "stage": "SF",
+     "a": "West Germany",
+     "b": "Austria",
+     "sa": 6,
+     "sb": 1
+    },
+    {
+     "stage": "third",
+     "a": "Austria",
+     "b": "Uruguay",
+     "sa": 3,
+     "sb": 1
+    },
+    {
+     "stage": "final",
+     "a": "West Germany",
+     "b": "Hungary",
+     "sa": 3,
+     "sb": 2
+    }
+   ]
+  },
+  {
+   "year": 1958,
+   "host": "Sweden",
+   "champion": "Brazil",
+   "runnerUp": "Sweden",
+   "finalScore": "5-2",
+   "goldenBoot": {
+    "player": "Just Fontaine",
+    "team": "France",
+    "goals": 13,
+    "shared": false
+   },
+   "matches": [
+    {
+     "stage": "group",
+     "a": "Northern Ireland",
+     "b": "Czech Republic",
+     "sa": 1,
+     "sb": 0
+    },
+    {
+     "stage": "group",
+     "a": "West Germany",
+     "b": "Argentina",
+     "sa": 3,
+     "sb": 1
+    },
+    {
+     "stage": "group",
+     "a": "Argentina",
+     "b": "Northern Ireland",
+     "sa": 3,
+     "sb": 1
+    },
+    {
+     "stage": "group",
+     "a": "West Germany",
+     "b": "Czech Republic",
+     "sa": 2,
+     "sb": 2
+    },
+    {
+     "stage": "group",
+     "a": "West Germany",
+     "b": "Northern Ireland",
+     "sa": 2,
+     "sb": 2
+    },
+    {
+     "stage": "group",
+     "a": "Czech Republic",
+     "b": "Argentina",
+     "sa": 6,
+     "sb": 1
+    },
+    {
+     "stage": "group",
+     "a": "Northern Ireland",
+     "b": "Czech Republic",
+     "sa": 2,
+     "sb": 1
+    },
+    {
+     "stage": "group",
+     "a": "Scotland",
+     "b": "Yugoslavia",
+     "sa": 1,
+     "sb": 1
+    },
+    {
+     "stage": "group",
+     "a": "France",
+     "b": "Paraguay",
+     "sa": 7,
+     "sb": 3
+    },
+    {
+     "stage": "group",
+     "a": "Paraguay",
+     "b": "Scotland",
+     "sa": 3,
+     "sb": 2
+    },
+    {
+     "stage": "group",
+     "a": "Yugoslavia",
+     "b": "France",
+     "sa": 3,
+     "sb": 2
+    },
+    {
+     "stage": "group",
+     "a": "France",
+     "b": "Scotland",
+     "sa": 2,
+     "sb": 1
+    },
+    {
+     "stage": "group",
+     "a": "Paraguay",
+     "b": "Yugoslavia",
+     "sa": 3,
+     "sb": 3
+    },
+    {
+     "stage": "group",
+     "a": "Sweden",
+     "b": "Mexico",
+     "sa": 3,
+     "sb": 0
+    },
+    {
+     "stage": "group",
+     "a": "Hungary",
+     "b": "Wales",
+     "sa": 1,
+     "sb": 1
+    },
+    {
+     "stage": "group",
+     "a": "Mexico",
+     "b": "Wales",
+     "sa": 1,
+     "sb": 1
+    },
+    {
+     "stage": "group",
+     "a": "Sweden",
+     "b": "Hungary",
+     "sa": 2,
+     "sb": 1
+    },
+    {
+     "stage": "group",
+     "a": "Sweden",
+     "b": "Wales",
+     "sa": 0,
+     "sb": 0
+    },
+    {
+     "stage": "group",
+     "a": "Hungary",
+     "b": "Mexico",
+     "sa": 4,
+     "sb": 0
+    },
+    {
+     "stage": "group",
+     "a": "Wales",
+     "b": "Hungary",
+     "sa": 2,
+     "sb": 1
+    },
+    {
+     "stage": "group",
+     "a": "Brazil",
+     "b": "Austria",
+     "sa": 3,
+     "sb": 0
+    },
+    {
+     "stage": "group",
+     "a": "England",
+     "b": "Soviet Union",
+     "sa": 2,
+     "sb": 2
+    },
+    {
+     "stage": "group",
+     "a": "Soviet Union",
+     "b": "Austria",
+     "sa": 2,
+     "sb": 0
+    },
+    {
+     "stage": "group",
+     "a": "Brazil",
+     "b": "England",
+     "sa": 0,
+     "sb": 0
+    },
+    {
+     "stage": "group",
+     "a": "Austria",
+     "b": "England",
+     "sa": 2,
+     "sb": 2
+    },
+    {
+     "stage": "group",
+     "a": "Brazil",
+     "b": "Soviet Union",
+     "sa": 2,
+     "sb": 0
+    },
+    {
+     "stage": "group",
+     "a": "Soviet Union",
+     "b": "England",
+     "sa": 1,
+     "sb": 0
+    },
+    {
+     "stage": "QF",
+     "a": "Sweden",
+     "b": "Soviet Union",
+     "sa": 2,
+     "sb": 0
+    },
+    {
+     "stage": "QF",
+     "a": "West Germany",
+     "b": "Yugoslavia",
+     "sa": 1,
+     "sb": 0
+    },
+    {
+     "stage": "QF",
+     "a": "France",
+     "b": "Northern Ireland",
+     "sa": 4,
+     "sb": 0
+    },
+    {
+     "stage": "QF",
+     "a": "Brazil",
+     "b": "Wales",
+     "sa": 1,
+     "sb": 0
+    },
+    {
+     "stage": "SF",
+     "a": "Brazil",
+     "b": "France",
+     "sa": 5,
+     "sb": 2
+    },
+    {
+     "stage": "SF",
+     "a": "Sweden",
+     "b": "West Germany",
+     "sa": 3,
+     "sb": 1
+    },
+    {
+     "stage": "third",
+     "a": "France",
+     "b": "West Germany",
+     "sa": 6,
+     "sb": 3
+    },
+    {
+     "stage": "final",
+     "a": "Brazil",
+     "b": "Sweden",
+     "sa": 5,
+     "sb": 2
+    }
+   ]
+  },
+  {
+   "year": 1962,
+   "host": "Chile",
+   "champion": "Brazil",
+   "runnerUp": "Czechoslovakia",
+   "finalScore": "3-1",
+   "goldenBoot": {
+    "player": "Garrincha and others",
+    "team": "(shared)",
+    "goals": 4,
+    "shared": true
+   },
+   "matches": [
+    {
+     "stage": "group",
+     "a": "Uruguay",
+     "b": "Colombia",
+     "sa": 2,
+     "sb": 1
+    },
+    {
+     "stage": "group",
+     "a": "Soviet Union",
+     "b": "Yugoslavia",
+     "sa": 2,
+     "sb": 0
+    },
+    {
+     "stage": "group",
+     "a": "Yugoslavia",
+     "b": "Uruguay",
+     "sa": 3,
+     "sb": 1
+    },
+    {
+     "stage": "group",
+     "a": "Soviet Union",
+     "b": "Colombia",
+     "sa": 4,
+     "sb": 4
+    },
+    {
+     "stage": "group",
+     "a": "Soviet Union",
+     "b": "Uruguay",
+     "sa": 2,
+     "sb": 1
+    },
+    {
+     "stage": "group",
+     "a": "Yugoslavia",
+     "b": "Colombia",
+     "sa": 5,
+     "sb": 0
+    },
+    {
+     "stage": "group",
+     "a": "Chile",
+     "b": "Switzerland",
+     "sa": 3,
+     "sb": 1
+    },
+    {
+     "stage": "group",
+     "a": "Italy",
+     "b": "West Germany",
+     "sa": 0,
+     "sb": 0
+    },
+    {
+     "stage": "group",
+     "a": "Chile",
+     "b": "Italy",
+     "sa": 2,
+     "sb": 0
+    },
+    {
+     "stage": "group",
+     "a": "West Germany",
+     "b": "Switzerland",
+     "sa": 2,
+     "sb": 1
+    },
+    {
+     "stage": "group",
+     "a": "West Germany",
+     "b": "Chile",
+     "sa": 2,
+     "sb": 0
+    },
+    {
+     "stage": "group",
+     "a": "Italy",
+     "b": "Switzerland",
+     "sa": 3,
+     "sb": 0
+    },
+    {
+     "stage": "group",
+     "a": "Brazil",
+     "b": "Mexico",
+     "sa": 2,
+     "sb": 0
+    },
+    {
+     "stage": "group",
+     "a": "Czech Republic",
+     "b": "Spain",
+     "sa": 1,
+     "sb": 0
+    },
+    {
+     "stage": "group",
+     "a": "Brazil",
+     "b": "Czech Republic",
+     "sa": 0,
+     "sb": 0
+    },
+    {
+     "stage": "group",
+     "a": "Spain",
+     "b": "Mexico",
+     "sa": 1,
+     "sb": 0
+    },
+    {
+     "stage": "group",
+     "a": "Brazil",
+     "b": "Spain",
+     "sa": 2,
+     "sb": 1
+    },
+    {
+     "stage": "group",
+     "a": "Mexico",
+     "b": "Czech Republic",
+     "sa": 3,
+     "sb": 1
+    },
+    {
+     "stage": "group",
+     "a": "Argentina",
+     "b": "Bulgaria",
+     "sa": 1,
+     "sb": 0
+    },
+    {
+     "stage": "group",
+     "a": "Hungary",
+     "b": "England",
+     "sa": 2,
+     "sb": 1
+    },
+    {
+     "stage": "group",
+     "a": "England",
+     "b": "Argentina",
+     "sa": 3,
+     "sb": 1
+    },
+    {
+     "stage": "group",
+     "a": "Hungary",
+     "b": "Bulgaria",
+     "sa": 6,
+     "sb": 1
+    },
+    {
+     "stage": "group",
+     "a": "Argentina",
+     "b": "Hungary",
+     "sa": 0,
+     "sb": 0
+    },
+    {
+     "stage": "group",
+     "a": "Bulgaria",
+     "b": "England",
+     "sa": 0,
+     "sb": 0
+    },
+    {
+     "stage": "QF",
+     "a": "Chile",
+     "b": "Soviet Union",
+     "sa": 2,
+     "sb": 1
+    },
+    {
+     "stage": "QF",
+     "a": "Yugoslavia",
+     "b": "West Germany",
+     "sa": 1,
+     "sb": 0
+    },
+    {
+     "stage": "QF",
+     "a": "Brazil",
+     "b": "England",
+     "sa": 3,
+     "sb": 1
+    },
+    {
+     "stage": "QF",
+     "a": "Czech Republic",
+     "b": "Hungary",
+     "sa": 1,
+     "sb": 0
+    },
+    {
+     "stage": "SF",
+     "a": "Brazil",
+     "b": "Chile",
+     "sa": 4,
+     "sb": 2
+    },
+    {
+     "stage": "SF",
+     "a": "Czech Republic",
+     "b": "Yugoslavia",
+     "sa": 3,
+     "sb": 1
+    },
+    {
+     "stage": "third",
+     "a": "Chile",
+     "b": "Yugoslavia",
+     "sa": 1,
+     "sb": 0
+    },
+    {
+     "stage": "final",
+     "a": "Brazil",
+     "b": "Czech Republic",
+     "sa": 3,
+     "sb": 1
+    }
+   ]
+  },
+  {
+   "year": 1966,
+   "host": "England",
+   "champion": "England",
+   "runnerUp": "West Germany",
+   "finalScore": "4-2 (aet)",
+   "goldenBoot": {
+    "player": "Eusébio",
+    "team": "Portugal",
+    "goals": 9,
+    "shared": false
+   },
+   "matches": [
+    {
+     "stage": "group",
+     "a": "England",
+     "b": "Uruguay",
+     "sa": 0,
+     "sb": 0
+    },
+    {
+     "stage": "group",
+     "a": "France",
+     "b": "Mexico",
+     "sa": 1,
+     "sb": 1
+    },
+    {
+     "stage": "group",
+     "a": "Uruguay",
+     "b": "France",
+     "sa": 2,
+     "sb": 1
+    },
+    {
+     "stage": "group",
+     "a": "England",
+     "b": "Mexico",
+     "sa": 2,
+     "sb": 0
+    },
+    {
+     "stage": "group",
+     "a": "Uruguay",
+     "b": "Mexico",
+     "sa": 0,
+     "sb": 0
+    },
+    {
+     "stage": "group",
+     "a": "England",
+     "b": "France",
+     "sa": 2,
+     "sb": 0
+    },
+    {
+     "stage": "group",
+     "a": "West Germany",
+     "b": "Switzerland",
+     "sa": 5,
+     "sb": 0
+    },
+    {
+     "stage": "group",
+     "a": "Argentina",
+     "b": "Spain",
+     "sa": 2,
+     "sb": 1
+    },
+    {
+     "stage": "group",
+     "a": "Spain",
+     "b": "Switzerland",
+     "sa": 2,
+     "sb": 1
+    },
+    {
+     "stage": "group",
+     "a": "Argentina",
+     "b": "West Germany",
+     "sa": 0,
+     "sb": 0
+    },
+    {
+     "stage": "group",
+     "a": "Argentina",
+     "b": "Switzerland",
+     "sa": 2,
+     "sb": 0
+    },
+    {
+     "stage": "group",
+     "a": "West Germany",
+     "b": "Spain",
+     "sa": 2,
+     "sb": 1
+    },
+    {
+     "stage": "group",
+     "a": "Brazil",
+     "b": "Bulgaria",
+     "sa": 2,
+     "sb": 0
+    },
+    {
+     "stage": "group",
+     "a": "Portugal",
+     "b": "Hungary",
+     "sa": 3,
+     "sb": 1
+    },
+    {
+     "stage": "group",
+     "a": "Portugal",
+     "b": "Bulgaria",
+     "sa": 3,
+     "sb": 0
+    },
+    {
+     "stage": "group",
+     "a": "Hungary",
+     "b": "Brazil",
+     "sa": 3,
+     "sb": 1
+    },
+    {
+     "stage": "group",
+     "a": "Portugal",
+     "b": "Brazil",
+     "sa": 3,
+     "sb": 1
+    },
+    {
+     "stage": "group",
+     "a": "Hungary",
+     "b": "Bulgaria",
+     "sa": 3,
+     "sb": 1
+    },
+    {
+     "stage": "group",
+     "a": "Soviet Union",
+     "b": "North Korea",
+     "sa": 3,
+     "sb": 0
+    },
+    {
+     "stage": "group",
+     "a": "Italy",
+     "b": "Chile",
+     "sa": 2,
+     "sb": 0
+    },
+    {
+     "stage": "group",
+     "a": "Chile",
+     "b": "North Korea",
+     "sa": 1,
+     "sb": 1
+    },
+    {
+     "stage": "group",
+     "a": "Soviet Union",
+     "b": "Italy",
+     "sa": 1,
+     "sb": 0
+    },
+    {
+     "stage": "group",
+     "a": "North Korea",
+     "b": "Italy",
+     "sa": 1,
+     "sb": 0
+    },
+    {
+     "stage": "group",
+     "a": "Soviet Union",
+     "b": "Chile",
+     "sa": 2,
+     "sb": 1
+    },
+    {
+     "stage": "QF",
+     "a": "England",
+     "b": "Argentina",
+     "sa": 1,
+     "sb": 0
+    },
+    {
+     "stage": "QF",
+     "a": "West Germany",
+     "b": "Uruguay",
+     "sa": 4,
+     "sb": 0
+    },
+    {
+     "stage": "QF",
+     "a": "Portugal",
+     "b": "North Korea",
+     "sa": 5,
+     "sb": 3
+    },
+    {
+     "stage": "QF",
+     "a": "Soviet Union",
+     "b": "Hungary",
+     "sa": 2,
+     "sb": 1
+    },
+    {
+     "stage": "SF",
+     "a": "West Germany",
+     "b": "Soviet Union",
+     "sa": 2,
+     "sb": 1
+    },
+    {
+     "stage": "SF",
+     "a": "England",
+     "b": "Portugal",
+     "sa": 2,
+     "sb": 1
+    },
+    {
+     "stage": "third",
+     "a": "Portugal",
+     "b": "Soviet Union",
+     "sa": 2,
+     "sb": 1
+    },
+    {
+     "stage": "final",
+     "a": "England",
+     "b": "West Germany",
+     "sa": 4,
+     "sb": 2
+    }
+   ]
+  },
+  {
+   "year": 1970,
+   "host": "Mexico",
+   "champion": "Brazil",
+   "runnerUp": "Italy",
+   "finalScore": "4-1",
+   "goldenBoot": {
+    "player": "Gerd Müller",
+    "team": "West Germany",
+    "goals": 10,
+    "shared": false
+   },
+   "matches": [
+    {
+     "stage": "group",
+     "a": "Mexico",
+     "b": "Soviet Union",
+     "sa": 0,
+     "sb": 0
+    },
+    {
+     "stage": "group",
+     "a": "Belgium",
+     "b": "El Salvador",
+     "sa": 3,
+     "sb": 0
+    },
+    {
+     "stage": "group",
+     "a": "Soviet Union",
+     "b": "Belgium",
+     "sa": 4,
+     "sb": 1
+    },
+    {
+     "stage": "group",
+     "a": "Mexico",
+     "b": "El Salvador",
+     "sa": 4,
+     "sb": 0
+    },
+    {
+     "stage": "group",
+     "a": "Soviet Union",
+     "b": "El Salvador",
+     "sa": 2,
+     "sb": 0
+    },
+    {
+     "stage": "group",
+     "a": "Mexico",
+     "b": "Belgium",
+     "sa": 1,
+     "sb": 0
+    },
+    {
+     "stage": "group",
+     "a": "Uruguay",
+     "b": "Israel",
+     "sa": 2,
+     "sb": 0
+    },
+    {
+     "stage": "group",
+     "a": "Italy",
+     "b": "Sweden",
+     "sa": 1,
+     "sb": 0
+    },
+    {
+     "stage": "group",
+     "a": "Uruguay",
+     "b": "Italy",
+     "sa": 0,
+     "sb": 0
+    },
+    {
+     "stage": "group",
+     "a": "Israel",
+     "b": "Sweden",
+     "sa": 1,
+     "sb": 1
+    },
+    {
+     "stage": "group",
+     "a": "Sweden",
+     "b": "Uruguay",
+     "sa": 1,
+     "sb": 0
+    },
+    {
+     "stage": "group",
+     "a": "Italy",
+     "b": "Israel",
+     "sa": 0,
+     "sb": 0
+    },
+    {
+     "stage": "group",
+     "a": "England",
+     "b": "Romania",
+     "sa": 1,
+     "sb": 0
+    },
+    {
+     "stage": "group",
+     "a": "Brazil",
+     "b": "Czech Republic",
+     "sa": 4,
+     "sb": 1
+    },
+    {
+     "stage": "group",
+     "a": "Romania",
+     "b": "Czech Republic",
+     "sa": 2,
+     "sb": 1
+    },
+    {
+     "stage": "group",
+     "a": "Brazil",
+     "b": "England",
+     "sa": 1,
+     "sb": 0
+    },
+    {
+     "stage": "group",
+     "a": "Brazil",
+     "b": "Romania",
+     "sa": 3,
+     "sb": 2
+    },
+    {
+     "stage": "group",
+     "a": "England",
+     "b": "Czech Republic",
+     "sa": 1,
+     "sb": 0
+    },
+    {
+     "stage": "group",
+     "a": "Peru",
+     "b": "Bulgaria",
+     "sa": 3,
+     "sb": 2
+    },
+    {
+     "stage": "group",
+     "a": "West Germany",
+     "b": "Morocco",
+     "sa": 2,
+     "sb": 1
+    },
+    {
+     "stage": "group",
+     "a": "Peru",
+     "b": "Morocco",
+     "sa": 3,
+     "sb": 0
+    },
+    {
+     "stage": "group",
+     "a": "West Germany",
+     "b": "Bulgaria",
+     "sa": 5,
+     "sb": 2
+    },
+    {
+     "stage": "group",
+     "a": "West Germany",
+     "b": "Peru",
+     "sa": 3,
+     "sb": 1
+    },
+    {
+     "stage": "group",
+     "a": "Bulgaria",
+     "b": "Morocco",
+     "sa": 1,
+     "sb": 1
+    },
+    {
+     "stage": "QF",
+     "a": "Uruguay",
+     "b": "Soviet Union",
+     "sa": 1,
+     "sb": 0
+    },
+    {
+     "stage": "QF",
+     "a": "Italy",
+     "b": "Mexico",
+     "sa": 4,
+     "sb": 1
+    },
+    {
+     "stage": "QF",
+     "a": "Brazil",
+     "b": "Peru",
+     "sa": 4,
+     "sb": 2
+    },
+    {
+     "stage": "QF",
+     "a": "West Germany",
+     "b": "England",
+     "sa": 3,
+     "sb": 2
+    },
+    {
+     "stage": "SF",
+     "a": "Brazil",
+     "b": "Uruguay",
+     "sa": 3,
+     "sb": 1
+    },
+    {
+     "stage": "SF",
+     "a": "Italy",
+     "b": "West Germany",
+     "sa": 4,
+     "sb": 3
+    },
+    {
+     "stage": "third",
+     "a": "West Germany",
+     "b": "Uruguay",
+     "sa": 1,
+     "sb": 0
+    },
+    {
+     "stage": "final",
+     "a": "Brazil",
+     "b": "Italy",
+     "sa": 4,
+     "sb": 1
+    }
+   ]
+  },
+  {
+   "year": 1974,
+   "host": "West Germany",
+   "champion": "West Germany",
+   "runnerUp": "Netherlands",
+   "finalScore": "2-1",
+   "goldenBoot": {
+    "player": "Grzegorz Lato",
+    "team": "Poland",
+    "goals": 7,
+    "shared": false
+   },
+   "matches": [
+    {
+     "stage": "group",
+     "a": "West Germany",
+     "b": "Chile",
+     "sa": 1,
+     "sb": 0
+    },
+    {
+     "stage": "group",
+     "a": "East Germany",
+     "b": "Australia",
+     "sa": 2,
+     "sb": 0
+    },
+    {
+     "stage": "group",
+     "a": "West Germany",
+     "b": "Australia",
+     "sa": 3,
+     "sb": 0
+    },
+    {
+     "stage": "group",
+     "a": "East Germany",
+     "b": "Chile",
+     "sa": 1,
+     "sb": 1
+    },
+    {
+     "stage": "group",
+     "a": "Australia",
+     "b": "Chile",
+     "sa": 0,
+     "sb": 0
+    },
+    {
+     "stage": "group",
+     "a": "East Germany",
+     "b": "West Germany",
+     "sa": 1,
+     "sb": 0
+    },
+    {
+     "stage": "group",
+     "a": "Brazil",
+     "b": "Yugoslavia",
+     "sa": 0,
+     "sb": 0
+    },
+    {
+     "stage": "group",
+     "a": "Scotland",
+     "b": "Zaire",
+     "sa": 2,
+     "sb": 0
+    },
+    {
+     "stage": "group",
+     "a": "Brazil",
+     "b": "Scotland",
+     "sa": 0,
+     "sb": 0
+    },
+    {
+     "stage": "group",
+     "a": "Yugoslavia",
+     "b": "Zaire",
+     "sa": 9,
+     "sb": 0
+    },
+    {
+     "stage": "group",
+     "a": "Scotland",
+     "b": "Yugoslavia",
+     "sa": 1,
+     "sb": 1
+    },
+    {
+     "stage": "group",
+     "a": "Brazil",
+     "b": "Zaire",
+     "sa": 3,
+     "sb": 0
+    },
+    {
+     "stage": "group",
+     "a": "Netherlands",
+     "b": "Uruguay",
+     "sa": 2,
+     "sb": 0
+    },
+    {
+     "stage": "group",
+     "a": "Bulgaria",
+     "b": "Sweden",
+     "sa": 0,
+     "sb": 0
+    },
+    {
+     "stage": "group",
+     "a": "Netherlands",
+     "b": "Sweden",
+     "sa": 0,
+     "sb": 0
+    },
+    {
+     "stage": "group",
+     "a": "Bulgaria",
+     "b": "Uruguay",
+     "sa": 1,
+     "sb": 1
+    },
+    {
+     "stage": "group",
+     "a": "Netherlands",
+     "b": "Bulgaria",
+     "sa": 4,
+     "sb": 1
+    },
+    {
+     "stage": "group",
+     "a": "Sweden",
+     "b": "Uruguay",
+     "sa": 3,
+     "sb": 0
+    },
+    {
+     "stage": "group",
+     "a": "Italy",
+     "b": "Haiti",
+     "sa": 3,
+     "sb": 1
+    },
+    {
+     "stage": "group",
+     "a": "Poland",
+     "b": "Argentina",
+     "sa": 3,
+     "sb": 2
+    },
+    {
+     "stage": "group",
+     "a": "Argentina",
+     "b": "Italy",
+     "sa": 1,
+     "sb": 1
+    },
+    {
+     "stage": "group",
+     "a": "Poland",
+     "b": "Haiti",
+     "sa": 7,
+     "sb": 0
+    },
+    {
+     "stage": "group",
+     "a": "Argentina",
+     "b": "Haiti",
+     "sa": 4,
+     "sb": 1
+    },
+    {
+     "stage": "group",
+     "a": "Poland",
+     "b": "Italy",
+     "sa": 2,
+     "sb": 1
+    },
+    {
+     "stage": "group",
+     "a": "Brazil",
+     "b": "East Germany",
+     "sa": 1,
+     "sb": 0
+    },
+    {
+     "stage": "group",
+     "a": "Netherlands",
+     "b": "Argentina",
+     "sa": 4,
+     "sb": 0
+    },
+    {
+     "stage": "group",
+     "a": "Netherlands",
+     "b": "East Germany",
+     "sa": 2,
+     "sb": 0
+    },
+    {
+     "stage": "group",
+     "a": "Brazil",
+     "b": "Argentina",
+     "sa": 2,
+     "sb": 1
+    },
+    {
+     "stage": "group",
+     "a": "Netherlands",
+     "b": "Brazil",
+     "sa": 2,
+     "sb": 0
+    },
+    {
+     "stage": "group",
+     "a": "Argentina",
+     "b": "East Germany",
+     "sa": 1,
+     "sb": 1
+    },
+    {
+     "stage": "group",
+     "a": "Poland",
+     "b": "Sweden",
+     "sa": 1,
+     "sb": 0
+    },
+    {
+     "stage": "group",
+     "a": "West Germany",
+     "b": "Yugoslavia",
+     "sa": 2,
+     "sb": 0
+    },
+    {
+     "stage": "group",
+     "a": "Poland",
+     "b": "Yugoslavia",
+     "sa": 2,
+     "sb": 1
+    },
+    {
+     "stage": "group",
+     "a": "West Germany",
+     "b": "Sweden",
+     "sa": 4,
+     "sb": 2
+    },
+    {
+     "stage": "group",
+     "a": "Sweden",
+     "b": "Yugoslavia",
+     "sa": 2,
+     "sb": 1
+    },
+    {
+     "stage": "group",
+     "a": "West Germany",
+     "b": "Poland",
+     "sa": 1,
+     "sb": 0
+    },
+    {
+     "stage": "third",
+     "a": "Poland",
+     "b": "Brazil",
+     "sa": 1,
+     "sb": 0
+    },
+    {
+     "stage": "final",
+     "a": "West Germany",
+     "b": "Netherlands",
+     "sa": 2,
+     "sb": 1
+    }
+   ]
+  },
+  {
+   "year": 1978,
+   "host": "Argentina",
+   "champion": "Argentina",
+   "runnerUp": "Netherlands",
+   "finalScore": "3-1 (aet)",
+   "goldenBoot": {
+    "player": "Mario Kempes",
+    "team": "Argentina",
+    "goals": 6,
+    "shared": false
+   },
+   "matches": [
+    {
+     "stage": "group",
+     "a": "Italy",
+     "b": "France",
+     "sa": 2,
+     "sb": 1
+    },
+    {
+     "stage": "group",
+     "a": "Argentina",
+     "b": "Hungary",
+     "sa": 2,
+     "sb": 1
+    },
+    {
+     "stage": "group",
+     "a": "Italy",
+     "b": "Hungary",
+     "sa": 3,
+     "sb": 1
+    },
+    {
+     "stage": "group",
+     "a": "Argentina",
+     "b": "France",
+     "sa": 2,
+     "sb": 1
+    },
+    {
+     "stage": "group",
+     "a": "France",
+     "b": "Hungary",
+     "sa": 3,
+     "sb": 1
+    },
+    {
+     "stage": "group",
+     "a": "Italy",
+     "b": "Argentina",
+     "sa": 1,
+     "sb": 0
+    },
+    {
+     "stage": "group",
+     "a": "Poland",
+     "b": "West Germany",
+     "sa": 0,
+     "sb": 0
+    },
+    {
+     "stage": "group",
+     "a": "Tunisia",
+     "b": "Mexico",
+     "sa": 3,
+     "sb": 1
+    },
+    {
+     "stage": "group",
+     "a": "Poland",
+     "b": "Tunisia",
+     "sa": 1,
+     "sb": 0
+    },
+    {
+     "stage": "group",
+     "a": "West Germany",
+     "b": "Mexico",
+     "sa": 6,
+     "sb": 0
+    },
+    {
+     "stage": "group",
+     "a": "Tunisia",
+     "b": "West Germany",
+     "sa": 0,
+     "sb": 0
+    },
+    {
+     "stage": "group",
+     "a": "Poland",
+     "b": "Mexico",
+     "sa": 3,
+     "sb": 1
+    },
+    {
+     "stage": "group",
+     "a": "Brazil",
+     "b": "Sweden",
+     "sa": 1,
+     "sb": 1
+    },
+    {
+     "stage": "group",
+     "a": "Austria",
+     "b": "Spain",
+     "sa": 2,
+     "sb": 1
+    },
+    {
+     "stage": "group",
+     "a": "Austria",
+     "b": "Sweden",
+     "sa": 1,
+     "sb": 0
+    },
+    {
+     "stage": "group",
+     "a": "Brazil",
+     "b": "Spain",
+     "sa": 0,
+     "sb": 0
+    },
+    {
+     "stage": "group",
+     "a": "Brazil",
+     "b": "Austria",
+     "sa": 1,
+     "sb": 0
+    },
+    {
+     "stage": "group",
+     "a": "Spain",
+     "b": "Sweden",
+     "sa": 1,
+     "sb": 0
+    },
+    {
+     "stage": "group",
+     "a": "Netherlands",
+     "b": "Iran",
+     "sa": 3,
+     "sb": 0
+    },
+    {
+     "stage": "group",
+     "a": "Peru",
+     "b": "Scotland",
+     "sa": 3,
+     "sb": 1
+    },
+    {
+     "stage": "group",
+     "a": "Netherlands",
+     "b": "Peru",
+     "sa": 0,
+     "sb": 0
+    },
+    {
+     "stage": "group",
+     "a": "Iran",
+     "b": "Scotland",
+     "sa": 1,
+     "sb": 1
+    },
+    {
+     "stage": "group",
+     "a": "Scotland",
+     "b": "Netherlands",
+     "sa": 3,
+     "sb": 2
+    },
+    {
+     "stage": "group",
+     "a": "Peru",
+     "b": "Iran",
+     "sa": 4,
+     "sb": 1
+    },
+    {
+     "stage": "group",
+     "a": "Italy",
+     "b": "West Germany",
+     "sa": 0,
+     "sb": 0
+    },
+    {
+     "stage": "group",
+     "a": "Netherlands",
+     "b": "Austria",
+     "sa": 5,
+     "sb": 1
+    },
+    {
+     "stage": "group",
+     "a": "Netherlands",
+     "b": "West Germany",
+     "sa": 2,
+     "sb": 2
+    },
+    {
+     "stage": "group",
+     "a": "Italy",
+     "b": "Austria",
+     "sa": 1,
+     "sb": 0
+    },
+    {
+     "stage": "group",
+     "a": "Netherlands",
+     "b": "Italy",
+     "sa": 2,
+     "sb": 1
+    },
+    {
+     "stage": "group",
+     "a": "Austria",
+     "b": "West Germany",
+     "sa": 3,
+     "sb": 2
+    },
+    {
+     "stage": "group",
+     "a": "Brazil",
+     "b": "Peru",
+     "sa": 3,
+     "sb": 0
+    },
+    {
+     "stage": "group",
+     "a": "Argentina",
+     "b": "Poland",
+     "sa": 2,
+     "sb": 0
+    },
+    {
+     "stage": "group",
+     "a": "Poland",
+     "b": "Peru",
+     "sa": 1,
+     "sb": 0
+    },
+    {
+     "stage": "group",
+     "a": "Argentina",
+     "b": "Brazil",
+     "sa": 0,
+     "sb": 0
+    },
+    {
+     "stage": "group",
+     "a": "Brazil",
+     "b": "Poland",
+     "sa": 3,
+     "sb": 1
+    },
+    {
+     "stage": "group",
+     "a": "Argentina",
+     "b": "Peru",
+     "sa": 6,
+     "sb": 0
+    },
+    {
+     "stage": "third",
+     "a": "Brazil",
+     "b": "Italy",
+     "sa": 2,
+     "sb": 1
+    },
+    {
+     "stage": "final",
+     "a": "Argentina",
+     "b": "Netherlands",
+     "sa": 3,
+     "sb": 1
+    }
+   ]
+  },
+  {
+   "year": 1982,
+   "host": "Spain",
+   "champion": "Italy",
+   "runnerUp": "West Germany",
+   "finalScore": "3-1",
+   "goldenBoot": {
+    "player": "Paolo Rossi",
+    "team": "Italy",
+    "goals": 6,
+    "shared": false
+   },
+   "matches": [
+    {
+     "stage": "group",
+     "a": "Italy",
+     "b": "Poland",
+     "sa": 0,
+     "sb": 0
+    },
+    {
+     "stage": "group",
+     "a": "Cameroon",
+     "b": "Peru",
+     "sa": 0,
+     "sb": 0
+    },
+    {
+     "stage": "group",
+     "a": "Italy",
+     "b": "Peru",
+     "sa": 1,
+     "sb": 1
+    },
+    {
+     "stage": "group",
+     "a": "Cameroon",
+     "b": "Poland",
+     "sa": 0,
+     "sb": 0
+    },
+    {
+     "stage": "group",
+     "a": "Poland",
+     "b": "Peru",
+     "sa": 5,
+     "sb": 1
+    },
+    {
+     "stage": "group",
+     "a": "Italy",
+     "b": "Cameroon",
+     "sa": 1,
+     "sb": 1
+    },
+    {
+     "stage": "group",
+     "a": "Algeria",
+     "b": "West Germany",
+     "sa": 2,
+     "sb": 1
+    },
+    {
+     "stage": "group",
+     "a": "Austria",
+     "b": "Chile",
+     "sa": 1,
+     "sb": 0
+    },
+    {
+     "stage": "group",
+     "a": "West Germany",
+     "b": "Chile",
+     "sa": 4,
+     "sb": 1
+    },
+    {
+     "stage": "group",
+     "a": "Austria",
+     "b": "Algeria",
+     "sa": 2,
+     "sb": 0
+    },
+    {
+     "stage": "group",
+     "a": "Algeria",
+     "b": "Chile",
+     "sa": 3,
+     "sb": 2
+    },
+    {
+     "stage": "group",
+     "a": "West Germany",
+     "b": "Austria",
+     "sa": 1,
+     "sb": 0
+    },
+    {
+     "stage": "group",
+     "a": "Belgium",
+     "b": "Argentina",
+     "sa": 1,
+     "sb": 0
+    },
+    {
+     "stage": "group",
+     "a": "Hungary",
+     "b": "El Salvador",
+     "sa": 10,
+     "sb": 1
+    },
+    {
+     "stage": "group",
+     "a": "Argentina",
+     "b": "Hungary",
+     "sa": 4,
+     "sb": 1
+    },
+    {
+     "stage": "group",
+     "a": "Belgium",
+     "b": "El Salvador",
+     "sa": 1,
+     "sb": 0
+    },
+    {
+     "stage": "group",
+     "a": "Belgium",
+     "b": "Hungary",
+     "sa": 1,
+     "sb": 1
+    },
+    {
+     "stage": "group",
+     "a": "Argentina",
+     "b": "El Salvador",
+     "sa": 2,
+     "sb": 0
+    },
+    {
+     "stage": "group",
+     "a": "England",
+     "b": "France",
+     "sa": 3,
+     "sb": 1
+    },
+    {
+     "stage": "group",
+     "a": "Czech Republic",
+     "b": "Kuwait",
+     "sa": 1,
+     "sb": 1
+    },
+    {
+     "stage": "group",
+     "a": "England",
+     "b": "Czech Republic",
+     "sa": 2,
+     "sb": 0
+    },
+    {
+     "stage": "group",
+     "a": "France",
+     "b": "Kuwait",
+     "sa": 4,
+     "sb": 1
+    },
+    {
+     "stage": "group",
+     "a": "Czech Republic",
+     "b": "France",
+     "sa": 1,
+     "sb": 1
+    },
+    {
+     "stage": "group",
+     "a": "England",
+     "b": "Kuwait",
+     "sa": 1,
+     "sb": 0
+    },
+    {
+     "stage": "group",
+     "a": "Honduras",
+     "b": "Spain",
+     "sa": 1,
+     "sb": 1
+    },
+    {
+     "stage": "group",
+     "a": "Northern Ireland",
+     "b": "Yugoslavia",
+     "sa": 0,
+     "sb": 0
+    },
+    {
+     "stage": "group",
+     "a": "Spain",
+     "b": "Yugoslavia",
+     "sa": 2,
+     "sb": 1
+    },
+    {
+     "stage": "group",
+     "a": "Honduras",
+     "b": "Northern Ireland",
+     "sa": 1,
+     "sb": 1
+    },
+    {
+     "stage": "group",
+     "a": "Yugoslavia",
+     "b": "Honduras",
+     "sa": 1,
+     "sb": 0
+    },
+    {
+     "stage": "group",
+     "a": "Northern Ireland",
+     "b": "Spain",
+     "sa": 1,
+     "sb": 0
+    },
+    {
+     "stage": "group",
+     "a": "Brazil",
+     "b": "Soviet Union",
+     "sa": 2,
+     "sb": 1
+    },
+    {
+     "stage": "group",
+     "a": "Scotland",
+     "b": "New Zealand",
+     "sa": 5,
+     "sb": 2
+    },
+    {
+     "stage": "group",
+     "a": "Brazil",
+     "b": "Scotland",
+     "sa": 4,
+     "sb": 1
+    },
+    {
+     "stage": "group",
+     "a": "Soviet Union",
+     "b": "New Zealand",
+     "sa": 3,
+     "sb": 0
+    },
+    {
+     "stage": "group",
+     "a": "Scotland",
+     "b": "Soviet Union",
+     "sa": 2,
+     "sb": 2
+    },
+    {
+     "stage": "group",
+     "a": "Brazil",
+     "b": "New Zealand",
+     "sa": 4,
+     "sb": 0
+    },
+    {
+     "stage": "group",
+     "a": "Poland",
+     "b": "Belgium",
+     "sa": 3,
+     "sb": 0
+    },
+    {
+     "stage": "group",
+     "a": "Soviet Union",
+     "b": "Belgium",
+     "sa": 1,
+     "sb": 0
+    },
+    {
+     "stage": "group",
+     "a": "Poland",
+     "b": "Soviet Union",
+     "sa": 0,
+     "sb": 0
+    },
+    {
+     "stage": "group",
+     "a": "England",
+     "b": "West Germany",
+     "sa": 0,
+     "sb": 0
+    },
+    {
+     "stage": "group",
+     "a": "West Germany",
+     "b": "Spain",
+     "sa": 2,
+     "sb": 1
+    },
+    {
+     "stage": "group",
+     "a": "England",
+     "b": "Spain",
+     "sa": 0,
+     "sb": 0
+    },
+    {
+     "stage": "group",
+     "a": "Italy",
+     "b": "Argentina",
+     "sa": 2,
+     "sb": 1
+    },
+    {
+     "stage": "group",
+     "a": "Brazil",
+     "b": "Argentina",
+     "sa": 3,
+     "sb": 1
+    },
+    {
+     "stage": "group",
+     "a": "Italy",
+     "b": "Brazil",
+     "sa": 3,
+     "sb": 2
+    },
+    {
+     "stage": "group",
+     "a": "France",
+     "b": "Austria",
+     "sa": 1,
+     "sb": 0
+    },
+    {
+     "stage": "group",
+     "a": "Austria",
+     "b": "Northern Ireland",
+     "sa": 2,
+     "sb": 2
+    },
+    {
+     "stage": "group",
+     "a": "France",
+     "b": "Northern Ireland",
+     "sa": 4,
+     "sb": 1
+    },
+    {
+     "stage": "SF",
+     "a": "Italy",
+     "b": "Poland",
+     "sa": 2,
+     "sb": 0
+    },
+    {
+     "stage": "SF",
+     "a": "West Germany",
+     "b": "France",
+     "sa": 3,
+     "sb": 3
+    },
+    {
+     "stage": "third",
+     "a": "Poland",
+     "b": "France",
+     "sa": 3,
+     "sb": 2
+    },
+    {
+     "stage": "final",
+     "a": "Italy",
+     "b": "West Germany",
+     "sa": 3,
+     "sb": 1
+    }
+   ]
+  },
+  {
+   "year": 1986,
+   "host": "Mexico",
+   "champion": "Argentina",
+   "runnerUp": "West Germany",
+   "finalScore": "3-2",
+   "goldenBoot": {
+    "player": "Gary Lineker",
+    "team": "England",
+    "goals": 6,
+    "shared": false
+   },
+   "matches": [
+    {
+     "stage": "group",
+     "a": "Argentina",
+     "b": "South Korea",
+     "sa": 3,
+     "sb": 1
+    },
+    {
+     "stage": "group",
+     "a": "Argentina",
+     "b": "Italy",
+     "sa": 1,
+     "sb": 1
+    },
+    {
+     "stage": "group",
+     "a": "Bulgaria",
+     "b": "South Korea",
+     "sa": 1,
+     "sb": 1
+    },
+    {
+     "stage": "group",
+     "a": "Argentina",
+     "b": "Bulgaria",
+     "sa": 2,
+     "sb": 0
+    },
+    {
+     "stage": "group",
+     "a": "Italy",
+     "b": "South Korea",
+     "sa": 3,
+     "sb": 2
+    },
+    {
+     "stage": "group",
+     "a": "Mexico",
+     "b": "Belgium",
+     "sa": 2,
+     "sb": 1
+    },
+    {
+     "stage": "group",
+     "a": "Paraguay",
+     "b": "Iraq",
+     "sa": 1,
+     "sb": 0
+    },
+    {
+     "stage": "group",
+     "a": "Mexico",
+     "b": "Paraguay",
+     "sa": 1,
+     "sb": 1
+    },
+    {
+     "stage": "group",
+     "a": "Belgium",
+     "b": "Iraq",
+     "sa": 2,
+     "sb": 1
+    },
+    {
+     "stage": "group",
+     "a": "Belgium",
+     "b": "Paraguay",
+     "sa": 2,
+     "sb": 2
+    },
+    {
+     "stage": "group",
+     "a": "Mexico",
+     "b": "Iraq",
+     "sa": 1,
+     "sb": 0
+    },
+    {
+     "stage": "group",
+     "a": "France",
+     "b": "Canada",
+     "sa": 1,
+     "sb": 0
+    },
+    {
+     "stage": "group",
+     "a": "Soviet Union",
+     "b": "Hungary",
+     "sa": 6,
+     "sb": 0
+    },
+    {
+     "stage": "group",
+     "a": "France",
+     "b": "Soviet Union",
+     "sa": 1,
+     "sb": 1
+    },
+    {
+     "stage": "group",
+     "a": "Hungary",
+     "b": "Canada",
+     "sa": 2,
+     "sb": 0
+    },
+    {
+     "stage": "group",
+     "a": "France",
+     "b": "Hungary",
+     "sa": 3,
+     "sb": 0
+    },
+    {
+     "stage": "group",
+     "a": "Soviet Union",
+     "b": "Canada",
+     "sa": 2,
+     "sb": 0
+    },
+    {
+     "stage": "group",
+     "a": "Brazil",
+     "b": "Spain",
+     "sa": 1,
+     "sb": 0
+    },
+    {
+     "stage": "group",
+     "a": "Algeria",
+     "b": "Northern Ireland",
+     "sa": 1,
+     "sb": 1
+    },
+    {
+     "stage": "group",
+     "a": "Brazil",
+     "b": "Algeria",
+     "sa": 1,
+     "sb": 0
+    },
+    {
+     "stage": "group",
+     "a": "Spain",
+     "b": "Northern Ireland",
+     "sa": 2,
+     "sb": 1
+    },
+    {
+     "stage": "group",
+     "a": "Brazil",
+     "b": "Northern Ireland",
+     "sa": 3,
+     "sb": 0
+    },
+    {
+     "stage": "group",
+     "a": "Spain",
+     "b": "Algeria",
+     "sa": 3,
+     "sb": 0
+    },
+    {
+     "stage": "group",
+     "a": "West Germany",
+     "b": "Uruguay",
+     "sa": 1,
+     "sb": 1
+    },
+    {
+     "stage": "group",
+     "a": "Denmark",
+     "b": "Scotland",
+     "sa": 1,
+     "sb": 0
+    },
+    {
+     "stage": "group",
+     "a": "West Germany",
+     "b": "Scotland",
+     "sa": 2,
+     "sb": 1
+    },
+    {
+     "stage": "group",
+     "a": "Denmark",
+     "b": "Uruguay",
+     "sa": 6,
+     "sb": 1
+    },
+    {
+     "stage": "group",
+     "a": "Denmark",
+     "b": "West Germany",
+     "sa": 2,
+     "sb": 0
+    },
+    {
+     "stage": "group",
+     "a": "Scotland",
+     "b": "Uruguay",
+     "sa": 0,
+     "sb": 0
+    },
+    {
+     "stage": "group",
+     "a": "Morocco",
+     "b": "Poland",
+     "sa": 0,
+     "sb": 0
+    },
+    {
+     "stage": "group",
+     "a": "Portugal",
+     "b": "England",
+     "sa": 1,
+     "sb": 0
+    },
+    {
+     "stage": "group",
+     "a": "England",
+     "b": "Morocco",
+     "sa": 0,
+     "sb": 0
+    },
+    {
+     "stage": "group",
+     "a": "Poland",
+     "b": "Portugal",
+     "sa": 1,
+     "sb": 0
+    },
+    {
+     "stage": "group",
+     "a": "England",
+     "b": "Poland",
+     "sa": 3,
+     "sb": 0
+    },
+    {
+     "stage": "group",
+     "a": "Morocco",
+     "b": "Portugal",
+     "sa": 3,
+     "sb": 1
+    },
+    {
+     "stage": "R16",
+     "a": "Mexico",
+     "b": "Bulgaria",
+     "sa": 2,
+     "sb": 0
+    },
+    {
+     "stage": "R16",
+     "a": "Belgium",
+     "b": "Soviet Union",
+     "sa": 4,
+     "sb": 3
+    },
+    {
+     "stage": "R16",
+     "a": "Brazil",
+     "b": "Poland",
+     "sa": 4,
+     "sb": 0
+    },
+    {
+     "stage": "R16",
+     "a": "Argentina",
+     "b": "Uruguay",
+     "sa": 1,
+     "sb": 0
+    },
+    {
+     "stage": "R16",
+     "a": "France",
+     "b": "Italy",
+     "sa": 2,
+     "sb": 0
+    },
+    {
+     "stage": "R16",
+     "a": "West Germany",
+     "b": "Morocco",
+     "sa": 1,
+     "sb": 0
+    },
+    {
+     "stage": "R16",
+     "a": "England",
+     "b": "Paraguay",
+     "sa": 3,
+     "sb": 0
+    },
+    {
+     "stage": "R16",
+     "a": "Spain",
+     "b": "Denmark",
+     "sa": 5,
+     "sb": 1
+    },
+    {
+     "stage": "QF",
+     "a": "France",
+     "b": "Brazil",
+     "sa": 1,
+     "sb": 1
+    },
+    {
+     "stage": "QF",
+     "a": "West Germany",
+     "b": "Mexico",
+     "sa": 0,
+     "sb": 0
+    },
+    {
+     "stage": "QF",
+     "a": "Argentina",
+     "b": "England",
+     "sa": 2,
+     "sb": 1
+    },
+    {
+     "stage": "QF",
+     "a": "Belgium",
+     "b": "Spain",
+     "sa": 1,
+     "sb": 1
+    },
+    {
+     "stage": "SF",
+     "a": "West Germany",
+     "b": "France",
+     "sa": 2,
+     "sb": 0
+    },
+    {
+     "stage": "third",
+     "a": "France",
+     "b": "Belgium",
+     "sa": 4,
+     "sb": 2
+    },
+    {
+     "stage": "final",
+     "a": "Argentina",
+     "b": "West Germany",
+     "sa": 3,
+     "sb": 2
+    }
+   ]
+  },
+  {
+   "year": 1990,
+   "host": "Italy",
+   "champion": "West Germany",
+   "runnerUp": "Argentina",
+   "finalScore": "1-0",
+   "goldenBoot": {
+    "player": "Salvatore Schillaci",
+    "team": "Italy",
+    "goals": 6,
+    "shared": false
+   },
+   "matches": [
+    {
+     "stage": "group",
+     "a": "Italy",
+     "b": "Austria",
+     "sa": 1,
+     "sb": 0
+    },
+    {
+     "stage": "group",
+     "a": "Czech Republic",
+     "b": "USA",
+     "sa": 5,
+     "sb": 1
+    },
+    {
+     "stage": "group",
+     "a": "Italy",
+     "b": "USA",
+     "sa": 1,
+     "sb": 0
+    },
+    {
+     "stage": "group",
+     "a": "Czech Republic",
+     "b": "Austria",
+     "sa": 1,
+     "sb": 0
+    },
+    {
+     "stage": "group",
+     "a": "Italy",
+     "b": "Czech Republic",
+     "sa": 2,
+     "sb": 0
+    },
+    {
+     "stage": "group",
+     "a": "Austria",
+     "b": "USA",
+     "sa": 2,
+     "sb": 1
+    },
+    {
+     "stage": "group",
+     "a": "Cameroon",
+     "b": "Argentina",
+     "sa": 1,
+     "sb": 0
+    },
+    {
+     "stage": "group",
+     "a": "Romania",
+     "b": "Soviet Union",
+     "sa": 2,
+     "sb": 0
+    },
+    {
+     "stage": "group",
+     "a": "Argentina",
+     "b": "Soviet Union",
+     "sa": 2,
+     "sb": 0
+    },
+    {
+     "stage": "group",
+     "a": "Cameroon",
+     "b": "Romania",
+     "sa": 2,
+     "sb": 1
+    },
+    {
+     "stage": "group",
+     "a": "Soviet Union",
+     "b": "Cameroon",
+     "sa": 4,
+     "sb": 0
+    },
+    {
+     "stage": "group",
+     "a": "Argentina",
+     "b": "Romania",
+     "sa": 1,
+     "sb": 1
+    },
+    {
+     "stage": "group",
+     "a": "Brazil",
+     "b": "Sweden",
+     "sa": 2,
+     "sb": 1
+    },
+    {
+     "stage": "group",
+     "a": "Costa Rica",
+     "b": "Scotland",
+     "sa": 1,
+     "sb": 0
+    },
+    {
+     "stage": "group",
+     "a": "Brazil",
+     "b": "Costa Rica",
+     "sa": 1,
+     "sb": 0
+    },
+    {
+     "stage": "group",
+     "a": "Scotland",
+     "b": "Sweden",
+     "sa": 2,
+     "sb": 1
+    },
+    {
+     "stage": "group",
+     "a": "Costa Rica",
+     "b": "Sweden",
+     "sa": 2,
+     "sb": 1
+    },
+    {
+     "stage": "group",
+     "a": "Brazil",
+     "b": "Scotland",
+     "sa": 1,
+     "sb": 0
+    },
+    {
+     "stage": "group",
+     "a": "Colombia",
+     "b": "UAE",
+     "sa": 2,
+     "sb": 0
+    },
+    {
+     "stage": "group",
+     "a": "West Germany",
+     "b": "Yugoslavia",
+     "sa": 4,
+     "sb": 1
+    },
+    {
+     "stage": "group",
+     "a": "Yugoslavia",
+     "b": "Colombia",
+     "sa": 1,
+     "sb": 0
+    },
+    {
+     "stage": "group",
+     "a": "West Germany",
+     "b": "UAE",
+     "sa": 5,
+     "sb": 1
+    },
+    {
+     "stage": "group",
+     "a": "Colombia",
+     "b": "West Germany",
+     "sa": 1,
+     "sb": 1
+    },
+    {
+     "stage": "group",
+     "a": "Yugoslavia",
+     "b": "UAE",
+     "sa": 4,
+     "sb": 1
+    },
+    {
+     "stage": "group",
+     "a": "Belgium",
+     "b": "South Korea",
+     "sa": 2,
+     "sb": 0
+    },
+    {
+     "stage": "group",
+     "a": "Spain",
+     "b": "Uruguay",
+     "sa": 0,
+     "sb": 0
+    },
+    {
+     "stage": "group",
+     "a": "Spain",
+     "b": "South Korea",
+     "sa": 3,
+     "sb": 1
+    },
+    {
+     "stage": "group",
+     "a": "Belgium",
+     "b": "Uruguay",
+     "sa": 3,
+     "sb": 1
+    },
+    {
+     "stage": "group",
+     "a": "Spain",
+     "b": "Belgium",
+     "sa": 2,
+     "sb": 1
+    },
+    {
+     "stage": "group",
+     "a": "Uruguay",
+     "b": "South Korea",
+     "sa": 1,
+     "sb": 0
+    },
+    {
+     "stage": "group",
+     "a": "England",
+     "b": "Ireland",
+     "sa": 1,
+     "sb": 1
+    },
+    {
+     "stage": "group",
+     "a": "Egypt",
+     "b": "Netherlands",
+     "sa": 1,
+     "sb": 1
+    },
+    {
+     "stage": "group",
+     "a": "England",
+     "b": "Netherlands",
+     "sa": 0,
+     "sb": 0
+    },
+    {
+     "stage": "group",
+     "a": "Egypt",
+     "b": "Ireland",
+     "sa": 0,
+     "sb": 0
+    },
+    {
+     "stage": "group",
+     "a": "England",
+     "b": "Egypt",
+     "sa": 1,
+     "sb": 0
+    },
+    {
+     "stage": "group",
+     "a": "Netherlands",
+     "b": "Ireland",
+     "sa": 1,
+     "sb": 1
+    },
+    {
+     "stage": "R16",
+     "a": "Cameroon",
+     "b": "Colombia",
+     "sa": 2,
+     "sb": 1
+    },
+    {
+     "stage": "R16",
+     "a": "Czech Republic",
+     "b": "Costa Rica",
+     "sa": 4,
+     "sb": 1
+    },
+    {
+     "stage": "R16",
+     "a": "Argentina",
+     "b": "Brazil",
+     "sa": 1,
+     "sb": 0
+    },
+    {
+     "stage": "R16",
+     "a": "West Germany",
+     "b": "Netherlands",
+     "sa": 2,
+     "sb": 1
+    },
+    {
+     "stage": "R16",
+     "a": "Ireland",
+     "b": "Romania",
+     "sa": 0,
+     "sb": 0
+    },
+    {
+     "stage": "R16",
+     "a": "Italy",
+     "b": "Uruguay",
+     "sa": 2,
+     "sb": 0
+    },
+    {
+     "stage": "R16",
+     "a": "Yugoslavia",
+     "b": "Spain",
+     "sa": 2,
+     "sb": 1
+    },
+    {
+     "stage": "R16",
+     "a": "England",
+     "b": "Belgium",
+     "sa": 1,
+     "sb": 0
+    },
+    {
+     "stage": "QF",
+     "a": "Argentina",
+     "b": "Yugoslavia",
+     "sa": 0,
+     "sb": 0
+    },
+    {
+     "stage": "QF",
+     "a": "Italy",
+     "b": "Ireland",
+     "sa": 1,
+     "sb": 0
+    },
+    {
+     "stage": "QF",
+     "a": "West Germany",
+     "b": "Czech Republic",
+     "sa": 1,
+     "sb": 0
+    },
+    {
+     "stage": "QF",
+     "a": "England",
+     "b": "Cameroon",
+     "sa": 3,
+     "sb": 2
+    },
+    {
+     "stage": "SF",
+     "a": "Argentina",
+     "b": "Italy",
+     "sa": 1,
+     "sb": 1
+    },
+    {
+     "stage": "SF",
+     "a": "West Germany",
+     "b": "England",
+     "sa": 1,
+     "sb": 1
+    },
+    {
+     "stage": "third",
+     "a": "Italy",
+     "b": "England",
+     "sa": 2,
+     "sb": 1
+    },
+    {
+     "stage": "final",
+     "a": "West Germany",
+     "b": "Argentina",
+     "sa": 1,
+     "sb": 0
+    }
+   ]
+  },
+  {
+   "year": 1994,
+   "host": "USA",
+   "champion": "Brazil",
+   "runnerUp": "Italy",
+   "finalScore": "0-0 (3-2 pens)",
+   "goldenBoot": {
+    "player": "Oleg Salenko & Hristo Stoichkov",
+    "team": "(shared)",
+    "goals": 6,
+    "shared": true
+   },
+   "matches": [
+    {
+     "stage": "group",
+     "a": "USA",
+     "b": "Switzerland",
+     "sa": 1,
+     "sb": 1
+    },
+    {
+     "stage": "group",
+     "a": "Romania",
+     "b": "Colombia",
+     "sa": 3,
+     "sb": 1
+    },
+    {
+     "stage": "group",
+     "a": "Switzerland",
+     "b": "Romania",
+     "sa": 4,
+     "sb": 1
+    },
+    {
+     "stage": "group",
+     "a": "USA",
+     "b": "Colombia",
+     "sa": 2,
+     "sb": 1
+    },
+    {
+     "stage": "group",
+     "a": "Colombia",
+     "b": "Switzerland",
+     "sa": 2,
+     "sb": 0
+    },
+    {
+     "stage": "group",
+     "a": "Romania",
+     "b": "USA",
+     "sa": 1,
+     "sb": 0
+    },
+    {
+     "stage": "group",
+     "a": "Sweden",
+     "b": "Cameroon",
+     "sa": 2,
+     "sb": 2
+    },
+    {
+     "stage": "group",
+     "a": "Brazil",
+     "b": "Russia",
+     "sa": 2,
+     "sb": 0
+    },
+    {
+     "stage": "group",
+     "a": "Brazil",
+     "b": "Cameroon",
+     "sa": 3,
+     "sb": 0
+    },
+    {
+     "stage": "group",
+     "a": "Sweden",
+     "b": "Russia",
+     "sa": 3,
+     "sb": 1
+    },
+    {
+     "stage": "group",
+     "a": "Russia",
+     "b": "Cameroon",
+     "sa": 6,
+     "sb": 1
+    },
+    {
+     "stage": "group",
+     "a": "Sweden",
+     "b": "Brazil",
+     "sa": 1,
+     "sb": 1
+    },
+    {
+     "stage": "group",
+     "a": "South Korea",
+     "b": "Spain",
+     "sa": 2,
+     "sb": 2
+    },
+    {
+     "stage": "group",
+     "a": "Germany",
+     "b": "Spain",
+     "sa": 1,
+     "sb": 1
+    },
+    {
+     "stage": "group",
+     "a": "Bolivia",
+     "b": "South Korea",
+     "sa": 0,
+     "sb": 0
+    },
+    {
+     "stage": "group",
+     "a": "Spain",
+     "b": "Bolivia",
+     "sa": 3,
+     "sb": 1
+    },
+    {
+     "stage": "group",
+     "a": "Germany",
+     "b": "South Korea",
+     "sa": 3,
+     "sb": 2
+    },
+    {
+     "stage": "group",
+     "a": "Argentina",
+     "b": "Greece",
+     "sa": 4,
+     "sb": 0
+    },
+    {
+     "stage": "group",
+     "a": "Nigeria",
+     "b": "Bulgaria",
+     "sa": 3,
+     "sb": 0
+    },
+    {
+     "stage": "group",
+     "a": "Argentina",
+     "b": "Nigeria",
+     "sa": 2,
+     "sb": 1
+    },
+    {
+     "stage": "group",
+     "a": "Bulgaria",
+     "b": "Greece",
+     "sa": 4,
+     "sb": 0
+    },
+    {
+     "stage": "group",
+     "a": "Nigeria",
+     "b": "Greece",
+     "sa": 2,
+     "sb": 0
+    },
+    {
+     "stage": "group",
+     "a": "Bulgaria",
+     "b": "Argentina",
+     "sa": 2,
+     "sb": 0
+    },
+    {
+     "stage": "group",
+     "a": "Ireland",
+     "b": "Italy",
+     "sa": 1,
+     "sb": 0
+    },
+    {
+     "stage": "group",
+     "a": "Norway",
+     "b": "Mexico",
+     "sa": 1,
+     "sb": 0
+    },
+    {
+     "stage": "group",
+     "a": "Italy",
+     "b": "Norway",
+     "sa": 1,
+     "sb": 0
+    },
+    {
+     "stage": "group",
+     "a": "Mexico",
+     "b": "Ireland",
+     "sa": 2,
+     "sb": 1
+    },
+    {
+     "stage": "group",
+     "a": "Ireland",
+     "b": "Norway",
+     "sa": 0,
+     "sb": 0
+    },
+    {
+     "stage": "group",
+     "a": "Italy",
+     "b": "Mexico",
+     "sa": 1,
+     "sb": 1
+    },
+    {
+     "stage": "group",
+     "a": "Belgium",
+     "b": "Morocco",
+     "sa": 1,
+     "sb": 0
+    },
+    {
+     "stage": "group",
+     "a": "Netherlands",
+     "b": "Saudi Arabia",
+     "sa": 2,
+     "sb": 1
+    },
+    {
+     "stage": "group",
+     "a": "Belgium",
+     "b": "Netherlands",
+     "sa": 1,
+     "sb": 0
+    },
+    {
+     "stage": "group",
+     "a": "Saudi Arabia",
+     "b": "Morocco",
+     "sa": 2,
+     "sb": 1
+    },
+    {
+     "stage": "group",
+     "a": "Netherlands",
+     "b": "Morocco",
+     "sa": 2,
+     "sb": 1
+    },
+    {
+     "stage": "group",
+     "a": "Saudi Arabia",
+     "b": "Belgium",
+     "sa": 1,
+     "sb": 0
+    },
+    {
+     "stage": "R16",
+     "a": "Germany",
+     "b": "Belgium",
+     "sa": 3,
+     "sb": 2
+    },
+    {
+     "stage": "R16",
+     "a": "Spain",
+     "b": "Switzerland",
+     "sa": 3,
+     "sb": 0
+    },
+    {
+     "stage": "R16",
+     "a": "Sweden",
+     "b": "Saudi Arabia",
+     "sa": 3,
+     "sb": 1
+    },
+    {
+     "stage": "R16",
+     "a": "Romania",
+     "b": "Argentina",
+     "sa": 3,
+     "sb": 2
+    },
+    {
+     "stage": "R16",
+     "a": "Netherlands",
+     "b": "Ireland",
+     "sa": 2,
+     "sb": 0
+    },
+    {
+     "stage": "R16",
+     "a": "Brazil",
+     "b": "USA",
+     "sa": 1,
+     "sb": 0
+    },
+    {
+     "stage": "R16",
+     "a": "Italy",
+     "b": "Nigeria",
+     "sa": 2,
+     "sb": 1
+    },
+    {
+     "stage": "R16",
+     "a": "Bulgaria",
+     "b": "Mexico",
+     "sa": 1,
+     "sb": 1
+    },
+    {
+     "stage": "QF",
+     "a": "Italy",
+     "b": "Spain",
+     "sa": 2,
+     "sb": 1
+    },
+    {
+     "stage": "QF",
+     "a": "Brazil",
+     "b": "Netherlands",
+     "sa": 3,
+     "sb": 2
+    },
+    {
+     "stage": "QF",
+     "a": "Bulgaria",
+     "b": "Germany",
+     "sa": 2,
+     "sb": 1
+    },
+    {
+     "stage": "QF",
+     "a": "Sweden",
+     "b": "Romania",
+     "sa": 2,
+     "sb": 2
+    },
+    {
+     "stage": "SF",
+     "a": "Italy",
+     "b": "Bulgaria",
+     "sa": 2,
+     "sb": 1
+    },
+    {
+     "stage": "SF",
+     "a": "Brazil",
+     "b": "Sweden",
+     "sa": 1,
+     "sb": 0
+    },
+    {
+     "stage": "third",
+     "a": "Sweden",
+     "b": "Bulgaria",
+     "sa": 4,
+     "sb": 0
+    },
+    {
+     "stage": "final",
+     "a": "Brazil",
+     "b": "Italy",
+     "sa": 0,
+     "sb": 0
+    }
+   ]
+  },
+  {
+   "year": 1998,
+   "host": "France",
+   "champion": "France",
+   "runnerUp": "Brazil",
+   "finalScore": "3-0",
+   "goldenBoot": {
+    "player": "Davor Šuker",
+    "team": "Croatia",
+    "goals": 6,
+    "shared": false
+   },
+   "matches": [
+    {
+     "stage": "group",
+     "a": "Brazil",
+     "b": "Scotland",
+     "sa": 2,
+     "sb": 1
+    },
+    {
+     "stage": "group",
+     "a": "Norway",
+     "b": "Morocco",
+     "sa": 2,
+     "sb": 2
+    },
+    {
+     "stage": "group",
+     "a": "Scotland",
+     "b": "Norway",
+     "sa": 1,
+     "sb": 1
+    },
+    {
+     "stage": "group",
+     "a": "Brazil",
+     "b": "Morocco",
+     "sa": 3,
+     "sb": 0
+    },
+    {
+     "stage": "group",
+     "a": "Norway",
+     "b": "Brazil",
+     "sa": 2,
+     "sb": 1
+    },
+    {
+     "stage": "group",
+     "a": "Morocco",
+     "b": "Scotland",
+     "sa": 3,
+     "sb": 0
+    },
+    {
+     "stage": "group",
+     "a": "Italy",
+     "b": "Chile",
+     "sa": 2,
+     "sb": 2
+    },
+    {
+     "stage": "group",
+     "a": "Austria",
+     "b": "Cameroon",
+     "sa": 1,
+     "sb": 1
+    },
+    {
+     "stage": "group",
+     "a": "Austria",
+     "b": "Chile",
+     "sa": 1,
+     "sb": 1
+    },
+    {
+     "stage": "group",
+     "a": "Italy",
+     "b": "Cameroon",
+     "sa": 3,
+     "sb": 0
+    },
+    {
+     "stage": "group",
+     "a": "Italy",
+     "b": "Austria",
+     "sa": 2,
+     "sb": 1
+    },
+    {
+     "stage": "group",
+     "a": "Chile",
+     "b": "Cameroon",
+     "sa": 1,
+     "sb": 1
+    },
+    {
+     "stage": "group",
+     "a": "Denmark",
+     "b": "Saudi Arabia",
+     "sa": 1,
+     "sb": 0
+    },
+    {
+     "stage": "group",
+     "a": "France",
+     "b": "South Africa",
+     "sa": 3,
+     "sb": 0
+    },
+    {
+     "stage": "group",
+     "a": "Denmark",
+     "b": "South Africa",
+     "sa": 1,
+     "sb": 1
+    },
+    {
+     "stage": "group",
+     "a": "France",
+     "b": "Saudi Arabia",
+     "sa": 4,
+     "sb": 0
+    },
+    {
+     "stage": "group",
+     "a": "France",
+     "b": "Denmark",
+     "sa": 2,
+     "sb": 1
+    },
+    {
+     "stage": "group",
+     "a": "Saudi Arabia",
+     "b": "South Africa",
+     "sa": 2,
+     "sb": 2
+    },
+    {
+     "stage": "group",
+     "a": "Bulgaria",
+     "b": "Paraguay",
+     "sa": 0,
+     "sb": 0
+    },
+    {
+     "stage": "group",
+     "a": "Nigeria",
+     "b": "Spain",
+     "sa": 3,
+     "sb": 2
+    },
+    {
+     "stage": "group",
+     "a": "Nigeria",
+     "b": "Bulgaria",
+     "sa": 1,
+     "sb": 0
+    },
+    {
+     "stage": "group",
+     "a": "Spain",
+     "b": "Paraguay",
+     "sa": 0,
+     "sb": 0
+    },
+    {
+     "stage": "group",
+     "a": "Spain",
+     "b": "Bulgaria",
+     "sa": 6,
+     "sb": 1
+    },
+    {
+     "stage": "group",
+     "a": "Paraguay",
+     "b": "Nigeria",
+     "sa": 3,
+     "sb": 1
+    },
+    {
+     "stage": "group",
+     "a": "Mexico",
+     "b": "South Korea",
+     "sa": 3,
+     "sb": 1
+    },
+    {
+     "stage": "group",
+     "a": "Belgium",
+     "b": "Netherlands",
+     "sa": 0,
+     "sb": 0
+    },
+    {
+     "stage": "group",
+     "a": "Belgium",
+     "b": "Mexico",
+     "sa": 2,
+     "sb": 2
+    },
+    {
+     "stage": "group",
+     "a": "Netherlands",
+     "b": "South Korea",
+     "sa": 5,
+     "sb": 0
+    },
+    {
+     "stage": "group",
+     "a": "Netherlands",
+     "b": "Mexico",
+     "sa": 2,
+     "sb": 2
+    },
+    {
+     "stage": "group",
+     "a": "Belgium",
+     "b": "South Korea",
+     "sa": 1,
+     "sb": 1
+    },
+    {
+     "stage": "group",
+     "a": "Yugoslavia",
+     "b": "Iran",
+     "sa": 1,
+     "sb": 0
+    },
+    {
+     "stage": "group",
+     "a": "Germany",
+     "b": "USA",
+     "sa": 2,
+     "sb": 0
+    },
+    {
+     "stage": "group",
+     "a": "Germany",
+     "b": "Yugoslavia",
+     "sa": 2,
+     "sb": 2
+    },
+    {
+     "stage": "group",
+     "a": "Iran",
+     "b": "USA",
+     "sa": 2,
+     "sb": 1
+    },
+    {
+     "stage": "group",
+     "a": "Germany",
+     "b": "Iran",
+     "sa": 2,
+     "sb": 0
+    },
+    {
+     "stage": "group",
+     "a": "Yugoslavia",
+     "b": "USA",
+     "sa": 1,
+     "sb": 0
+    },
+    {
+     "stage": "group",
+     "a": "England",
+     "b": "Tunisia",
+     "sa": 2,
+     "sb": 0
+    },
+    {
+     "stage": "group",
+     "a": "Romania",
+     "b": "Colombia",
+     "sa": 1,
+     "sb": 0
+    },
+    {
+     "stage": "group",
+     "a": "Colombia",
+     "b": "Tunisia",
+     "sa": 1,
+     "sb": 0
+    },
+    {
+     "stage": "group",
+     "a": "Romania",
+     "b": "England",
+     "sa": 2,
+     "sb": 1
+    },
+    {
+     "stage": "group",
+     "a": "Romania",
+     "b": "Tunisia",
+     "sa": 1,
+     "sb": 1
+    },
+    {
+     "stage": "group",
+     "a": "England",
+     "b": "Colombia",
+     "sa": 2,
+     "sb": 0
+    },
+    {
+     "stage": "group",
+     "a": "Argentina",
+     "b": "Japan",
+     "sa": 1,
+     "sb": 0
+    },
+    {
+     "stage": "group",
+     "a": "Croatia",
+     "b": "Jamaica",
+     "sa": 3,
+     "sb": 1
+    },
+    {
+     "stage": "group",
+     "a": "Croatia",
+     "b": "Japan",
+     "sa": 1,
+     "sb": 0
+    },
+    {
+     "stage": "group",
+     "a": "Argentina",
+     "b": "Jamaica",
+     "sa": 5,
+     "sb": 0
+    },
+    {
+     "stage": "group",
+     "a": "Argentina",
+     "b": "Croatia",
+     "sa": 1,
+     "sb": 0
+    },
+    {
+     "stage": "group",
+     "a": "Jamaica",
+     "b": "Japan",
+     "sa": 2,
+     "sb": 1
+    },
+    {
+     "stage": "group",
+     "a": "Italy",
+     "b": "Norway",
+     "sa": 1,
+     "sb": 0
+    },
+    {
+     "stage": "group",
+     "a": "Brazil",
+     "b": "Chile",
+     "sa": 4,
+     "sb": 1
+    },
+    {
+     "stage": "group",
+     "a": "France",
+     "b": "Paraguay",
+     "sa": 1,
+     "sb": 0
+    },
+    {
+     "stage": "group",
+     "a": "Denmark",
+     "b": "Nigeria",
+     "sa": 4,
+     "sb": 1
+    },
+    {
+     "stage": "group",
+     "a": "Germany",
+     "b": "Mexico",
+     "sa": 2,
+     "sb": 1
+    },
+    {
+     "stage": "group",
+     "a": "Netherlands",
+     "b": "Yugoslavia",
+     "sa": 2,
+     "sb": 1
+    },
+    {
+     "stage": "group",
+     "a": "Croatia",
+     "b": "Romania",
+     "sa": 1,
+     "sb": 0
+    },
+    {
+     "stage": "group",
+     "a": "Argentina",
+     "b": "England",
+     "sa": 2,
+     "sb": 2
+    },
+    {
+     "stage": "QF",
+     "a": "France",
+     "b": "Italy",
+     "sa": 0,
+     "sb": 0
+    },
+    {
+     "stage": "QF",
+     "a": "Brazil",
+     "b": "Denmark",
+     "sa": 3,
+     "sb": 2
+    },
+    {
+     "stage": "QF",
+     "a": "Netherlands",
+     "b": "Argentina",
+     "sa": 2,
+     "sb": 1
+    },
+    {
+     "stage": "QF",
+     "a": "Croatia",
+     "b": "Germany",
+     "sa": 3,
+     "sb": 0
+    },
+    {
+     "stage": "SF",
+     "a": "Brazil",
+     "b": "Netherlands",
+     "sa": 1,
+     "sb": 1
+    },
+    {
+     "stage": "SF",
+     "a": "France",
+     "b": "Croatia",
+     "sa": 2,
+     "sb": 1
+    },
+    {
+     "stage": "third",
+     "a": "Croatia",
+     "b": "Netherlands",
+     "sa": 2,
+     "sb": 1
+    },
+    {
+     "stage": "final",
+     "a": "France",
+     "b": "Brazil",
+     "sa": 3,
+     "sb": 0
+    }
+   ]
+  },
+  {
+   "year": 2002,
+   "host": "South Korea/Japan",
+   "champion": "Brazil",
+   "runnerUp": "Germany",
+   "finalScore": "2-0",
+   "goldenBoot": {
+    "player": "Ronaldo",
+    "team": "Brazil",
+    "goals": 8,
+    "shared": false
+   },
+   "matches": [
+    {
+     "stage": "group",
+     "a": "France",
+     "b": "Senegal",
+     "sa": 0,
+     "sb": 1
+    },
+    {
+     "stage": "group",
+     "a": "Uruguay",
+     "b": "Denmark",
+     "sa": 1,
+     "sb": 2
+    },
+    {
+     "stage": "group",
+     "a": "France",
+     "b": "Uruguay",
+     "sa": 0,
+     "sb": 0
+    },
+    {
+     "stage": "group",
+     "a": "Denmark",
+     "b": "Senegal",
+     "sa": 1,
+     "sb": 1
+    },
+    {
+     "stage": "group",
+     "a": "Senegal",
+     "b": "Uruguay",
+     "sa": 3,
+     "sb": 3
+    },
+    {
+     "stage": "group",
+     "a": "Denmark",
+     "b": "France",
+     "sa": 2,
+     "sb": 0
+    },
+    {
+     "stage": "group",
+     "a": "Spain",
+     "b": "Slovenia",
+     "sa": 3,
+     "sb": 1
+    },
+    {
+     "stage": "group",
+     "a": "Paraguay",
+     "b": "South Africa",
+     "sa": 2,
+     "sb": 2
+    },
+    {
+     "stage": "group",
+     "a": "Spain",
+     "b": "Paraguay",
+     "sa": 3,
+     "sb": 1
+    },
+    {
+     "stage": "group",
+     "a": "South Africa",
+     "b": "Slovenia",
+     "sa": 1,
+     "sb": 0
+    },
+    {
+     "stage": "group",
+     "a": "South Africa",
+     "b": "Spain",
+     "sa": 2,
+     "sb": 3
+    },
+    {
+     "stage": "group",
+     "a": "Slovenia",
+     "b": "Paraguay",
+     "sa": 1,
+     "sb": 3
+    },
+    {
+     "stage": "group",
+     "a": "Brazil",
+     "b": "Turkey",
+     "sa": 2,
+     "sb": 1
+    },
+    {
+     "stage": "group",
+     "a": "China",
+     "b": "Costa Rica",
+     "sa": 0,
+     "sb": 2
+    },
+    {
+     "stage": "group",
+     "a": "Brazil",
+     "b": "China",
+     "sa": 4,
+     "sb": 0
+    },
+    {
+     "stage": "group",
+     "a": "Costa Rica",
+     "b": "Turkey",
+     "sa": 1,
+     "sb": 1
+    },
+    {
+     "stage": "group",
+     "a": "Costa Rica",
+     "b": "Brazil",
+     "sa": 2,
+     "sb": 5
+    },
+    {
+     "stage": "group",
+     "a": "Turkey",
+     "b": "China",
+     "sa": 3,
+     "sb": 0
+    },
+    {
+     "stage": "group",
+     "a": "South Korea",
+     "b": "Poland",
+     "sa": 2,
+     "sb": 0
+    },
+    {
+     "stage": "group",
+     "a": "Usa",
+     "b": "Portugal",
+     "sa": 3,
+     "sb": 2
+    },
+    {
+     "stage": "group",
+     "a": "South Korea",
+     "b": "Usa",
+     "sa": 1,
+     "sb": 1
+    },
+    {
+     "stage": "group",
+     "a": "Portugal",
+     "b": "Poland",
+     "sa": 4,
+     "sb": 0
+    },
+    {
+     "stage": "group",
+     "a": "South Korea",
+     "b": "Portugal",
+     "sa": 1,
+     "sb": 0
+    },
+    {
+     "stage": "group",
+     "a": "Poland",
+     "b": "Usa",
+     "sa": 3,
+     "sb": 1
+    },
+    {
+     "stage": "group",
+     "a": "Ireland",
+     "b": "Cameroon",
+     "sa": 1,
+     "sb": 1
+    },
+    {
+     "stage": "group",
+     "a": "Germany",
+     "b": "Saudi Arabia",
+     "sa": 8,
+     "sb": 0
+    },
+    {
+     "stage": "group",
+     "a": "Germany",
+     "b": "Ireland",
+     "sa": 1,
+     "sb": 1
+    },
+    {
+     "stage": "group",
+     "a": "Cameroon",
+     "b": "Saudi Arabia",
+     "sa": 1,
+     "sb": 0
+    },
+    {
+     "stage": "group",
+     "a": "Cameroon",
+     "b": "Germany",
+     "sa": 0,
+     "sb": 2
+    },
+    {
+     "stage": "group",
+     "a": "Saudi Arabia",
+     "b": "Ireland",
+     "sa": 0,
+     "sb": 3
+    },
+    {
+     "stage": "group",
+     "a": "England",
+     "b": "Sweden",
+     "sa": 1,
+     "sb": 1
+    },
+    {
+     "stage": "group",
+     "a": "Argentina",
+     "b": "Nigeria",
+     "sa": 1,
+     "sb": 0
+    },
+    {
+     "stage": "group",
+     "a": "Sweden",
+     "b": "Nigeria",
+     "sa": 2,
+     "sb": 1
+    },
+    {
+     "stage": "group",
+     "a": "Argentina",
+     "b": "England",
+     "sa": 0,
+     "sb": 1
+    },
+    {
+     "stage": "group",
+     "a": "Sweden",
+     "b": "Argentina",
+     "sa": 1,
+     "sb": 1
+    },
+    {
+     "stage": "group",
+     "a": "Nigeria",
+     "b": "England",
+     "sa": 0,
+     "sb": 0
+    },
+    {
+     "stage": "group",
+     "a": "Croatia",
+     "b": "Mexico",
+     "sa": 0,
+     "sb": 1
+    },
+    {
+     "stage": "group",
+     "a": "Italy",
+     "b": "Croatia",
+     "sa": 1,
+     "sb": 2
+    },
+    {
+     "stage": "group",
+     "a": "Mexico",
+     "b": "Ecuador",
+     "sa": 2,
+     "sb": 1
+    },
+    {
+     "stage": "group",
+     "a": "Mexico",
+     "b": "Italy",
+     "sa": 1,
+     "sb": 1
+    },
+    {
+     "stage": "group",
+     "a": "Ecuador",
+     "b": "Croatia",
+     "sa": 1,
+     "sb": 0
+    },
+    {
+     "stage": "group",
+     "a": "Japan",
+     "b": "Belgium",
+     "sa": 2,
+     "sb": 2
+    },
+    {
+     "stage": "group",
+     "a": "Russia",
+     "b": "Tunisia",
+     "sa": 2,
+     "sb": 0
+    },
+    {
+     "stage": "group",
+     "a": "Japan",
+     "b": "Russia",
+     "sa": 1,
+     "sb": 0
+    },
+    {
+     "stage": "group",
+     "a": "Tunisia",
+     "b": "Belgium",
+     "sa": 1,
+     "sb": 1
+    },
+    {
+     "stage": "group",
+     "a": "Belgium",
+     "b": "Russia",
+     "sa": 3,
+     "sb": 2
+    },
+    {
+     "stage": "group",
+     "a": "Japan",
+     "b": "Tunisia",
+     "sa": 2,
+     "sb": 0
+    },
+    {
+     "stage": "group",
+     "a": "Germany",
+     "b": "Paraguay",
+     "sa": 1,
+     "sb": 0
+    },
+    {
+     "stage": "R16",
+     "a": "Denmark",
+     "b": "England",
+     "sa": 0,
+     "sb": 3
+    },
+    {
+     "stage": "R16",
+     "a": "Sweden",
+     "b": "Senegal",
+     "sa": 1,
+     "sb": 2
+    },
+    {
+     "stage": "R16",
+     "a": "Spain",
+     "b": "Ireland",
+     "sa": 1,
+     "sb": 1
+    },
+    {
+     "stage": "R16",
+     "a": "Brazil",
+     "b": "Belgium",
+     "sa": 2,
+     "sb": 0
+    },
+    {
+     "stage": "R16",
+     "a": "Usa",
+     "b": "Mexico",
+     "sa": 2,
+     "sb": 0
+    },
+    {
+     "stage": "R16",
+     "a": "Japan",
+     "b": "Turkey",
+     "sa": 0,
+     "sb": 1
+    },
+    {
+     "stage": "R16",
+     "a": "South Korea",
+     "b": "Italy",
+     "sa": 2,
+     "sb": 1
+    },
+    {
+     "stage": "QF",
+     "a": "England",
+     "b": "Brazil",
+     "sa": 1,
+     "sb": 2
+    },
+    {
+     "stage": "QF",
+     "a": "Germany",
+     "b": "Usa",
+     "sa": 1,
+     "sb": 0
+    },
+    {
+     "stage": "QF",
+     "a": "South Korea",
+     "b": "Spain",
+     "sa": 0,
+     "sb": 0
+    },
+    {
+     "stage": "QF",
+     "a": "Senegal",
+     "b": "Turkey",
+     "sa": 0,
+     "sb": 1
+    },
+    {
+     "stage": "SF",
+     "a": "South Korea",
+     "b": "Germany",
+     "sa": 0,
+     "sb": 1
+    },
+    {
+     "stage": "SF",
+     "a": "Brazil",
+     "b": "Turkey",
+     "sa": 1,
+     "sb": 0
+    },
+    {
+     "stage": "third",
+     "a": "South Korea",
+     "b": "Turkey",
+     "sa": 2,
+     "sb": 3
+    },
+    {
+     "stage": "final",
+     "a": "Germany",
+     "b": "Brazil",
+     "sa": 0,
+     "sb": 2
+    }
+   ]
+  },
+  {
+   "year": 2006,
+   "host": "Germany",
+   "champion": "Italy",
+   "runnerUp": "France",
+   "finalScore": "1-1 (5-3 pens)",
+   "goldenBoot": {
+    "player": "Miroslav Klose",
+    "team": "Germany",
+    "goals": 5,
+    "shared": false
+   },
+   "matches": [
+    {
+     "stage": "group",
+     "a": "Germany",
+     "b": "Costa Rica",
+     "sa": 4,
+     "sb": 2
+    },
+    {
+     "stage": "group",
+     "a": "Poland",
+     "b": "Ecuador",
+     "sa": 0,
+     "sb": 2
+    },
+    {
+     "stage": "group",
+     "a": "Germany",
+     "b": "Poland",
+     "sa": 1,
+     "sb": 0
+    },
+    {
+     "stage": "group",
+     "a": "Ecuador",
+     "b": "Costa Rica",
+     "sa": 3,
+     "sb": 0
+    },
+    {
+     "stage": "group",
+     "a": "Ecuador",
+     "b": "Germany",
+     "sa": 0,
+     "sb": 3
+    },
+    {
+     "stage": "group",
+     "a": "Costa Rica",
+     "b": "Poland",
+     "sa": 1,
+     "sb": 2
+    },
+    {
+     "stage": "group",
+     "a": "Trinidad & Tobago",
+     "b": "Sweden",
+     "sa": 0,
+     "sb": 0
+    },
+    {
+     "stage": "group",
+     "a": "England",
+     "b": "Paraguay",
+     "sa": 1,
+     "sb": 0
+    },
+    {
+     "stage": "group",
+     "a": "England",
+     "b": "Trinidad & Tobago",
+     "sa": 2,
+     "sb": 0
+    },
+    {
+     "stage": "group",
+     "a": "Sweden",
+     "b": "Paraguay",
+     "sa": 1,
+     "sb": 0
+    },
+    {
+     "stage": "group",
+     "a": "Sweden",
+     "b": "England",
+     "sa": 2,
+     "sb": 2
+    },
+    {
+     "stage": "group",
+     "a": "Paraguay",
+     "b": "Trinidad & Tobago",
+     "sa": 2,
+     "sb": 0
+    },
+    {
+     "stage": "group",
+     "a": "Argentina",
+     "b": "Ivory Coast",
+     "sa": 2,
+     "sb": 1
+    },
+    {
+     "stage": "group",
+     "a": "Serbia & Montenegro",
+     "b": "Netherlands",
+     "sa": 0,
+     "sb": 1
+    },
+    {
+     "stage": "group",
+     "a": "Netherlands",
+     "b": "Ivory Coast",
+     "sa": 2,
+     "sb": 1
+    },
+    {
+     "stage": "group",
+     "a": "Netherlands",
+     "b": "Argentina",
+     "sa": 0,
+     "sb": 0
+    },
+    {
+     "stage": "group",
+     "a": "Ivory Coast",
+     "b": "Serbia & Montenegro",
+     "sa": 3,
+     "sb": 2
+    },
+    {
+     "stage": "group",
+     "a": "Mexico",
+     "b": "Iran",
+     "sa": 3,
+     "sb": 1
+    },
+    {
+     "stage": "group",
+     "a": "Angola",
+     "b": "Portugal",
+     "sa": 0,
+     "sb": 1
+    },
+    {
+     "stage": "group",
+     "a": "Mexico",
+     "b": "Angola",
+     "sa": 0,
+     "sb": 0
+    },
+    {
+     "stage": "group",
+     "a": "Portugal",
+     "b": "Iran",
+     "sa": 2,
+     "sb": 0
+    },
+    {
+     "stage": "group",
+     "a": "Portugal",
+     "b": "Mexico",
+     "sa": 2,
+     "sb": 1
+    },
+    {
+     "stage": "group",
+     "a": "Iran",
+     "b": "Angola",
+     "sa": 1,
+     "sb": 1
+    },
+    {
+     "stage": "group",
+     "a": "United States",
+     "b": "Czech Republic",
+     "sa": 0,
+     "sb": 3
+    },
+    {
+     "stage": "group",
+     "a": "Italy",
+     "b": "Ghana",
+     "sa": 2,
+     "sb": 0
+    },
+    {
+     "stage": "group",
+     "a": "Czech Republic",
+     "b": "Ghana",
+     "sa": 0,
+     "sb": 2
+    },
+    {
+     "stage": "group",
+     "a": "Italy",
+     "b": "United States",
+     "sa": 1,
+     "sb": 1
+    },
+    {
+     "stage": "group",
+     "a": "Czech Republic",
+     "b": "Italy",
+     "sa": 0,
+     "sb": 2
+    },
+    {
+     "stage": "group",
+     "a": "Ghana",
+     "b": "United States",
+     "sa": 2,
+     "sb": 1
+    },
+    {
+     "stage": "group",
+     "a": "Australia",
+     "b": "Japan",
+     "sa": 3,
+     "sb": 1
+    },
+    {
+     "stage": "group",
+     "a": "Brazil",
+     "b": "Croatia",
+     "sa": 1,
+     "sb": 0
+    },
+    {
+     "stage": "group",
+     "a": "Japan",
+     "b": "Croatia",
+     "sa": 0,
+     "sb": 0
+    },
+    {
+     "stage": "group",
+     "a": "Brazil",
+     "b": "Australia",
+     "sa": 2,
+     "sb": 0
+    },
+    {
+     "stage": "group",
+     "a": "Japan",
+     "b": "Brazil",
+     "sa": 1,
+     "sb": 4
+    },
+    {
+     "stage": "group",
+     "a": "Croatia",
+     "b": "Australia",
+     "sa": 2,
+     "sb": 2
+    },
+    {
+     "stage": "group",
+     "a": "South Korea",
+     "b": "Togo",
+     "sa": 2,
+     "sb": 1
+    },
+    {
+     "stage": "group",
+     "a": "France",
+     "b": "Switzerland",
+     "sa": 0,
+     "sb": 0
+    },
+    {
+     "stage": "group",
+     "a": "France",
+     "b": "South Korea",
+     "sa": 1,
+     "sb": 1
+    },
+    {
+     "stage": "group",
+     "a": "Togo",
+     "b": "Switzerland",
+     "sa": 0,
+     "sb": 2
+    },
+    {
+     "stage": "group",
+     "a": "Togo",
+     "b": "France",
+     "sa": 0,
+     "sb": 2
+    },
+    {
+     "stage": "group",
+     "a": "Switzerland",
+     "b": "South Korea",
+     "sa": 2,
+     "sb": 0
+    },
+    {
+     "stage": "group",
+     "a": "Spain",
+     "b": "Ukraine",
+     "sa": 4,
+     "sb": 0
+    },
+    {
+     "stage": "group",
+     "a": "Tunisia",
+     "b": "Saudi Arabia",
+     "sa": 2,
+     "sb": 2
+    },
+    {
+     "stage": "group",
+     "a": "Saudi Arabia",
+     "b": "Ukraine",
+     "sa": 0,
+     "sb": 4
+    },
+    {
+     "stage": "group",
+     "a": "Spain",
+     "b": "Tunisia",
+     "sa": 3,
+     "sb": 1
+    },
+    {
+     "stage": "group",
+     "a": "Saudi Arabia",
+     "b": "Spain",
+     "sa": 0,
+     "sb": 1
+    },
+    {
+     "stage": "group",
+     "a": "Ukraine",
+     "b": "Tunisia",
+     "sa": 1,
+     "sb": 0
+    },
+    {
+     "stage": "group",
+     "a": "Germany",
+     "b": "Sweden",
+     "sa": 2,
+     "sb": 0
+    },
+    {
+     "stage": "R16",
+     "a": "Argentina",
+     "b": "Mexico",
+     "sa": 2,
+     "sb": 1
+    },
+    {
+     "stage": "R16",
+     "a": "England",
+     "b": "Ecuador",
+     "sa": 1,
+     "sb": 0
+    },
+    {
+     "stage": "R16",
+     "a": "Portugal",
+     "b": "Netherlands",
+     "sa": 1,
+     "sb": 0
+    },
+    {
+     "stage": "R16",
+     "a": "Italy",
+     "b": "Australia",
+     "sa": 1,
+     "sb": 0
+    },
+    {
+     "stage": "R16",
+     "a": "Switzerland",
+     "b": "Ukraine",
+     "sa": 0,
+     "sb": 0
+    },
+    {
+     "stage": "R16",
+     "a": "Brazil",
+     "b": "Ghana",
+     "sa": 3,
+     "sb": 0
+    },
+    {
+     "stage": "R16",
+     "a": "Spain",
+     "b": "France",
+     "sa": 1,
+     "sb": 3
+    },
+    {
+     "stage": "QF",
+     "a": "Germany",
+     "b": "Argentina",
+     "sa": 1,
+     "sb": 1
+    },
+    {
+     "stage": "QF",
+     "a": "Italy",
+     "b": "Ukraine",
+     "sa": 3,
+     "sb": 0
+    },
+    {
+     "stage": "QF",
+     "a": "England",
+     "b": "Portugal",
+     "sa": 0,
+     "sb": 0
+    },
+    {
+     "stage": "QF",
+     "a": "Brazil",
+     "b": "France",
+     "sa": 0,
+     "sb": 1
+    },
+    {
+     "stage": "SF",
+     "a": "Germany",
+     "b": "Italy",
+     "sa": 0,
+     "sb": 2
+    },
+    {
+     "stage": "SF",
+     "a": "Portugal",
+     "b": "France",
+     "sa": 0,
+     "sb": 1
+    },
+    {
+     "stage": "third",
+     "a": "Germany",
+     "b": "Portugal",
+     "sa": 3,
+     "sb": 1
+    },
+    {
+     "stage": "final",
+     "a": "Italy",
+     "b": "France",
+     "sa": 1,
+     "sb": 1
+    }
+   ]
+  },
+  {
+   "year": 2010,
+   "host": "South Africa",
+   "champion": "Spain",
+   "runnerUp": "Netherlands",
+   "finalScore": "1-0 (aet)",
+   "goldenBoot": {
+    "player": "Thomas Müller",
+    "team": "Germany",
+    "goals": 5,
+    "shared": true
+   },
+   "matches": [
+    {
+     "stage": "group",
+     "a": "South Africa",
+     "b": "Mexico",
+     "sa": 1,
+     "sb": 1
+    },
+    {
+     "stage": "group",
+     "a": "France",
+     "b": "Uruguay",
+     "sa": 0,
+     "sb": 0
+    },
+    {
+     "stage": "group",
+     "a": "South Africa",
+     "b": "Uruguay",
+     "sa": 0,
+     "sb": 3
+    },
+    {
+     "stage": "group",
+     "a": "Mexico",
+     "b": "France",
+     "sa": 2,
+     "sb": 0
+    },
+    {
+     "stage": "group",
+     "a": "South Africa",
+     "b": "France",
+     "sa": 2,
+     "sb": 1
+    },
+    {
+     "stage": "group",
+     "a": "Uruguay",
+     "b": "Mexico",
+     "sa": 1,
+     "sb": 0
+    },
+    {
+     "stage": "group",
+     "a": "South Korea",
+     "b": "Greece",
+     "sa": 2,
+     "sb": 0
+    },
+    {
+     "stage": "group",
+     "a": "Argentina",
+     "b": "Nigeria",
+     "sa": 1,
+     "sb": 0
+    },
+    {
+     "stage": "group",
+     "a": "Argentina",
+     "b": "South Korea",
+     "sa": 4,
+     "sb": 1
+    },
+    {
+     "stage": "group",
+     "a": "Greece",
+     "b": "Nigeria",
+     "sa": 2,
+     "sb": 1
+    },
+    {
+     "stage": "group",
+     "a": "Argentina",
+     "b": "Greece",
+     "sa": 2,
+     "sb": 0
+    },
+    {
+     "stage": "group",
+     "a": "Nigeria",
+     "b": "South Korea",
+     "sa": 2,
+     "sb": 2
+    },
+    {
+     "stage": "group",
+     "a": "England",
+     "b": "Usa",
+     "sa": 1,
+     "sb": 1
+    },
+    {
+     "stage": "group",
+     "a": "Slovenia",
+     "b": "Algeria",
+     "sa": 1,
+     "sb": 0
+    },
+    {
+     "stage": "group",
+     "a": "Slovenia",
+     "b": "Usa",
+     "sa": 2,
+     "sb": 2
+    },
+    {
+     "stage": "group",
+     "a": "Algeria",
+     "b": "England",
+     "sa": 0,
+     "sb": 0
+    },
+    {
+     "stage": "group",
+     "a": "England",
+     "b": "Slovenia",
+     "sa": 1,
+     "sb": 0
+    },
+    {
+     "stage": "group",
+     "a": "Usa",
+     "b": "Algeria",
+     "sa": 1,
+     "sb": 0
+    },
+    {
+     "stage": "group",
+     "a": "Ghana",
+     "b": "Serbia",
+     "sa": 1,
+     "sb": 0
+    },
+    {
+     "stage": "group",
+     "a": "Germany",
+     "b": "Australia",
+     "sa": 4,
+     "sb": 0
+    },
+    {
+     "stage": "group",
+     "a": "Serbia",
+     "b": "Germany",
+     "sa": 1,
+     "sb": 0
+    },
+    {
+     "stage": "group",
+     "a": "Australia",
+     "b": "Ghana",
+     "sa": 1,
+     "sb": 1
+    },
+    {
+     "stage": "group",
+     "a": "Germany",
+     "b": "Ghana",
+     "sa": 1,
+     "sb": 0
+    },
+    {
+     "stage": "group",
+     "a": "Australia",
+     "b": "Serbia",
+     "sa": 2,
+     "sb": 1
+    },
+    {
+     "stage": "group",
+     "a": "Netherlands",
+     "b": "Denmark",
+     "sa": 2,
+     "sb": 0
+    },
+    {
+     "stage": "group",
+     "a": "Japan",
+     "b": "Cameroon",
+     "sa": 1,
+     "sb": 0
+    },
+    {
+     "stage": "group",
+     "a": "Netherlands",
+     "b": "Japan",
+     "sa": 1,
+     "sb": 0
+    },
+    {
+     "stage": "group",
+     "a": "Denmark",
+     "b": "Cameroon",
+     "sa": 2,
+     "sb": 1
+    },
+    {
+     "stage": "group",
+     "a": "Japan",
+     "b": "Denmark",
+     "sa": 3,
+     "sb": 1
+    },
+    {
+     "stage": "group",
+     "a": "Netherlands",
+     "b": "Cameroon",
+     "sa": 2,
+     "sb": 1
+    },
+    {
+     "stage": "group",
+     "a": "Italy",
+     "b": "Paraguay",
+     "sa": 1,
+     "sb": 1
+    },
+    {
+     "stage": "group",
+     "a": "New Zealand",
+     "b": "Slovakia",
+     "sa": 1,
+     "sb": 1
+    },
+    {
+     "stage": "group",
+     "a": "Paraguay",
+     "b": "Slovakia",
+     "sa": 2,
+     "sb": 0
+    },
+    {
+     "stage": "group",
+     "a": "Italy",
+     "b": "New Zealand",
+     "sa": 1,
+     "sb": 1
+    },
+    {
+     "stage": "group",
+     "a": "Slovakia",
+     "b": "Italy",
+     "sa": 3,
+     "sb": 2
+    },
+    {
+     "stage": "group",
+     "a": "New Zealand",
+     "b": "Paraguay",
+     "sa": 0,
+     "sb": 0
+    },
+    {
+     "stage": "group",
+     "a": "Ivory Coast",
+     "b": "Portugal",
+     "sa": 0,
+     "sb": 0
+    },
+    {
+     "stage": "group",
+     "a": "Brazil",
+     "b": "North Korea",
+     "sa": 2,
+     "sb": 1
+    },
+    {
+     "stage": "group",
+     "a": "Brazil",
+     "b": "Ivory Coast",
+     "sa": 3,
+     "sb": 1
+    },
+    {
+     "stage": "group",
+     "a": "Portugal",
+     "b": "North Korea",
+     "sa": 7,
+     "sb": 0
+    },
+    {
+     "stage": "group",
+     "a": "Brazil",
+     "b": "Portugal",
+     "sa": 0,
+     "sb": 0
+    },
+    {
+     "stage": "group",
+     "a": "Ivory Coast",
+     "b": "North Korea",
+     "sa": 3,
+     "sb": 0
+    },
+    {
+     "stage": "group",
+     "a": "Chile",
+     "b": "Honduras",
+     "sa": 1,
+     "sb": 0
+    },
+    {
+     "stage": "group",
+     "a": "Switzerland",
+     "b": "Spain",
+     "sa": 1,
+     "sb": 0
+    },
+    {
+     "stage": "group",
+     "a": "Chile",
+     "b": "Switzerland",
+     "sa": 1,
+     "sb": 0
+    },
+    {
+     "stage": "group",
+     "a": "Spain",
+     "b": "Honduras",
+     "sa": 2,
+     "sb": 0
+    },
+    {
+     "stage": "group",
+     "a": "Spain",
+     "b": "Chile",
+     "sa": 2,
+     "sb": 1
+    },
+    {
+     "stage": "group",
+     "a": "Honduras",
+     "b": "Switzerland",
+     "sa": 0,
+     "sb": 0
+    },
+    {
+     "stage": "R16",
+     "a": "Uruguay",
+     "b": "South Korea",
+     "sa": 2,
+     "sb": 1
+    },
+    {
+     "stage": "R16",
+     "a": "Ghana",
+     "b": "Usa",
+     "sa": 2,
+     "sb": 1
+    },
+    {
+     "stage": "R16",
+     "a": "Germany",
+     "b": "England",
+     "sa": 4,
+     "sb": 1
+    },
+    {
+     "stage": "R16",
+     "a": "Argentina",
+     "b": "Mexico",
+     "sa": 3,
+     "sb": 1
+    },
+    {
+     "stage": "R16",
+     "a": "Netherlands",
+     "b": "Slovakia",
+     "sa": 2,
+     "sb": 1
+    },
+    {
+     "stage": "R16",
+     "a": "Brazil",
+     "b": "Chile",
+     "sa": 3,
+     "sb": 0
+    },
+    {
+     "stage": "R16",
+     "a": "Paraguay",
+     "b": "Japan",
+     "sa": 0,
+     "sb": 0
+    },
+    {
+     "stage": "R16",
+     "a": "Spain",
+     "b": "Portugal",
+     "sa": 1,
+     "sb": 0
+    },
+    {
+     "stage": "QF",
+     "a": "Netherlands",
+     "b": "Brazil",
+     "sa": 2,
+     "sb": 1
+    },
+    {
+     "stage": "QF",
+     "a": "Uruguay",
+     "b": "Ghana",
+     "sa": 1,
+     "sb": 1
+    },
+    {
+     "stage": "QF",
+     "a": "Germany",
+     "b": "Argentina",
+     "sa": 4,
+     "sb": 0
+    },
+    {
+     "stage": "QF",
+     "a": "Spain",
+     "b": "Paraguay",
+     "sa": 1,
+     "sb": 0
+    },
+    {
+     "stage": "SF",
+     "a": "Netherlands",
+     "b": "Uruguay",
+     "sa": 3,
+     "sb": 2
+    },
+    {
+     "stage": "SF",
+     "a": "Spain",
+     "b": "Germany",
+     "sa": 1,
+     "sb": 0
+    },
+    {
+     "stage": "third",
+     "a": "Germany",
+     "b": "Uruguay",
+     "sa": 3,
+     "sb": 2
+    },
+    {
+     "stage": "final",
+     "a": "Spain",
+     "b": "Netherlands",
+     "sa": 1,
+     "sb": 0
+    }
+   ]
+  },
+  {
+   "year": 2014,
+   "host": "Brazil",
+   "champion": "Germany",
+   "runnerUp": "Argentina",
+   "finalScore": "1-0 (aet)",
+   "goldenBoot": {
+    "player": "James Rodríguez",
+    "team": "Colombia",
+    "goals": 6,
+    "shared": false
+   },
+   "matches": [
+    {
+     "stage": "group",
+     "a": "Brazil",
+     "b": "Croatia",
+     "sa": 3,
+     "sb": 1
+    },
+    {
+     "stage": "group",
+     "a": "Mexico",
+     "b": "Cameroon",
+     "sa": 1,
+     "sb": 0
+    },
+    {
+     "stage": "group",
+     "a": "Brazil",
+     "b": "Mexico",
+     "sa": 0,
+     "sb": 0
+    },
+    {
+     "stage": "group",
+     "a": "Croatia",
+     "b": "Cameroon",
+     "sa": 4,
+     "sb": 0
+    },
+    {
+     "stage": "group",
+     "a": "Brazil",
+     "b": "Cameroon",
+     "sa": 4,
+     "sb": 1
+    },
+    {
+     "stage": "group",
+     "a": "Mexico",
+     "b": "Croatia",
+     "sa": 3,
+     "sb": 1
+    },
+    {
+     "stage": "group",
+     "a": "Netherlands",
+     "b": "Spain",
+     "sa": 5,
+     "sb": 1
+    },
+    {
+     "stage": "group",
+     "a": "Chile",
+     "b": "Australia",
+     "sa": 3,
+     "sb": 1
+    },
+    {
+     "stage": "group",
+     "a": "Netherlands",
+     "b": "Australia",
+     "sa": 3,
+     "sb": 2
+    },
+    {
+     "stage": "group",
+     "a": "Chile",
+     "b": "Spain",
+     "sa": 2,
+     "sb": 0
+    },
+    {
+     "stage": "group",
+     "a": "Spain",
+     "b": "Australia",
+     "sa": 3,
+     "sb": 0
+    },
+    {
+     "stage": "group",
+     "a": "Netherlands",
+     "b": "Chile",
+     "sa": 2,
+     "sb": 0
+    },
+    {
+     "stage": "group",
+     "a": "Colombia",
+     "b": "Greece",
+     "sa": 3,
+     "sb": 0
+    },
+    {
+     "stage": "group",
+     "a": "Ivory Coast",
+     "b": "Japan",
+     "sa": 2,
+     "sb": 1
+    },
+    {
+     "stage": "group",
+     "a": "Colombia",
+     "b": "Ivory Coast",
+     "sa": 2,
+     "sb": 1
+    },
+    {
+     "stage": "group",
+     "a": "Greece",
+     "b": "Japan",
+     "sa": 0,
+     "sb": 0
+    },
+    {
+     "stage": "group",
+     "a": "Colombia",
+     "b": "Japan",
+     "sa": 4,
+     "sb": 1
+    },
+    {
+     "stage": "group",
+     "a": "Greece",
+     "b": "Ivory Coast",
+     "sa": 2,
+     "sb": 1
+    },
+    {
+     "stage": "group",
+     "a": "Costa Rica",
+     "b": "Uruguay",
+     "sa": 3,
+     "sb": 1
+    },
+    {
+     "stage": "group",
+     "a": "Italy",
+     "b": "England",
+     "sa": 2,
+     "sb": 1
+    },
+    {
+     "stage": "group",
+     "a": "Uruguay",
+     "b": "England",
+     "sa": 2,
+     "sb": 1
+    },
+    {
+     "stage": "group",
+     "a": "Costa Rica",
+     "b": "Italy",
+     "sa": 1,
+     "sb": 0
+    },
+    {
+     "stage": "group",
+     "a": "Uruguay",
+     "b": "Italy",
+     "sa": 1,
+     "sb": 0
+    },
+    {
+     "stage": "group",
+     "a": "Costa Rica",
+     "b": "England",
+     "sa": 0,
+     "sb": 0
+    },
+    {
+     "stage": "group",
+     "a": "Switzerland",
+     "b": "Ecuador",
+     "sa": 2,
+     "sb": 1
+    },
+    {
+     "stage": "group",
+     "a": "France",
+     "b": "Honduras",
+     "sa": 3,
+     "sb": 0
+    },
+    {
+     "stage": "group",
+     "a": "France",
+     "b": "Switzerland",
+     "sa": 5,
+     "sb": 2
+    },
+    {
+     "stage": "group",
+     "a": "Ecuador",
+     "b": "Honduras",
+     "sa": 2,
+     "sb": 1
+    },
+    {
+     "stage": "group",
+     "a": "Switzerland",
+     "b": "Honduras",
+     "sa": 3,
+     "sb": 0
+    },
+    {
+     "stage": "group",
+     "a": "Ecuador",
+     "b": "France",
+     "sa": 0,
+     "sb": 0
+    },
+    {
+     "stage": "group",
+     "a": "Argentina",
+     "b": "Bosnia/Herzegovina",
+     "sa": 2,
+     "sb": 1
+    },
+    {
+     "stage": "group",
+     "a": "Iran",
+     "b": "Nigeria",
+     "sa": 0,
+     "sb": 0
+    },
+    {
+     "stage": "group",
+     "a": "Argentina",
+     "b": "Iran",
+     "sa": 1,
+     "sb": 0
+    },
+    {
+     "stage": "group",
+     "a": "Nigeria",
+     "b": "Bosnia/Herzegovina",
+     "sa": 1,
+     "sb": 0
+    },
+    {
+     "stage": "group",
+     "a": "Argentina",
+     "b": "Nigeria",
+     "sa": 3,
+     "sb": 2
+    },
+    {
+     "stage": "group",
+     "a": "Bosnia/Herzegovina",
+     "b": "Iran",
+     "sa": 3,
+     "sb": 1
+    },
+    {
+     "stage": "group",
+     "a": "Germany",
+     "b": "Portugal",
+     "sa": 4,
+     "sb": 0
+    },
+    {
+     "stage": "group",
+     "a": "Usa",
+     "b": "Ghana",
+     "sa": 2,
+     "sb": 1
+    },
+    {
+     "stage": "group",
+     "a": "Germany",
+     "b": "Ghana",
+     "sa": 2,
+     "sb": 2
+    },
+    {
+     "stage": "group",
+     "a": "Portugal",
+     "b": "Usa",
+     "sa": 2,
+     "sb": 2
+    },
+    {
+     "stage": "group",
+     "a": "Germany",
+     "b": "Usa",
+     "sa": 1,
+     "sb": 0
+    },
+    {
+     "stage": "group",
+     "a": "Portugal",
+     "b": "Ghana",
+     "sa": 2,
+     "sb": 1
+    },
+    {
+     "stage": "group",
+     "a": "Belgium",
+     "b": "Algeria",
+     "sa": 2,
+     "sb": 1
+    },
+    {
+     "stage": "group",
+     "a": "Russia",
+     "b": "South Korea",
+     "sa": 1,
+     "sb": 1
+    },
+    {
+     "stage": "group",
+     "a": "Belgium",
+     "b": "Russia",
+     "sa": 1,
+     "sb": 0
+    },
+    {
+     "stage": "group",
+     "a": "Algeria",
+     "b": "South Korea",
+     "sa": 4,
+     "sb": 2
+    },
+    {
+     "stage": "group",
+     "a": "Belgium",
+     "b": "South Korea",
+     "sa": 1,
+     "sb": 0
+    },
+    {
+     "stage": "group",
+     "a": "Algeria",
+     "b": "Russia",
+     "sa": 1,
+     "sb": 1
+    },
+    {
+     "stage": "R16",
+     "a": "Brazil",
+     "b": "Chile",
+     "sa": 1,
+     "sb": 1
+    },
+    {
+     "stage": "R16",
+     "a": "Colombia",
+     "b": "Uruguay",
+     "sa": 2,
+     "sb": 0
+    },
+    {
+     "stage": "R16",
+     "a": "Netherlands",
+     "b": "Mexico",
+     "sa": 2,
+     "sb": 1
+    },
+    {
+     "stage": "R16",
+     "a": "Costa Rica",
+     "b": "Greece",
+     "sa": 1,
+     "sb": 1
+    },
+    {
+     "stage": "R16",
+     "a": "France",
+     "b": "Nigeria",
+     "sa": 2,
+     "sb": 0
+    },
+    {
+     "stage": "R16",
+     "a": "Germany",
+     "b": "Algeria",
+     "sa": 2,
+     "sb": 1
+    },
+    {
+     "stage": "R16",
+     "a": "Argentina",
+     "b": "Switzerland",
+     "sa": 1,
+     "sb": 0
+    },
+    {
+     "stage": "R16",
+     "a": "Belgium",
+     "b": "Usa",
+     "sa": 2,
+     "sb": 1
+    },
+    {
+     "stage": "QF",
+     "a": "Germany",
+     "b": "France",
+     "sa": 1,
+     "sb": 0
+    },
+    {
+     "stage": "QF",
+     "a": "Brazil",
+     "b": "Colombia",
+     "sa": 2,
+     "sb": 1
+    },
+    {
+     "stage": "QF",
+     "a": "Argentina",
+     "b": "Belgium",
+     "sa": 1,
+     "sb": 0
+    },
+    {
+     "stage": "QF",
+     "a": "Netherlands",
+     "b": "Costa Rica",
+     "sa": 0,
+     "sb": 0
+    },
+    {
+     "stage": "SF",
+     "a": "Brazil",
+     "b": "Germany",
+     "sa": 1,
+     "sb": 7
+    },
+    {
+     "stage": "SF",
+     "a": "Argentina",
+     "b": "Netherlands",
+     "sa": 0,
+     "sb": 0
+    },
+    {
+     "stage": "third",
+     "a": "Brazil",
+     "b": "Netherlands",
+     "sa": 0,
+     "sb": 3
+    },
+    {
+     "stage": "final",
+     "a": "Germany",
+     "b": "Argentina",
+     "sa": 1,
+     "sb": 0
+    }
+   ]
+  },
+  {
+   "year": 2018,
+   "host": "Russia",
+   "champion": "France",
+   "runnerUp": "Croatia",
+   "finalScore": "4-2",
+   "goldenBoot": {
+    "player": "Harry Kane",
+    "team": "England",
+    "goals": 6,
+    "shared": false
+   },
+   "matches": [
+    {
+     "stage": "group",
+     "a": "Russia",
+     "b": "Saudi Arabia",
+     "sa": 5,
+     "sb": 0
+    },
+    {
+     "stage": "group",
+     "a": "Uruguay",
+     "b": "Egypt",
+     "sa": 1,
+     "sb": 0
+    },
+    {
+     "stage": "group",
+     "a": "Russia",
+     "b": "Egypt",
+     "sa": 3,
+     "sb": 1
+    },
+    {
+     "stage": "group",
+     "a": "Uruguay",
+     "b": "Saudi Arabia",
+     "sa": 1,
+     "sb": 0
+    },
+    {
+     "stage": "group",
+     "a": "Russia",
+     "b": "Uruguay",
+     "sa": 0,
+     "sb": 3
+    },
+    {
+     "stage": "group",
+     "a": "Saudi Arabia",
+     "b": "Egypt",
+     "sa": 2,
+     "sb": 1
+    },
+    {
+     "stage": "group",
+     "a": "Iran",
+     "b": "Morocco",
+     "sa": 1,
+     "sb": 0
+    },
+    {
+     "stage": "group",
+     "a": "Portugal",
+     "b": "Spain",
+     "sa": 3,
+     "sb": 3
+    },
+    {
+     "stage": "group",
+     "a": "Portugal",
+     "b": "Morocco",
+     "sa": 1,
+     "sb": 0
+    },
+    {
+     "stage": "group",
+     "a": "Spain",
+     "b": "Iran",
+     "sa": 1,
+     "sb": 0
+    },
+    {
+     "stage": "group",
+     "a": "Iran",
+     "b": "Portugal",
+     "sa": 1,
+     "sb": 1
+    },
+    {
+     "stage": "group",
+     "a": "Morocco",
+     "b": "Spain",
+     "sa": 2,
+     "sb": 2
+    },
+    {
+     "stage": "group",
+     "a": "France",
+     "b": "Australia",
+     "sa": 2,
+     "sb": 1
+    },
+    {
+     "stage": "group",
+     "a": "Denmark",
+     "b": "Peru",
+     "sa": 1,
+     "sb": 0
+    },
+    {
+     "stage": "group",
+     "a": "Australia",
+     "b": "Denmark",
+     "sa": 1,
+     "sb": 1
+    },
+    {
+     "stage": "group",
+     "a": "France",
+     "b": "Peru",
+     "sa": 1,
+     "sb": 0
+    },
+    {
+     "stage": "group",
+     "a": "Denmark",
+     "b": "France",
+     "sa": 0,
+     "sb": 0
+    },
+    {
+     "stage": "group",
+     "a": "Peru",
+     "b": "Australia",
+     "sa": 2,
+     "sb": 0
+    },
+    {
+     "stage": "group",
+     "a": "Argentina",
+     "b": "Iceland",
+     "sa": 1,
+     "sb": 1
+    },
+    {
+     "stage": "group",
+     "a": "Croatia",
+     "b": "Nigeria",
+     "sa": 2,
+     "sb": 0
+    },
+    {
+     "stage": "group",
+     "a": "Croatia",
+     "b": "Argentina",
+     "sa": 3,
+     "sb": 0
+    },
+    {
+     "stage": "group",
+     "a": "Nigeria",
+     "b": "Iceland",
+     "sa": 2,
+     "sb": 0
+    },
+    {
+     "stage": "group",
+     "a": "Argentina",
+     "b": "Nigeria",
+     "sa": 2,
+     "sb": 1
+    },
+    {
+     "stage": "group",
+     "a": "Croatia",
+     "b": "Iceland",
+     "sa": 2,
+     "sb": 1
+    },
+    {
+     "stage": "group",
+     "a": "Serbia",
+     "b": "Costa Rica",
+     "sa": 1,
+     "sb": 0
+    },
+    {
+     "stage": "group",
+     "a": "Brazil",
+     "b": "Switzerland",
+     "sa": 1,
+     "sb": 1
+    },
+    {
+     "stage": "group",
+     "a": "Brazil",
+     "b": "Costa Rica",
+     "sa": 2,
+     "sb": 0
+    },
+    {
+     "stage": "group",
+     "a": "Switzerland",
+     "b": "Serbia",
+     "sa": 2,
+     "sb": 1
+    },
+    {
+     "stage": "group",
+     "a": "Brazil",
+     "b": "Serbia",
+     "sa": 2,
+     "sb": 0
+    },
+    {
+     "stage": "group",
+     "a": "Costa Rica",
+     "b": "Switzerland",
+     "sa": 2,
+     "sb": 2
+    },
+    {
+     "stage": "group",
+     "a": "Mexico",
+     "b": "Germany",
+     "sa": 1,
+     "sb": 0
+    },
+    {
+     "stage": "group",
+     "a": "Sweden",
+     "b": "South Korea",
+     "sa": 1,
+     "sb": 0
+    },
+    {
+     "stage": "group",
+     "a": "Mexico",
+     "b": "South Korea",
+     "sa": 2,
+     "sb": 1
+    },
+    {
+     "stage": "group",
+     "a": "Germany",
+     "b": "Sweden",
+     "sa": 2,
+     "sb": 1
+    },
+    {
+     "stage": "group",
+     "a": "South Korea",
+     "b": "Germany",
+     "sa": 2,
+     "sb": 0
+    },
+    {
+     "stage": "group",
+     "a": "Sweden",
+     "b": "Mexico",
+     "sa": 3,
+     "sb": 0
+    },
+    {
+     "stage": "group",
+     "a": "Belgium",
+     "b": "Panama",
+     "sa": 3,
+     "sb": 0
+    },
+    {
+     "stage": "group",
+     "a": "England",
+     "b": "Tunisia",
+     "sa": 2,
+     "sb": 1
+    },
+    {
+     "stage": "group",
+     "a": "Belgium",
+     "b": "Tunisia",
+     "sa": 5,
+     "sb": 2
+    },
+    {
+     "stage": "group",
+     "a": "England",
+     "b": "Panama",
+     "sa": 6,
+     "sb": 1
+    },
+    {
+     "stage": "group",
+     "a": "Belgium",
+     "b": "England",
+     "sa": 1,
+     "sb": 0
+    },
+    {
+     "stage": "group",
+     "a": "Tunisia",
+     "b": "Panama",
+     "sa": 2,
+     "sb": 1
+    },
+    {
+     "stage": "group",
+     "a": "Japan",
+     "b": "Colombia",
+     "sa": 2,
+     "sb": 1
+    },
+    {
+     "stage": "group",
+     "a": "Senegal",
+     "b": "Poland",
+     "sa": 2,
+     "sb": 1
+    },
+    {
+     "stage": "group",
+     "a": "Japan",
+     "b": "Senegal",
+     "sa": 2,
+     "sb": 2
+    },
+    {
+     "stage": "group",
+     "a": "Colombia",
+     "b": "Poland",
+     "sa": 3,
+     "sb": 0
+    },
+    {
+     "stage": "group",
+     "a": "Poland",
+     "b": "Japan",
+     "sa": 1,
+     "sb": 0
+    },
+    {
+     "stage": "group",
+     "a": "Colombia",
+     "b": "Senegal",
+     "sa": 1,
+     "sb": 0
+    },
+    {
+     "stage": "R16",
+     "a": "France",
+     "b": "Argentina",
+     "sa": 4,
+     "sb": 3
+    },
+    {
+     "stage": "R16",
+     "a": "Uruguay",
+     "b": "Portugal",
+     "sa": 2,
+     "sb": 1
+    },
+    {
+     "stage": "R16",
+     "a": "Russia",
+     "b": "Spain",
+     "sa": 1,
+     "sb": 1
+    },
+    {
+     "stage": "R16",
+     "a": "Croatia",
+     "b": "Denmark",
+     "sa": 1,
+     "sb": 1
+    },
+    {
+     "stage": "R16",
+     "a": "Brazil",
+     "b": "Mexico",
+     "sa": 2,
+     "sb": 0
+    },
+    {
+     "stage": "R16",
+     "a": "Belgium",
+     "b": "Japan",
+     "sa": 3,
+     "sb": 2
+    },
+    {
+     "stage": "R16",
+     "a": "Sweden",
+     "b": "Switzerland",
+     "sa": 1,
+     "sb": 0
+    },
+    {
+     "stage": "R16",
+     "a": "England",
+     "b": "Colombia",
+     "sa": 1,
+     "sb": 1
+    },
+    {
+     "stage": "QF",
+     "a": "France",
+     "b": "Uruguay",
+     "sa": 2,
+     "sb": 0
+    },
+    {
+     "stage": "QF",
+     "a": "Belgium",
+     "b": "Brazil",
+     "sa": 2,
+     "sb": 1
+    },
+    {
+     "stage": "QF",
+     "a": "England",
+     "b": "Sweden",
+     "sa": 2,
+     "sb": 0
+    },
+    {
+     "stage": "QF",
+     "a": "Russia",
+     "b": "Croatia",
+     "sa": 2,
+     "sb": 2
+    },
+    {
+     "stage": "SF",
+     "a": "France",
+     "b": "Belgium",
+     "sa": 1,
+     "sb": 0
+    },
+    {
+     "stage": "SF",
+     "a": "Croatia",
+     "b": "England",
+     "sa": 2,
+     "sb": 1
+    },
+    {
+     "stage": "third",
+     "a": "Belgium",
+     "b": "England",
+     "sa": 2,
+     "sb": 0
+    },
+    {
+     "stage": "final",
+     "a": "France",
+     "b": "Croatia",
+     "sa": 4,
+     "sb": 2
+    }
+   ]
+  },
+  {
+   "year": 2022,
+   "host": "Qatar",
+   "champion": "Argentina",
+   "runnerUp": "France",
+   "finalScore": "3-3 (4-2 pens)",
+   "goldenBoot": {
+    "player": "Kylian Mbappé",
+    "team": "France",
+    "goals": 8,
+    "shared": false
+   },
+   "matches": [
+    {
+     "stage": "group",
+     "a": "Qatar",
+     "b": "Ecuador",
+     "sa": 0,
+     "sb": 2
+    },
+    {
+     "stage": "group",
+     "a": "Senegal",
+     "b": "Netherlands",
+     "sa": 0,
+     "sb": 2
+    },
+    {
+     "stage": "group",
+     "a": "Qatar",
+     "b": "Senegal",
+     "sa": 1,
+     "sb": 3
+    },
+    {
+     "stage": "group",
+     "a": "Netherlands",
+     "b": "Ecuador",
+     "sa": 1,
+     "sb": 1
+    },
+    {
+     "stage": "group",
+     "a": "Ecuador",
+     "b": "Senegal",
+     "sa": 1,
+     "sb": 2
+    },
+    {
+     "stage": "group",
+     "a": "Qatar",
+     "b": "Netherlands",
+     "sa": 0,
+     "sb": 2
+    },
+    {
+     "stage": "group",
+     "a": "England",
+     "b": "Iran",
+     "sa": 6,
+     "sb": 2
+    },
+    {
+     "stage": "group",
+     "a": "Usa",
+     "b": "Wales",
+     "sa": 1,
+     "sb": 1
+    },
+    {
+     "stage": "group",
+     "a": "Wales",
+     "b": "Iran",
+     "sa": 0,
+     "sb": 2
+    },
+    {
+     "stage": "group",
+     "a": "England",
+     "b": "Usa",
+     "sa": 0,
+     "sb": 0
+    },
+    {
+     "stage": "group",
+     "a": "Wales",
+     "b": "England",
+     "sa": 0,
+     "sb": 3
+    },
+    {
+     "stage": "group",
+     "a": "Iran",
+     "b": "Usa",
+     "sa": 0,
+     "sb": 1
+    },
+    {
+     "stage": "group",
+     "a": "Argentina",
+     "b": "Saudi Arabia",
+     "sa": 1,
+     "sb": 2
+    },
+    {
+     "stage": "group",
+     "a": "Mexico",
+     "b": "Poland",
+     "sa": 0,
+     "sb": 0
+    },
+    {
+     "stage": "group",
+     "a": "Poland",
+     "b": "Saudi Arabia",
+     "sa": 2,
+     "sb": 0
+    },
+    {
+     "stage": "group",
+     "a": "Argentina",
+     "b": "Mexico",
+     "sa": 2,
+     "sb": 0
+    },
+    {
+     "stage": "group",
+     "a": "Poland",
+     "b": "Argentina",
+     "sa": 0,
+     "sb": 2
+    },
+    {
+     "stage": "group",
+     "a": "Saudi Arabia",
+     "b": "Mexico",
+     "sa": 1,
+     "sb": 2
+    },
+    {
+     "stage": "group",
+     "a": "Denmark",
+     "b": "Tunisia",
+     "sa": 0,
+     "sb": 0
+    },
+    {
+     "stage": "group",
+     "a": "France",
+     "b": "Australia",
+     "sa": 4,
+     "sb": 1
+    },
+    {
+     "stage": "group",
+     "a": "Tunisia",
+     "b": "Australia",
+     "sa": 0,
+     "sb": 1
+    },
+    {
+     "stage": "group",
+     "a": "France",
+     "b": "Denmark",
+     "sa": 2,
+     "sb": 1
+    },
+    {
+     "stage": "group",
+     "a": "Australia",
+     "b": "Denmark",
+     "sa": 1,
+     "sb": 0
+    },
+    {
+     "stage": "group",
+     "a": "Tunisia",
+     "b": "France",
+     "sa": 1,
+     "sb": 0
+    },
+    {
+     "stage": "group",
+     "a": "Germany",
+     "b": "Japan",
+     "sa": 1,
+     "sb": 2
+    },
+    {
+     "stage": "group",
+     "a": "Spain",
+     "b": "Costa Rica",
+     "sa": 7,
+     "sb": 0
+    },
+    {
+     "stage": "group",
+     "a": "Japan",
+     "b": "Costa Rica",
+     "sa": 0,
+     "sb": 1
+    },
+    {
+     "stage": "group",
+     "a": "Spain",
+     "b": "Germany",
+     "sa": 1,
+     "sb": 1
+    },
+    {
+     "stage": "group",
+     "a": "Japan",
+     "b": "Spain",
+     "sa": 2,
+     "sb": 1
+    },
+    {
+     "stage": "group",
+     "a": "Costa Rica",
+     "b": "Germany",
+     "sa": 2,
+     "sb": 4
+    },
+    {
+     "stage": "group",
+     "a": "Morocco",
+     "b": "Croatia",
+     "sa": 0,
+     "sb": 0
+    },
+    {
+     "stage": "group",
+     "a": "Belgium",
+     "b": "Canada",
+     "sa": 1,
+     "sb": 0
+    },
+    {
+     "stage": "group",
+     "a": "Belgium",
+     "b": "Morocco",
+     "sa": 0,
+     "sb": 2
+    },
+    {
+     "stage": "group",
+     "a": "Croatia",
+     "b": "Canada",
+     "sa": 4,
+     "sb": 1
+    },
+    {
+     "stage": "group",
+     "a": "Croatia",
+     "b": "Belgium",
+     "sa": 0,
+     "sb": 0
+    },
+    {
+     "stage": "group",
+     "a": "Canada",
+     "b": "Morocco",
+     "sa": 1,
+     "sb": 2
+    },
+    {
+     "stage": "group",
+     "a": "Switzerland",
+     "b": "Cameroon",
+     "sa": 1,
+     "sb": 0
+    },
+    {
+     "stage": "group",
+     "a": "Brazil",
+     "b": "Serbia",
+     "sa": 2,
+     "sb": 0
+    },
+    {
+     "stage": "group",
+     "a": "Cameroon",
+     "b": "Serbia",
+     "sa": 3,
+     "sb": 3
+    },
+    {
+     "stage": "group",
+     "a": "Brazil",
+     "b": "Switzerland",
+     "sa": 1,
+     "sb": 0
+    },
+    {
+     "stage": "group",
+     "a": "Serbia",
+     "b": "Switzerland",
+     "sa": 2,
+     "sb": 3
+    },
+    {
+     "stage": "group",
+     "a": "Cameroon",
+     "b": "Brazil",
+     "sa": 1,
+     "sb": 0
+    },
+    {
+     "stage": "group",
+     "a": "Uruguay",
+     "b": "South Korea",
+     "sa": 0,
+     "sb": 0
+    },
+    {
+     "stage": "group",
+     "a": "Portugal",
+     "b": "Ghana",
+     "sa": 3,
+     "sb": 2
+    },
+    {
+     "stage": "group",
+     "a": "South Korea",
+     "b": "Ghana",
+     "sa": 2,
+     "sb": 3
+    },
+    {
+     "stage": "group",
+     "a": "Portugal",
+     "b": "Uruguay",
+     "sa": 2,
+     "sb": 0
+    },
+    {
+     "stage": "group",
+     "a": "Ghana",
+     "b": "Uruguay",
+     "sa": 0,
+     "sb": 2
+    },
+    {
+     "stage": "group",
+     "a": "South Korea",
+     "b": "Portugal",
+     "sa": 2,
+     "sb": 1
+    },
+    {
+     "stage": "R16",
+     "a": "Netherlands",
+     "b": "Usa",
+     "sa": 3,
+     "sb": 1
+    },
+    {
+     "stage": "R16",
+     "a": "Argentina",
+     "b": "Australia",
+     "sa": 2,
+     "sb": 1
+    },
+    {
+     "stage": "R16",
+     "a": "France",
+     "b": "Poland",
+     "sa": 3,
+     "sb": 1
+    },
+    {
+     "stage": "R16",
+     "a": "England",
+     "b": "Senegal",
+     "sa": 3,
+     "sb": 0
+    },
+    {
+     "stage": "R16",
+     "a": "Japan",
+     "b": "Croatia",
+     "sa": 1,
+     "sb": 1
+    },
+    {
+     "stage": "R16",
+     "a": "Brazil",
+     "b": "South Korea",
+     "sa": 4,
+     "sb": 1
+    },
+    {
+     "stage": "R16",
+     "a": "Morocco",
+     "b": "Spain",
+     "sa": 0,
+     "sb": 0
+    },
+    {
+     "stage": "R16",
+     "a": "Portugal",
+     "b": "Switzerland",
+     "sa": 6,
+     "sb": 1
+    },
+    {
+     "stage": "QF",
+     "a": "Croatia",
+     "b": "Brazil",
+     "sa": 1,
+     "sb": 1
+    },
+    {
+     "stage": "QF",
+     "a": "Netherlands",
+     "b": "Argentina",
+     "sa": 2,
+     "sb": 2
+    },
+    {
+     "stage": "QF",
+     "a": "Morocco",
+     "b": "Portugal",
+     "sa": 1,
+     "sb": 0
+    },
+    {
+     "stage": "QF",
+     "a": "England",
+     "b": "France",
+     "sa": 1,
+     "sb": 2
+    },
+    {
+     "stage": "SF",
+     "a": "Argentina",
+     "b": "Croatia",
+     "sa": 3,
+     "sb": 0
+    },
+    {
+     "stage": "SF",
+     "a": "France",
+     "b": "Morocco",
+     "sa": 2,
+     "sb": 0
+    },
+    {
+     "stage": "third",
+     "a": "Croatia",
+     "b": "Morocco",
+     "sa": 2,
+     "sb": 1
+    },
+    {
+     "stage": "final",
+     "a": "Argentina",
+     "b": "France",
+     "sa": 3,
+     "sb": 3
+    }
+   ]
+  }
+ ]
+}

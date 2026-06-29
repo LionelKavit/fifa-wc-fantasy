@@ -40,6 +40,14 @@ export const RawSquadSchema = z
   })
   .passthrough();
 
+const RawGoalSchema = z
+  .object({
+    playerId: z.number(),
+    assistId: z.number().nullable(),
+    isOwnGoal: z.boolean(),
+  })
+  .passthrough();
+
 export const RawFixtureSchema = z
   .object({
     id: z.number(),
@@ -50,6 +58,8 @@ export const RawFixtureSchema = z
     homeScore: z.number().nullable(),
     awayScore: z.number().nullable(),
     venueName: z.string().nullable().optional(),
+    homeGoalScorersAssists: z.array(RawGoalSchema).nullable().optional(),
+    awayGoalScorersAssists: z.array(RawGoalSchema).nullable().optional(),
   })
   .passthrough();
 

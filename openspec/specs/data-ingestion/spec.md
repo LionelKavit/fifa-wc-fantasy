@@ -47,7 +47,7 @@ The system SHALL join players to teams using `players[].squadId` against `squads
 
 ### Requirement: Fixture normalization from rounds
 
-The system SHALL flatten `rounds[].tournaments[]` into a typed `Fixture` list, each carrying home/away team ids (1–48 space), a status of `complete | live | scheduled`, scores when available, and the owning round and stage.
+The system SHALL flatten `rounds[].tournaments[]` into a typed `Fixture` list, each carrying home/away team ids (1–48 space), a status of `complete | live | scheduled`, scores when available, the owning round and stage, and the fixture's **goal events** (scorer, optional assister, and an own-goal flag) when the feed provides them.
 
 #### Scenario: Completed fixture carries scores
 
@@ -63,6 +63,16 @@ The system SHALL flatten `rounds[].tournaments[]` into a typed `Fixture` list, e
 
 - **WHEN** fixtures are normalized
 - **THEN** each fixture exposes its stage (e.g. `GROUP`, `R32`) so group-stage fixtures can be filtered
+
+#### Scenario: Goal events are surfaced
+
+- **WHEN** a fixture entry includes `homeGoalScorersAssists` and/or `awayGoalScorersAssists`
+- **THEN** the normalized `Fixture` exposes a `goals` list, each entry carrying the scorer's player id, the assister's player id (or null), and an `isOwnGoal` flag, flattening both sides
+
+#### Scenario: Missing goal data is empty, not an error
+
+- **WHEN** a fixture has no goal arrays, or a side's array is null (that side did not score)
+- **THEN** the normalized `Fixture` has `goals: []` (or only the present side's events) and normalization does not fail
 
 ### Requirement: Tournament snapshot accessor
 
@@ -86,4 +96,42 @@ The system SHALL expose only typed domain models (`Team`, `Group`, `Player`, `Ro
 
 - **WHEN** a downstream module imports from the data layer
 - **THEN** it receives normalized domain types and has no access to raw `players.json` / `rounds.json` record shapes
+
+### Requirement: Team strength ratings ingestion
+
+The system SHALL provide a team strength rating per World Cup team, sourced from World Football Elo ratings via an **offline ingestion step** (not a runtime fetch). The ingestion SHALL fetch the ratings, map each country to its squad id (1–48), and persist the result as a committed snapshot the engine reads. Ingestion SHALL validate that every one of the tournament's teams resolves to a rating and SHALL fail loudly if any team is missing or the source's shape has drifted, consistent with the rest of the data layer.
+
+#### Scenario: Ratings persisted as a committed snapshot
+
+- **WHEN** the ingestion step runs successfully
+- **THEN** it writes a committed snapshot mapping each squad id to its Elo rating, which the engine reads without any runtime network call
+
+#### Scenario: Every team is covered
+
+- **WHEN** ingestion completes
+- **THEN** every tournament team has a rating; if any team cannot be mapped to a rating, ingestion fails with a clear error rather than producing a partial snapshot
+
+#### Scenario: Refreshed by re-running, not at request time
+
+- **WHEN** ratings need updating (e.g. between match days)
+- **THEN** the snapshot is refreshed by re-running the ingestion step, and the running app never fetches the third-party source on the request path
+
+#### Scenario: Source drift handled
+
+- **WHEN** the upstream ratings source returns an unexpected shape
+- **THEN** ingestion reports the problem and does not overwrite the existing snapshot with malformed data
+
+### Requirement: Goal events validated tolerantly
+
+The data layer SHALL validate goal-event entries on a fixture as `{ playerId: number, assistId: number | null, isOwnGoal: boolean }`, accepting additional fields (passthrough) and treating the goal arrays as optional/nullable so scheduled fixtures and goalless sides parse without error. A missing or null array SHALL NOT cause validation to fail.
+
+#### Scenario: Well-formed goal entry parses
+
+- **WHEN** a fixture's goal array contains `{ playerId, assistId, isOwnGoal }` entries (with extra fields)
+- **THEN** validation succeeds and the entries are available to normalization
+
+#### Scenario: Own goals retain their flag
+
+- **WHEN** a goal entry has `isOwnGoal: true`
+- **THEN** the flag is preserved so downstream code can exclude it from scorer credit
 

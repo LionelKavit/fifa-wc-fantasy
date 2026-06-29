@@ -45,6 +45,15 @@ export interface Player {
   totalPoints: number;
 }
 
+/** A single goal in a fixture. For an own goal, `playerId` is the player who put it into
+ * their own net (credited to the opposing side's score); such goals are excluded from a
+ * player's scorer tally. `assistId` is null when unassisted. */
+export interface GoalEvent {
+  playerId: number;
+  assistId: number | null;
+  isOwnGoal: boolean;
+}
+
 export interface Fixture {
   id: number;
   roundId: number;
@@ -58,6 +67,9 @@ export interface Fixture {
   homeScore: number | null;
   awayScore: number | null;
   venue: string | null;
+  /** Goal events (home then away). Always populated by `normalize` (empty when the feed
+   * provides none); optional so lightweight test fixtures need not set it. */
+  goals?: GoalEvent[];
 }
 
 export interface Round {
