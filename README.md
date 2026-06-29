@@ -15,13 +15,7 @@ gives a straight answer in plain English.
 
 ## Demo
 
-<!-- 📹 ADD THE DEMO VIDEO HERE.
-     On GitHub: open this README, click the pencil (Edit), and drag-and-drop your video
-     file (.mp4/.mov, <100 MB) right onto this line. GitHub uploads it and inserts a
-     player link like https://github.com/user-attachments/assets/<id> that renders inline.
-     Then delete this comment and the placeholder line below. -->
-
-> 📹 _Demo video coming soon — a 60-second walkthrough of filling a bracket, getting the Analyst's read, and tracking it live._
+https://github.com/user-attachments/assets/f8de9408-1c80-4457-a8b8-27e92e3f2acc
 
 ## Who it's for, and when
 
