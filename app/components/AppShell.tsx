@@ -41,11 +41,11 @@ export default function AppShell({ groupPanel }: { groupPanel: ReactNode }) {
         <h1 className="text-3xl font-extrabold tracking-tight text-slate-50">
           <span aria-hidden>🏆</span>{" "}
           <span className="bg-gradient-to-r from-amber-200 to-emerald-300 bg-clip-text text-transparent">
-            FIFA World Cup 2026 Bracket Agent
+            FIFA World Cup 2026 Bracket Analyst
           </span>
         </h1>
         <p className="mx-auto mt-2 max-w-2xl text-sm text-slate-300">
-          Fill your knockout bracket, get grounded strategy from the Analyst, and track it as the tournament unfolds.
+          Fill your knockout bracket and get grounded strategy from the Analyst.
         </p>
       </header>
 

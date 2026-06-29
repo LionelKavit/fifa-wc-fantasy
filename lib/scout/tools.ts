@@ -8,12 +8,20 @@ import {
   compareToModel,
   buildBracket,
   analyzeStrategy,
+  teamRecord,
+  wcHeadToHead,
+  wcTopScorers,
+  wcChampions,
+  wcHistoryMeta,
+  currentTopScorers,
+  allTimeScoringRecord,
   type AdvancementReport,
   type Prediction,
   type R32Projection,
   type OutcomeModel,
   type PredictionScore,
   type ModelComparison,
+  type PickStatus,
 } from "../engine";
 import { buildTeamSituation, buildGroupSituation } from "../grounding";
 import { selectNotes, type KnowledgeSnippet } from "../knowledge/parse";
@@ -110,6 +118,8 @@ export interface ScoutContext {
   projection?: R32Projection;
   /** teamId → Elo rating (raw), retained for any rating-based display. */
   ratings?: Map<number, number>;
+  /** teamId → Poisson strength multiplier (mean ≈ 1) — the model input behind the odds. */
+  strengths?: Map<number, number>;
   /** P(a beats b) from the single head-to-head model — the source for compare_teams. */
   matchupWinProb?: (a: number, b: number) => number;
   /** teamId → probability of winning the tournament, for team deep-run answers. */
@@ -160,7 +170,7 @@ export const SCOUT_TOOLS = [
   {
     name: "evaluate_bracket",
     description:
-      "The user's knockout bracket evaluated by the model: projected score, survival %, boldness, upset bonus, predicted champion, and each pick's win chance and status (pending/correct/wrong/busted). Use for any 'my bracket' question — is this pick smart, how's my bracket doing, did it survive. Returns a note if no picks were provided.",
+      "The user's knockout bracket evaluated by the model: how many picks are alive/correct vs busted (team eliminated) or wrong (decided match lost), boldness, upset bonus, predicted champion, and each pick's round (e.g. Round of 32), team, win chance, and status. Use for any 'my bracket' question. A bracket is only damaged when picksBusted or picksWrong is above 0; pointsSoFar is an early-tournament tally, not a verdict. Refer to picks by team and round, never by match id. Returns a note if no picks were provided.",
     input_schema: { type: "object", properties: {}, required: [] },
   },
   {
@@ -191,6 +201,53 @@ export const SCOUT_TOOLS = [
       properties: { topic: { type: "string", description: "Team name/abbr or topic, e.g. 'Morocco' or 'dark horses'." } },
       required: ["topic"],
     },
+  },
+  {
+    name: "get_wc_record",
+    description:
+      "A nation's all-time World Cup HISTORY (1930–2022): titles, finals/appearances, W-D-L, goals, best finish. Historical color only — never for WC2026 odds. Resolves the name itself.",
+    input_schema: {
+      type: "object",
+      properties: { team: { type: "string", description: "Nation name, e.g. 'Germany' or 'Brazil'." } },
+      required: ["team"],
+    },
+  },
+  {
+    name: "get_wc_head_to_head",
+    description:
+      "Two nations' all-time World Cup HISTORY meetings (year, stage, score, winner). For 'have they met at the World Cup?'. Historical only — not a WC2026 prediction.",
+    input_schema: {
+      type: "object",
+      properties: { teamA: { type: "string" }, teamB: { type: "string" } },
+      required: ["teamA", "teamB"],
+    },
+  },
+  {
+    name: "get_wc_top_scorers",
+    description:
+      "World Cup HISTORY scorers THROUGH 2022: a given tournament's Golden Boot (pass a year), or the all-time top scorers as of 2022 (no year). Does NOT include the current 2026 tournament — for that use get_current_top_scorers or get_wc_scoring_record.",
+    input_schema: {
+      type: "object",
+      properties: { year: { type: "number", description: "Optional tournament year, e.g. 2018. Omit for all-time through 2022." } },
+      required: [],
+    },
+  },
+  {
+    name: "get_wc_champions",
+    description: "Every World Cup champion 1930–2022 (year, host, champion, runner-up, final score). Historical facts only.",
+    input_schema: { type: "object", properties: {}, required: [] },
+  },
+  {
+    name: "get_current_top_scorers",
+    description:
+      "The CURRENT 2026 World Cup's top scorers so far (the live Golden Boot race): scorer, nation, goals, assists, from the live feed. Use for 'who's the top scorer this/the 2026 World Cup?' or 'right now'. Color only — never for odds/picks.",
+    input_schema: { type: "object", properties: {}, required: [] },
+  },
+  {
+    name: "get_wc_scoring_record",
+    description:
+      "The LIVE all-time World Cup scoring record INCLUDING 2026: current career leader and total, whether the previous (through-2022) record is broken and by whom, plus a short board. Use for 'has the all-time scoring record been broken?' or 'who's the all-time top scorer now?'. Color only.",
+    input_schema: { type: "object", properties: {}, required: [] },
   },
 ] as const;
 
@@ -250,6 +307,69 @@ export function executeTool(name: string, input: unknown, ctx: ScoutContext): To
           notes: notes.map((n) => ({ source: n.source, heading: n.heading ?? null, text: n.text })),
         });
       }
+      case "get_wc_record": {
+        const q = asNonEmptyString(args.team);
+        if (!q) return fail("'team' is required");
+        const r = teamRecord(q);
+        if (!r) return ok({ found: false, query: q, note: "No World Cup history for that nation in the records (1930–2022)." });
+        return ok({
+          team: r.team,
+          appearances: r.appearances,
+          titles: r.titles,
+          finalsReached: r.finalsReached,
+          bestFinish: r.bestFinish,
+          record: `${r.won}W-${r.drawn}D-${r.lost}L`,
+          goals: `${r.goalsFor}-${r.goalsAgainst}`,
+          note: r.note ?? null,
+          asOf: wcHistoryMeta.coverage,
+        });
+      }
+      case "get_wc_head_to_head": {
+        const a = asNonEmptyString(args.teamA);
+        const b = asNonEmptyString(args.teamB);
+        if (!a || !b) return fail("'teamA' and 'teamB' are required");
+        const h = wcHeadToHead(a, b);
+        if (!h) return ok({ found: false, query: [a, b], note: "No World Cup meetings on record (or a nation wasn't recognized)." });
+        return ok({
+          teamA: h.teamA,
+          teamB: h.teamB,
+          meetings: h.meetings.length,
+          tally: `${h.teamA} ${h.aWins} – ${h.draws} draws – ${h.bWins} ${h.teamB}`,
+          history: h.meetings.map((m) => `${m.year} ${m.stage}: ${m.score} (${m.winner === "draw" ? "draw" : m.winner})`),
+          asOf: wcHistoryMeta.coverage,
+        });
+      }
+      case "get_wc_top_scorers": {
+        const yr = typeof args.year === "number" ? args.year : undefined;
+        const s = wcTopScorers(yr);
+        if (!s) return ok({ found: false, year: yr, note: "No World Cup in that year." });
+        if ("goldenBoot" in s) {
+          const gb = s.goldenBoot;
+          return ok({ year: s.year, goldenBoot: `${gb.player} (${gb.team}) — ${gb.goals} goals${gb.shared ? " (shared)" : ""}` });
+        }
+        return ok({ allTime: s.allTime.map((x) => `${x.player} (${x.team}) — ${x.goals}`), asOf: wcHistoryMeta.coverage });
+      }
+      case "get_wc_champions":
+        return ok({ champions: wcChampions().map((c) => `${c.year} ${c.champion} (host ${c.host}, beat ${c.runnerUp} ${c.finalScore})`), asOf: wcHistoryMeta.coverage });
+      case "get_current_top_scorers": {
+        const scorers = currentTopScorers(ctx.snapshot, 10);
+        if (scorers.length === 0) return ok({ found: false, note: "No goals recorded in the 2026 World Cup yet." });
+        return ok({
+          tournament: "2026 World Cup (so far)",
+          topScorers: scorers.map((s) => `${s.name} (${s.nation}) — ${s.goals} goal${s.goals === 1 ? "" : "s"}${s.assists ? `, ${s.assists} assist${s.assists === 1 ? "" : "s"}` : ""}`),
+        });
+      }
+      case "get_wc_scoring_record": {
+        const rec = allTimeScoringRecord(ctx.snapshot);
+        if (!rec) return ok({ found: false, note: "No scoring-record data available." });
+        return ok({
+          leader: `${rec.leader.player} (${rec.leader.nation}) — ${rec.leader.careerGoals} career World Cup goals${rec.leader.goals2026 ? ` (incl. ${rec.leader.goals2026} in 2026)` : ""}`,
+          previousRecord: `${rec.previousRecord.player} — ${rec.previousRecord.goals} (through 2022)`,
+          recordBroken: rec.broken,
+          brokenBy: rec.breaker ? `${rec.breaker.player} (${rec.breaker.nation}) — now ${rec.breaker.careerGoals}` : null,
+          board: rec.board.slice(0, 6).map((c) => `${c.player} (${c.nation}) — ${c.careerGoals}${c.goals2026 ? ` (+${c.goals2026} in 2026)` : ""}`),
+        });
+      }
       default:
         return fail(`unknown tool '${name}'`);
     }
@@ -260,6 +380,15 @@ export function executeTool(name: string, input: unknown, ctx: ScoutContext): To
 
 const teamName = (snapshot: TournamentSnapshot, id: number): string =>
   snapshot.teams.find((t) => t.id === id)?.abbr ?? `#${id}`;
+
+/** Human round labels so picks are referenced by round, never by internal match id. */
+const STAGE_ROUND_LABEL: Record<string, string> = {
+  R32: "Round of 32",
+  R16: "Round of 16",
+  QF: "Quarter-final",
+  SF: "Semi-final",
+  F: "Final",
+};
 
 /** Compute (and memo) the bracket evaluation for the turn; null if no picks. */
 function ensureEval(ctx: ScoutContext): { score: PredictionScore; comparison: ModelComparison } | null {
@@ -282,20 +411,32 @@ function evaluateBracket(ctx: ScoutContext): ToolResult {
   }
   const { score, comparison } = evald;
   const championId = pred.get("M104");
+  // Honest health signals from real pick status (NOT perfect-bracket survival, which is
+  // ~0% for any full bracket and must never be surfaced as "still alive"/eliminated).
+  const countBy = (s: PickStatus) => comparison.picks.filter((p) => p.status === s).length;
+  const busted = countBy("busted");
+  const wrong = countBy("wrong");
+  const alive = countBy("pending");
+  const correct = countBy("correct");
   return ok({
     hasBracket: true,
-    projectedScore: Math.round(comparison.projectedScore),
-    stillAlivePct: asPct(comparison.headlineSurvival),
+    // A bracket is only damaged when picks are actually busted/wrong; with both 0 it is on
+    // track regardless of how unlikely a flawless run is.
+    picksBusted: busted,
+    picksWrong: wrong,
+    picksAlive: alive,
+    picksCorrect: correct,
+    pointsSoFar: `${score.current} of ${score.maxAchievable} possible banked so far (early-tournament tally, not a quality verdict)`,
     boldness: `${comparison.boldnessCount} upset picks`,
     upsetBonus: Math.round(comparison.upsetBonusCurrent),
-    currentScore: score.current,
-    maxScore: score.maxAchievable,
     champion: championId ? teamName(ctx.snapshot, championId) : null,
     poolSize: ctx.poolSize ?? null,
+    // Picks are identified by round (human label), never the internal match id.
     picks: comparison.picks.map((p) => ({
-      match: p.matchId,
+      round: STAGE_ROUND_LABEL[p.stage],
       pick: teamName(ctx.snapshot, p.pickedTeamId),
-      win: asPct(p.modelProb),
+      // Head-to-head vs the predicted opponent — the same figure the bracket card shows.
+      win: asPct(p.headToHead),
       status: p.status,
       bold: p.bold,
     })),
@@ -340,10 +481,24 @@ function compareTeams(ctx: ScoutContext, a: string, b: string | null): ToolResul
   if (!teamB) return ok({ found: false, query: b });
 
   const headToHead = ctx.matchupWinProb ? asPct(ctx.matchupWinProb(teamA.teamId, teamB.teamId)) : null;
+  const elo = (id: number): number | null => {
+    const v = ctx.ratings?.get(id);
+    return v == null ? null : Math.round(v);
+  };
+  const strength = (id: number): number | null => {
+    const v = ctx.strengths?.get(id);
+    return v == null ? null : Number(v.toFixed(2));
+  };
   return ok({
     teamA: teamA.name,
     teamB: teamB.name,
     headToHead: headToHead ? `${teamA.abbr} ${headToHead} to beat ${teamB.abbr}` : null,
+    // The actual model drivers behind the head-to-head: Elo rating and the Poisson
+    // strength multiplier (mean ≈ 1) it maps to. Use THESE to explain favouritism.
+    drivers: {
+      [teamA.abbr]: { elo: elo(teamA.teamId), strength: strength(teamA.teamId) },
+      [teamB.abbr]: { elo: elo(teamB.teamId), strength: strength(teamB.teamId) },
+    },
     championChance: { [teamA.abbr]: championPct(teamA.teamId), [teamB.abbr]: championPct(teamB.teamId) },
   });
 }

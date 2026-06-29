@@ -53,6 +53,20 @@ describe("normalize (recorded snapshot)", () => {
     expect(group.length).toBe(72); // 12 groups × 6 matches
   });
 
+  it("surfaces goal events (scorer, assist, own-goal flag) and defaults to []", () => {
+    const withGoals = snap.fixtures.filter((f) => (f.goals?.length ?? 0) > 0);
+    expect(withGoals.length).toBeGreaterThan(0);
+    const sample = withGoals[0]!.goals![0]!;
+    expect(typeof sample.playerId).toBe("number");
+    expect(sample.assistId === null || typeof sample.assistId === "number").toBe(true);
+    expect(typeof sample.isOwnGoal).toBe("boolean");
+    // own-goal flags are preserved from the feed
+    const anyOwnGoal = snap.fixtures.some((f) => (f.goals ?? []).some((g) => g.isOwnGoal));
+    expect(anyOwnGoal).toBe(true);
+    // every fixture has a goals array (empty when the feed gave none)
+    for (const f of snap.fixtures) expect(Array.isArray(f.goals)).toBe(true);
+  });
+
   it("completed fixtures carry integer scores; scheduled have null scores", () => {
     const complete = snap.fixtures.filter((f) => f.status === "complete");
     const scheduled = snap.fixtures.filter((f) => f.status === "scheduled");

@@ -227,3 +227,59 @@ describe("bracket generator — determinism & recommendation", () => {
     expect(recommendRisk(100).risk).toBe("bold");
   });
 });
+
+describe("bracket generator — complete from existing picks (locked)", () => {
+  const partOf = (matchId: string) => predictedParticipants(bracket, new Map(), matchId);
+  const underdogAt = (matchId: string) => {
+    const [a, b] = partOf(matchId);
+    return matchupWinProb(a!, b!) >= 0.5 ? b! : a!;
+  };
+  const favoriteAt = (matchId: string) => {
+    const [a, b] = partOf(matchId);
+    return matchupWinProb(a!, b!) >= 0.5 ? a! : b!;
+  };
+  const feasible = (pred: Prediction) => {
+    for (const layout of KO_LAYOUT) {
+      expect([pred.get(`M${layout.home}`), pred.get(`M${layout.away}`)]).toContain(pred.get(`M${layout.match}`));
+    }
+  };
+
+  it("empty locked equals from-scratch", () => {
+    const scratch = generateBracket(snapshot, { risk: "bold", poolSize: 50, matchupWinProb, seed: 1 });
+    const withEmpty = generateBracket(snapshot, { risk: "bold", poolSize: 50, matchupWinProb, seed: 1, locked: new Map() });
+    expect([...withEmpty]).toEqual([...scratch]);
+  });
+
+  it("keeps existing picks and fills the rest (complete + feasible)", () => {
+    const locked: Prediction = new Map([["M73", underdogAt("M73")], ["M74", favoriteAt("M74")]]);
+    const pred = generateBracket(snapshot, { risk: "balanced", poolSize: 20, matchupWinProb, seed: 1, locked });
+    expect(pred.get("M73")).toBe(underdogAt("M73"));
+    expect(pred.get("M74")).toBe(favoriteAt("M74"));
+    expect(pred.size).toBe(bracket.matches.length);
+    feasible(pred);
+  });
+
+  it("ignores a locked pick that isn't a valid participant", () => {
+    const bogus = favoriteAt("M80"); // a team that doesn't play in M73
+    const pred = generateBracket(snapshot, { risk: "safe", poolSize: 4, matchupWinProb, seed: 1, locked: new Map([["M73", bogus]]) });
+    expect(partOf("M73")).toContain(pred.get("M73")); // decided normally
+    expect(pred.get("M73")).not.toBe(bogus);
+    expect(pred.size).toBe(bracket.matches.length);
+    feasible(pred);
+  });
+
+  it("counts locked upsets toward the budget (never overrides, never exceeds)", () => {
+    // safe budget = 0: a locked upset is kept, and no extra upsets are added.
+    const safe = generateBracket(snapshot, { risk: "safe", poolSize: 100, matchupWinProb, seed: 1, locked: new Map([["M73", underdogAt("M73")]]) });
+    expect(safe.get("M73")).toBe(underdogAt("M73"));
+    expect(countUnderdogs(safe)).toBe(1); // kept upset only; safe adds none
+
+    // balanced from scratch takes B upsets; locking 2 ⇒ total ≤ B (budget counts the locked ones).
+    const B = countUnderdogs(generateBracket(snapshot, { risk: "balanced", poolSize: 20, matchupWinProb, seed: 1 }));
+    const locked: Prediction = new Map([["M73", underdogAt("M73")], ["M76", underdogAt("M76")]]);
+    const completed = generateBracket(snapshot, { risk: "balanced", poolSize: 20, matchupWinProb, seed: 1, locked });
+    expect(completed.get("M73")).toBe(underdogAt("M73"));
+    expect(completed.get("M76")).toBe(underdogAt("M76"));
+    expect(countUnderdogs(completed)).toBeLessThanOrEqual(B);
+  });
+});

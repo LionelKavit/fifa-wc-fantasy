@@ -29,27 +29,22 @@ The app SHALL present one page with two tabs, in order: **Knockouts** first (the
 
 ### Requirement: App branding
 
-The app's headline SHALL read "FIFA World Cup 2026 Bracket Agent". No user-facing surface (headline, page/tab title, or share card) SHALL display the name "Pocket Scout". The in-app chat assistant SHALL be called **"the Analyst"** in all user-facing copy (e.g. "Ask the Analyst", the answer-source label) — not "the Scout". (Internal module and capability names may remain `scout`; this is a display-name change only.)
+The app's headline SHALL read "FIFA World Cup 2026 Bracket Analyst". No user-facing surface (headline, page/tab title, or share card) SHALL display the name "Pocket Scout". The in-app chat assistant SHALL be called **"the Analyst"** in all user-facing copy (e.g. "Ask the Analyst", the answer-source label) — not "the Scout". (Internal module and capability names may remain `scout`; this is a display-name change only.)
 
-#### Scenario: Headline names the Bracket Agent
+#### Scenario: Headline names the Bracket Analyst
 
-- **WHEN** the app renders
-- **THEN** its headline reads "FIFA World Cup 2026 Bracket Agent" and no "Pocket Scout" text is shown anywhere user-facing
+- **WHEN** the app shell renders
+- **THEN** its headline reads "FIFA World Cup 2026 Bracket Analyst" and no "Pocket Scout" text is shown anywhere user-facing
 
 #### Scenario: Page title rebranded
 
 - **WHEN** the browser tab title is shown
-- **THEN** it reflects the Bracket Agent branding, not "Pocket Scout"
+- **THEN** it reflects the Bracket Analyst branding, not "Pocket Scout"
 
 #### Scenario: Assistant is "the Analyst"
 
-- **WHEN** the chat panel and its labels render
+- **WHEN** the chat assistant is referenced in the UI
 - **THEN** the assistant is referred to as "the Analyst" (not "the Scout") in all user-facing text
-
-#### Scenario: Rename and unification preserve behaviour
-
-- **WHEN** the assistant answers after the rename and the move to one shared tab-aware chat
-- **THEN** its behaviour is unchanged from today — tool-grounded answers, the frozen system prompt still cached, context-driven (tab-aware) input, and very brief to-the-point replies for token efficiency (per the `scout-conversation` requirements)
 
 ### Requirement: One persistent shared Scout chat
 

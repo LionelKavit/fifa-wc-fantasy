@@ -94,6 +94,8 @@ export interface BracketContext {
   model?: OutcomeModel;
   projection?: R32Projection;
   ratings?: Map<number, number>;
+  /** teamId → Poisson strength multiplier (mean ≈ 1) — the model input behind the odds. */
+  strengths?: Map<number, number>;
   championOdds?: Record<number, number>;
   /** P(a beats b) from the single head-to-head model — the source for compare_teams. */
   matchupWinProb?: (a: number, b: number) => number;
@@ -131,6 +133,7 @@ function buildContext(
     model: bracket?.model,
     projection: bracket?.projection,
     ratings: bracket?.ratings,
+    strengths: bracket?.strengths,
     championOdds: bracket?.championOdds,
     matchupWinProb: bracket?.matchupWinProb,
     expertNotes: bracket?.expertNotes,

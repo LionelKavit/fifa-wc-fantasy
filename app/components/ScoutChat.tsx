@@ -35,6 +35,9 @@ function clean(text: string): string {
 function SourceTag({ source }: { source?: string | null }) {
   if (!source) return null;
   const isLlm = source === "llm";
+  // The header already says "Ask the Analyst", so don't badge every Analyst reply.
+  // Keep the "Stats" badge to flag the deterministic (no-API-key) fallback.
+  if (isLlm) return null;
   return (
     <span
       className={`ml-2 rounded px-1.5 py-0.5 text-[10px] font-semibold ${
@@ -130,7 +133,7 @@ export default function ScoutChat({ title, subtitle, suggestions, placeholder, e
           messages.map((m, i) => (
             <div key={i} className={m.role === "user" ? "text-right" : "text-left"}>
               <div
-                className={`inline-block max-w-[90%] whitespace-pre-wrap rounded-2xl px-3 py-2 text-sm ${
+                className={`inline-block max-w-[90%] whitespace-pre-wrap break-words text-left rounded-2xl px-3 py-2 text-sm ${
                   m.role === "user" ? "bg-emerald-600 text-white" : "bg-white/5 text-slate-200"
                 }`}
               >

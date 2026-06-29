@@ -32,6 +32,7 @@ export type {
   Player,
   Round,
   Fixture,
+  GoalEvent,
   FixtureStatus,
   Position,
   Stage,

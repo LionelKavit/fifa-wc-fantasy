@@ -8,7 +8,9 @@ import {
   clear,
   completeness,
   derivePrediction,
-  isPredictionLocked,
+  decidedWinners,
+  isMatchDecided,
+  withDecided,
 } from "./prediction";
 import type { Prediction } from "./types";
 
@@ -112,20 +114,46 @@ describe("prediction model — completeness", () => {
   });
 });
 
-describe("prediction model — locking", () => {
-  it("is editable before the first knockout kickoff", () => {
-    expect(isPredictionLocked(editable)).toBe(false);
+describe("prediction model — per-match locking on decided results", () => {
+  // A snapshot where R32 match 73 (A2 id 2 vs B2 id 6) is complete — A2 won 1–0.
+  const decidedSnap = snapshotWith([done(2, 6, 1, 0, "R32")]);
+  const decidedBracket = buildBracket(decidedSnap);
+
+  it("a started-but-undecided tournament stays editable (no global lock)", () => {
+    // `locked` only has a scheduled KO fixture — nothing decided, so editing is allowed.
     const [a] = predictedParticipants(bracket, emptyPrediction(), "M73");
-    expect(pick(editable, bracket, emptyPrediction(), "M73", a!).has("M73")).toBe(true);
+    expect(pick(locked, bracket, emptyPrediction(), "M73", a!).has("M73")).toBe(true);
   });
 
-  it("rejects edits once locked, leaving the prediction unchanged", () => {
-    expect(isPredictionLocked(locked)).toBe(true);
-    const [a] = predictedParticipants(bracket, emptyPrediction(), "M73");
-    const before = pick(editable, bracket, emptyPrediction(), "M73", a!);
-    const after = pick(locked, bracket, before, "M75", predictedParticipants(bracket, before, "M75")[0]!);
-    expect(after).toBe(before); // unchanged reference: edit rejected
-    expect(clear(locked, bracket, before, "M73")).toBe(before);
+  it("locks only the decided match (to its real winner); others stay editable", () => {
+    expect(isMatchDecided(decidedBracket, "M73")).toBe(true);
+    expect(decidedWinners(decidedBracket).get("M73")).toBe(2);
+
+    // Editing the decided match is rejected (returned unchanged).
+    const p0 = emptyPrediction();
+    const [a, b] = predictedParticipants(decidedBracket, p0, "M73");
+    const other = a === 2 ? b! : a!;
+    expect(pick(decidedSnap, decidedBracket, p0, "M73", other)).toBe(p0);
+    const withM73 = new Map<string, number>([["M73", 2]]);
+    expect(clear(decidedSnap, decidedBracket, withM73, "M73")).toBe(withM73); // clear rejected
+
+    // A different, not-decided R32 match still accepts a pick.
+    const [c] = predictedParticipants(decidedBracket, p0, "M74");
+    expect(pick(decidedSnap, decidedBracket, p0, "M74", c!).has("M74")).toBe(true);
+  });
+
+  it("withDecided forces the real winner and clears contradicting downstream picks", () => {
+    const [w75] = predictedParticipants(decidedBracket, emptyPrediction(), "M75");
+    // User wrongly predicted team 6 to win M73 and advanced it into M90.
+    const p = new Map<string, number>([["M73", 6], ["M75", w75!], ["M90", 6]]);
+    const eff = withDecided(decidedBracket, p);
+    expect(eff.get("M73")).toBe(2); // forced to the real winner
+    expect(eff.has("M90")).toBe(false); // the contradicting downstream pick is cleared
+  });
+
+  it("withDecided is a no-op when nothing is decided", () => {
+    const p = new Map<string, number>([["M73", 2]]);
+    expect(withDecided(bracket, p)).toBe(p); // `bracket` has no decided matches
   });
 });
 

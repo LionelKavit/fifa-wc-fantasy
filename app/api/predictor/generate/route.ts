@@ -30,9 +30,16 @@ export async function POST(req: Request) {
   // Optional strategy; unknown values fall back to the default heuristic.
   const rawStrategy = (body as { strategy?: unknown })?.strategy;
   const strategy = STRATEGIES.includes(rawStrategy as GenerationStrategy) ? (rawStrategy as GenerationStrategy) : "heuristic";
+  // Optional current picks to KEEP — the generator completes the bracket from them (fills
+  // the gaps). Validated leniently; anything malformed is ignored (treated as no picks).
+  const rawPicks = (body as { picks?: unknown })?.picks;
+  const current =
+    Array.isArray(rawPicks)
+      ? rawPicks.filter((p): p is [string, number] => Array.isArray(p) && typeof p[0] === "string" && typeof p[1] === "number")
+      : undefined;
 
   try {
-    const picks = await generatePrediction(Math.floor(poolSize), risk as RiskLevel, seed, strategy);
+    const picks = await generatePrediction(Math.floor(poolSize), risk as RiskLevel, seed, strategy, current);
     return Response.json({ picks });
   } catch (err) {
     return Response.json({ error: err instanceof Error ? err.message : "Generation failed" }, { status: 400 });

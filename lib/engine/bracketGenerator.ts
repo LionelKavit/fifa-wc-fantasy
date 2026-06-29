@@ -39,6 +39,10 @@ export interface GenerateBracketOptions {
   favor?: Set<number>;
   /** Expert-signal favorite team ids to be wary of (boosts upsetting their match). */
   fade?: Set<number>;
+  /** Already-made picks to KEEP (a partial, path-consistent prediction). The generator
+   * completes the bracket from these — keeping each valid pick and deciding only the
+   * unset matches. Omit (or pass empty) to generate from scratch. */
+  locked?: Prediction;
 }
 
 /** Multiplicative value boost for upsets matching an expert signal (re-ranks candidates;
@@ -65,17 +69,27 @@ export function generateBracket(snapshot: TournamentSnapshot, opts: GenerateBrac
   const cutoffs = opts.cutoffs ?? UPSET_MULTIPLIER_CUTOFFS;
   const rng = mulberry32(opts.seed ?? 1);
   const bracket = buildBracket(snapshot, { projection: opts.projection });
+  const locked = opts.locked;
 
-  // Pass 1: chalk (favorite everywhere) + score each match's upset opportunity.
-  const chalk: Prediction = new Map();
+  // Pass 1: baseline (a kept pick where valid, favorite elsewhere) + score each OPEN
+  // match's upset opportunity. A locked pick is fixed and never a budget candidate; a
+  // locked underdog counts toward the boldness already in the bracket.
+  const base: Prediction = new Map();
   const candidates: { matchId: string; value: number; tie: number }[] = [];
+  let lockedUpsets = 0;
   for (const m of bracket.matches) {
-    const [a, b] = predictedParticipants(bracket, chalk, m.id);
+    const [a, b] = predictedParticipants(bracket, base, m.id);
     if (a === null || b === null) continue;
     const pa = matchupWinProb(a, b);
     const favorite = pa >= 0.5 ? a : b;
     const underdog = pa >= 0.5 ? b : a;
-    chalk.set(m.id, favorite);
+    const lockedTeam = locked?.get(m.id);
+    if (lockedTeam === a || lockedTeam === b) {
+      base.set(m.id, lockedTeam); // keep the user's pick (valid participant)
+      if (lockedTeam === underdog) lockedUpsets++;
+      continue;
+    }
+    base.set(m.id, favorite);
     const pUnderdog = Math.min(pa, 1 - pa);
     const multiplier = upsetMultiplier(pUnderdog, cutoffs);
     if (multiplier >= 2) {
@@ -99,14 +113,17 @@ export function generateBracket(snapshot: TournamentSnapshot, opts: GenerateBrac
     }
   }
 
-  // Select the top-budget upsets by value (seed breaks ties).
-  const budget = Math.min(boldnessBudget(risk, poolSize), candidates.length);
+  // Budget counts the upsets already locked in, so the whole bracket honors the risk/pool
+  // target; only the remainder is spent on the open matches. Locked picks are never undone.
+  const remaining = Math.max(0, boldnessBudget(risk, poolSize) - lockedUpsets);
+  const budget = Math.min(remaining, candidates.length);
   const selected = new Set(
     candidates.sort((x, y) => y.value - x.value || x.tie - y.tie).slice(0, budget).map((c) => c.matchId),
   );
 
-  // Pass 2: apply upsets at the selected positions, favorites elsewhere. Re-resolving
-  // participants each step keeps the bracket feasible when an upset changes who advances.
+  // Pass 2: keep each valid locked pick; apply the selected upsets; favorites elsewhere.
+  // Re-resolving participants each step keeps the bracket feasible when a pick changes who
+  // advances. A locked pick that is no longer a valid participant is decided normally.
   const result: Prediction = new Map();
   for (const m of bracket.matches) {
     const [a, b] = predictedParticipants(bracket, result, m.id);
@@ -114,7 +131,9 @@ export function generateBracket(snapshot: TournamentSnapshot, opts: GenerateBrac
     const pa = matchupWinProb(a, b);
     const favorite = pa >= 0.5 ? a : b;
     const underdog = pa >= 0.5 ? b : a;
-    result.set(m.id, selected.has(m.id) ? underdog : favorite);
+    const lockedTeam = locked?.get(m.id);
+    if (lockedTeam === a || lockedTeam === b) result.set(m.id, lockedTeam);
+    else result.set(m.id, selected.has(m.id) ? underdog : favorite);
   }
   return result;
 }

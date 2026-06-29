@@ -41,7 +41,9 @@ const isUpset = (pred: Prediction, matchId: string): boolean => {
 };
 const countUpsets = (pred: Prediction): number => [...pred.keys()].filter((id) => isUpset(pred, id)).length;
 
-const base = { matchupWinProb, model, poolSize: 10, candidateCap: 31, seed: 1 };
+// maxPathDepth: 1 keeps these as single-flip regression tests (composite moves off);
+// the composite "ride a dark horse" path moves are covered in their own block below.
+const base = { matchupWinProb, model, poolSize: 10, candidateCap: 31, seed: 1, maxPathDepth: 1 };
 
 describe("generateByLeverage", () => {
   it("greedily takes the flips that raise win probability and skips the rest", () => {
@@ -130,5 +132,135 @@ describe("generateByLeverage", () => {
     for (const layout of KO_LAYOUT) {
       expect([prediction.get(`M${layout.home}`), prediction.get(`M${layout.away}`)]).toContain(prediction.get(`M${layout.match}`));
     }
+  });
+});
+
+describe("generateByLeverage — composite path-aware moves", () => {
+  // M73 → M90 is a real parent chain (R32 winner feeds the R16 match), so advancing the
+  // M73 underdog one more round forces upsets at both M73 and M90 together.
+  const ridesPair = (pred: Prediction) => isUpset(pred, "M73") && isUpset(pred, "M90");
+
+  it("takes a composite path move when no single flip on the path helps on its own", () => {
+    // Only the COMBINATION of the two consecutive upsets is rewarded — neither alone.
+    const evaluateWinProb = (pred: Prediction) => 0.1 + (ridesPair(pred) ? 0.05 : 0);
+
+    // Single-flip only: cannot assemble the pair in one move → stuck at chalk.
+    const single = generateByLeverage(snap, { ...base, maxPathDepth: 1, evaluateWinProb });
+    expect(countUpsets(single.prediction)).toBe(0);
+
+    // With composite path moves: the dark horse is advanced through both rounds at once.
+    const composite = generateByLeverage(snap, { ...base, maxPathDepth: 5, evaluateWinProb });
+    expect(isUpset(composite.prediction, "M73")).toBe(true);
+    expect(isUpset(composite.prediction, "M90")).toBe(true);
+  });
+
+  it("floor gate reverts a composite that overfits the reduced search trials", () => {
+    const searchTrials = 600;
+    const finalTrials = 4000;
+    const evaluateWinProb = (pred: Prediction, trials: number) =>
+      trials <= searchTrials ? 0.1 + (ridesPair(pred) ? 0.05 : 0) : 0.1 - (ridesPair(pred) ? 0.05 : 0);
+    const { prediction, winProbability } = generateByLeverage(snap, {
+      ...base,
+      maxPathDepth: 5,
+      searchTrials,
+      finalTrials,
+      evaluateWinProb,
+    });
+    expect(isUpset(prediction, "M73")).toBe(false);
+    expect(isUpset(prediction, "M90")).toBe(false);
+    expect(winProbability).toBe(0.1); // reverted to the seed (chalk)
+  });
+
+  it("does not double-count depth-1 path moves (single-flip win probability preserved)", () => {
+    // Only a single flip (M104) helps — enabling composite moves must not change the
+    // achieved win probability (a path ending at M104 ties it, never beats it).
+    const evaluateWinProb = (pred: Prediction) => 0.1 + (isUpset(pred, "M104") ? 0.03 : 0);
+    const single = generateByLeverage(snap, { ...base, maxPathDepth: 1, evaluateWinProb });
+    const withPaths = generateByLeverage(snap, { ...base, maxPathDepth: 5, evaluateWinProb });
+    expect(withPaths.winProbability).toBe(single.winProbability);
+    expect(isUpset(withPaths.prediction, "M104")).toBe(true);
+    expect(isUpset(single.prediction, "M104")).toBe(true);
+  });
+
+  it("is deterministic and bounds evaluations with composite moves enabled", () => {
+    let calls = 0;
+    const evaluateWinProb = (pred: Prediction) => {
+      calls++;
+      return 0.1 + (ridesPair(pred) ? 0.05 : 0);
+    };
+    const maxFlips = 4;
+    const a = generateByLeverage(snap, { ...base, maxPathDepth: 5, evaluateWinProb, maxFlips });
+    const callsA = calls;
+    const b = generateByLeverage(snap, { ...base, maxPathDepth: 5, evaluateWinProb, maxFlips });
+    expect([...a.prediction]).toEqual([...b.prediction]); // deterministic
+    // per step ≤ single flips (reverts ≤31 + adds ≤31) + path moves (≤31 starts × depth) + finals
+    const perStep = 31 + 31 + 31 * 5;
+    expect(callsA).toBeLessThanOrEqual(1 + maxFlips * perStep + 2);
+  });
+});
+
+describe("generateByLeverage — beam search", () => {
+  // A greedy trap: M73 alone (0.20) is the single best first move and is "sticky" (nothing
+  // extends it), so a width-1 hill-climb commits it and stops. The global optimum is the
+  // pair {M104, M97} (0.30), reached via the lower-scoring stepping stone M104 (0.15) — a
+  // beam keeps that 2nd-best line and extends it.
+  const valley = (pred: Prediction) => {
+    const m73 = isUpset(pred, "M73");
+    const m104 = isUpset(pred, "M104");
+    const m97 = isUpset(pred, "M97");
+    if (m104 && m97) return 0.3; // global optimum
+    let v = 0.1;
+    if (m73) v = Math.max(v, 0.2); // greedy trap (best single move, dead end)
+    if (m104) v = Math.max(v, 0.15); // stepping stone toward the optimum
+    return v;
+  };
+
+  it("reaches a bracket the width-1 hill-climb misses", () => {
+    const hill = generateByLeverage(snap, { ...base, beamWidth: 1, evaluateWinProb: valley });
+    const beam = generateByLeverage(snap, { ...base, beamWidth: 4, evaluateWinProb: valley });
+    expect(hill.winProbability).toBe(0.2); // stuck in the M73 local optimum
+    expect(beam.winProbability).toBeGreaterThan(hill.winProbability);
+    expect(isUpset(beam.prediction, "M104") && isUpset(beam.prediction, "M97")).toBe(true);
+  });
+
+  it("width one behaves as a single-state greedy hill-climb", () => {
+    // Monotonic: every upset helps a little → width-1 keeps taking the best single move.
+    const monotonic = (pred: Prediction) => 0.1 + 0.01 * countUpsets(pred);
+    const a = generateByLeverage(snap, { ...base, beamWidth: 1, evaluateWinProb: monotonic, maxFlips: 5 });
+    const b = generateByLeverage(snap, { ...base, beamWidth: 1, evaluateWinProb: monotonic, maxFlips: 5 });
+    expect([...a.prediction]).toEqual([...b.prediction]); // deterministic
+    expect(countUpsets(a.prediction)).toBeGreaterThan(0);
+    // A single helpful flip → width-1 takes exactly it.
+    const one = generateByLeverage(snap, { ...base, beamWidth: 1, evaluateWinProb: (p) => 0.1 + (isUpset(p, "M104") ? 0.03 : 0) });
+    expect(isUpset(one.prediction, "M104")).toBe(true);
+  });
+
+  it("respects the floor gate, never falls below the seed, and is deterministic", () => {
+    // Overfit: the pair wins at search trials but loses at full trials → revert to seed.
+    const searchTrials = 600;
+    const finalTrials = 4000;
+    const overfit = (pred: Prediction, trials: number) => {
+      const pair = isUpset(pred, "M104") && isUpset(pred, "M97");
+      return trials <= searchTrials ? 0.1 + (pair ? 0.1 : 0) : 0.1 - (pair ? 0.1 : 0);
+    };
+    const gated = generateByLeverage(snap, { ...base, beamWidth: 4, searchTrials, finalTrials, evaluateWinProb: overfit });
+    expect(gated.winProbability).toBe(0.1); // floor gate returned the seed (chalk)
+
+    const a = generateByLeverage(snap, { ...base, beamWidth: 4, evaluateWinProb: valley, maxFlips: 4 });
+    const b = generateByLeverage(snap, { ...base, beamWidth: 4, evaluateWinProb: valley, maxFlips: 4 });
+    expect([...a.prediction]).toEqual([...b.prediction]); // deterministic with stable tie-breaking
+  });
+
+  it("bounds evaluations (memoized by canonical state key)", () => {
+    let calls = 0;
+    const evaluateWinProb = (pred: Prediction) => {
+      calls++;
+      return 0.1 + 0.01 * countUpsets(pred);
+    };
+    const beamWidth = 4;
+    const maxFlips = 3;
+    generateByLeverage(snap, { ...base, beamWidth, maxFlips, evaluateWinProb });
+    // ≤ initial seeds (2) + rounds × beamWidth × candidates-per-state (≤31 reverts + ≤31 adds) + finals
+    expect(calls).toBeLessThanOrEqual(2 + maxFlips * beamWidth * (31 + 31) + 2);
   });
 });

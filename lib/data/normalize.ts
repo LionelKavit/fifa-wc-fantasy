@@ -8,6 +8,7 @@ import type {
   Player,
   Round,
   Fixture,
+  GoalEvent,
   FixtureStatus,
 } from "./models";
 import type { RawPlayer, RawSquad, RawRound } from "./schema";
@@ -98,6 +99,9 @@ export function normalize(
     endDate: r.endDate,
   }));
 
+  const toGoals = (raw: { playerId: number; assistId: number | null; isOwnGoal: boolean }[] | null | undefined): GoalEvent[] =>
+    (raw ?? []).map((g) => ({ playerId: g.playerId, assistId: g.assistId, isOwnGoal: g.isOwnGoal }));
+
   const fixtures: Fixture[] = [];
   for (const r of raw.rounds) {
     for (const t of r.tournaments) {
@@ -112,6 +116,7 @@ export function normalize(
         homeScore: t.homeScore ?? null,
         awayScore: t.awayScore ?? null,
         venue: t.venueName ?? null,
+        goals: [...toGoals(t.homeGoalScorersAssists), ...toGoals(t.awayGoalScorersAssists)],
       });
     }
   }

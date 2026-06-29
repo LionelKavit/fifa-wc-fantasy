@@ -38,26 +38,31 @@ The predictor SHALL persist the fan's picks in the browser (no account required)
 
 ### Requirement: Lock-aware editing
 
-The predictor SHALL allow editing only while the prediction is editable (before the first knockout kickoff) and SHALL present a read-only bracket once locked, consistent with `bracket-prediction` lock state.
+The predictor SHALL allow editing every knockout match that is not yet decided — including matches that are **live/in-progress** — and SHALL present only the **decided** matches as read-only, showing each decided match's real winner. There SHALL be no global read-only state and no "the knockouts have started" banner that freezes the whole bracket; deciding one match SHALL NOT disable the others. The Build box actions SHALL remain available throughout the knockouts: **autofill** SHALL complete the not-yet-decided matches while keeping decided results fixed (never contradicting a real winner), and **Clear** SHALL reset only the not-yet-decided picks (decided results persist).
 
-#### Scenario: Editable before lock
+#### Scenario: Editable while live or scheduled
 
-- **WHEN** no knockout match has kicked off
-- **THEN** the fan can pick and change winners
+- **WHEN** a knockout match is not yet complete (scheduled or live)
+- **THEN** the fan can pick or change its winner
 
-#### Scenario: Read-only after lock
+#### Scenario: Decided match is read-only with the real winner
 
-- **WHEN** the first knockout match has kicked off
-- **THEN** the bracket is presented read-only and picks can no longer be changed
+- **WHEN** a knockout match is complete with a winner
+- **THEN** that match is shown read-only with its real winner and cannot be changed
+
+#### Scenario: Actions stay available once some matches are decided
+
+- **WHEN** some knockout matches are decided and others are not
+- **THEN** autofill completes the not-decided matches (keeping the decided results) and Clear clears only the not-decided picks, with no global read-only state
 
 ### Requirement: Live scoring and headline figures
 
-The predictor SHALL evaluate the bracket server-side as picks change and update as real results come in. Each pick SHALL show its status (pending / correct / wrong / busted) distinguishable at a glance, and SHALL carry an upset marker when it is a bold (head-to-head underdog) pick. The post-bracket panel's headline SHALL be the **pool-finish verdict** (see `bracket-verdict-card`) — shown when the bracket is complete — rather than a projected-score figure.
+The predictor SHALL evaluate the bracket server-side as picks change and update as real results come in. Each pick SHALL show its status (pending / correct / wrong / busted) distinguishable at a glance, and SHALL carry an upset marker when it is a bold (head-to-head underdog) pick. The post-bracket panel SHALL NOT show a headline verdict, win probability, or projected-score figure — that figure was decluttered out of the panel; "how is my bracket doing?" is answered by the Analyst chat, not a panel headline.
 
-#### Scenario: Headline is the pool-finish verdict
+#### Scenario: No headline verdict in the panel
 
 - **WHEN** the predictor renders a complete bracket
-- **THEN** the post-bracket panel leads with the pool-finish verdict (win probability and projected finish), not a projected-score headline
+- **THEN** the post-bracket panel shows no pool-finish verdict, win-probability, or projected-score headline
 
 #### Scenario: Pick status is visible
 
@@ -71,22 +76,32 @@ The predictor SHALL evaluate the bracket server-side as picks change and update 
 
 ### Requirement: Model comparison surfaced
 
-The predictor SHALL surface the you-vs-the-model comparison: each pick's model probability, an aggregate **boldness** measure (how many of the fan's picks are head-to-head underdogs), and inline upset/cinderella flags for matches where the model rates the favourite unusually low.
+The predictor SHALL surface the you-vs-the-model comparison: each pick's win probability, an aggregate **boldness** measure (how many of the fan's picks are head-to-head underdogs), and inline upset/cinderella flags for matches where the model rates the favourite unusually low. The per-pick win probability shown on a card SHALL be the **head-to-head probability that the picked team beats its predicted opponent** in the user's bracket (from the `matchup-probability` model) — the same number the Analyst reports for that pairing — NOT the marginal probability of reaching the next round. This is a display choice only; the bracket the engine generates is unchanged. The inline flag SHALL be phrased "chance of upset". A match card's per-pick row SHALL show win/model probabilities only and SHALL NOT show a per-pick expected-points figure.
 
-#### Scenario: Per-pick model probability shown
+#### Scenario: Per-pick head-to-head shown
 
-- **WHEN** a fan inspects a pick
-- **THEN** the model's probability for that pick is shown (e.g. "the model gives this 9%")
+- **WHEN** a fan inspects a future-round pick
+- **THEN** the percentage shown is the picked team's head-to-head win probability against its predicted opponent (e.g. Colombia vs the team it is projected to play), not the marginal chance of reaching the next round
+
+#### Scenario: Card agrees with the Analyst for the same pick
+
+- **WHEN** the card shows a pick's percentage and the Analyst is asked about that pick's matchup
+- **THEN** both report the same head-to-head win probability
 
 #### Scenario: Boldness summarised
 
 - **WHEN** the bracket is rendered
 - **THEN** a summary of how bold the fan's bracket is (the count/share of head-to-head underdog picks) is shown
 
-#### Scenario: Upset flagged inline
+#### Scenario: Upset flagged inline as "chance of upset"
 
 - **WHEN** a matchup has an unusually low favourite win probability
-- **THEN** the predictor flags it inline as an upset/cinderella watch
+- **THEN** the predictor flags it inline phrased as "chance of upset"
+
+#### Scenario: No per-pick points figure
+
+- **WHEN** a match card renders a pick
+- **THEN** it shows the win/model percentage (and the bold-underdog marker when applicable) but no expected-points figure
 
 ### Requirement: Projected R32 surfaced as a fallback
 
@@ -113,60 +128,27 @@ The predictor UI SHALL use original styling consistent with the rest of the app 
 
 ### Requirement: Finalize and export the bracket
 
-The predictor SHALL let the user finalize ("lock") their picks and export the bracket so they can submit it in their own pool. Export SHALL offer two formats: a **CSV** listing the picks (round, match, picked team) and the **shareable image card** (`predictor-share-card`). Exported content SHALL reflect the user's current picks (and, for the image, the current evaluation), so what is downloaded matches what the predictor shows. The finalize action is user-driven and distinct from the tournament-kickoff read-only lock.
+The predictor SHALL let the user finalize ("lock") their picks and export the bracket so they can submit it in their own pool. Export SHALL offer a **CSV** listing the picks (round, match, picked team). Exported content SHALL reflect the user's current picks, so what is downloaded matches what the predictor shows. The finalize action is user-driven and distinct from the tournament-kickoff read-only lock.
 
 #### Scenario: Finalize then export
 
 - **WHEN** the user finalizes their bracket
-- **THEN** they are offered CSV and image-card export options
+- **THEN** they are offered a CSV export of their picks
 
 #### Scenario: CSV reflects the picks
 
 - **WHEN** the user downloads the CSV
 - **THEN** it lists their picks (round, match, picked team) matching the on-screen bracket
 
-#### Scenario: Image card offered
-
-- **WHEN** the user chooses the image export
-- **THEN** the shareable card for the current bracket is produced
-
 #### Scenario: Export matches the predictor
 
 - **WHEN** an export is produced
-- **THEN** its picks (and the card's figures) match the predictor's current bracket and evaluation
+- **THEN** its picks match the predictor's current bracket
 
 #### Scenario: Finalize is not the tournament lock
 
 - **WHEN** the user finalizes before the knockouts start
 - **THEN** they may still go back and edit, then re-export (finalize is a commit-and-export step, not the irreversible tournament-kickoff lock)
-
-### Requirement: Mainstream export formats (CSV, PNG, PDF)
-
-The predictor's export SHALL offer three formats, each in a familiar bracket-pool style: a **CSV** picks sheet, a **PNG** image card, and a **PDF** picks sheet. Each SHALL reflect the current picks and download as a file.
-
-- **CSV**: columns `Round, Matchup, Pick` — readable team names, ordered Round of 32 → Final, with the champion identified — the layout pool trackers expect (not internal match ids).
-- **PNG**: the share card image (`predictor-share-card`), downloaded as a `.png`.
-- **PDF**: a clean, printable picks sheet grouped by round (the mainstream printable-bracket style), generated client-side.
-
-#### Scenario: CSV in pool format
-
-- **WHEN** the user downloads the CSV
-- **THEN** it lists `Round, Matchup, Pick` with readable team names ordered R32→Final and the champion identified
-
-#### Scenario: PDF picks sheet
-
-- **WHEN** the user downloads the PDF
-- **THEN** a printable picks sheet grouped by round is downloaded as a `.pdf` file, reflecting the on-screen picks
-
-#### Scenario: PNG download
-
-- **WHEN** the user chooses the image card
-- **THEN** the card downloads as a `.png` file
-
-#### Scenario: Exports match the bracket
-
-- **WHEN** any export is produced
-- **THEN** its picks match the predictor's current bracket
 
 ### Requirement: Minimal future-round slots
 

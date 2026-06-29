@@ -147,38 +147,6 @@ describe("POST /api/chat", () => {
   });
 });
 
-import { POST as postVerdictNote } from "./predictor/verdict-note/route";
-
-describe("POST /api/predictor/verdict-note", () => {
-  const facts = {
-    winProbability: 0.12,
-    chalkWinProbability: 0.06,
-    expectedFinish: 5,
-    poolSize: 20,
-    pointsRange: { p10: 13, p50: 22, p90: 40, mean: 24 },
-  };
-  const req = (body: unknown) =>
-    new Request("http://localhost/api/predictor/verdict-note", {
-      method: "POST",
-      headers: { "content-type": "application/json" },
-      body: typeof body === "string" ? body : JSON.stringify(body),
-    });
-
-  it("returns a verdict sentence and source for valid facts", async () => {
-    const res = await postVerdictNote(req(facts));
-    expect(res.status).toBe(200);
-    const data = (await res.json()) as { text: string; source: string };
-    expect(typeof data.text).toBe("string");
-    expect(data.text.length).toBeGreaterThan(0);
-    expect(["llm", "template"]).toContain(data.source);
-  }, 20000);
-
-  it("rejects malformed facts", async () => {
-    const res = await postVerdictNote(req({ winProbability: "lots" }));
-    expect(res.status).toBe(400);
-  });
-});
-
 import { POST as postGenerate } from "./predictor/generate/route";
 
 describe("POST /api/predictor/generate (seed)", () => {
@@ -222,5 +190,19 @@ describe("POST /api/predictor/generate (seed)", () => {
     const a = await picksOf({ poolSize: 8, risk: "safe", seed: 1, strategy: "bogus" });
     expect(a).toHaveLength(31);
     expect(await picksOf({ poolSize: 8, risk: "safe", seed: 1 })).toEqual(a);
+  }, 30000);
+
+  it("completes from supplied picks (keeps them); ignores malformed picks", async () => {
+    // A full from-scratch bracket; take a few R32 picks to 'lock'.
+    const full = await picksOf({ poolSize: 8, risk: "safe", seed: 1 });
+    const some = full.filter(([m]) => /^M(7[3-9]|8[0-8])$/.test(m)).slice(0, 3);
+    expect(some.length).toBe(3);
+    // Complete at a different risk/seed — the locked picks must be kept.
+    const completed = await picksOf({ poolSize: 8, risk: "bold", seed: 2, picks: some });
+    expect(completed).toHaveLength(31);
+    const cm = new Map(completed);
+    for (const [m, t] of some) expect(cm.get(m)).toBe(t);
+    // Malformed picks are ignored → still a full bracket, not a 500.
+    expect(await picksOf({ poolSize: 8, risk: "safe", picks: "nonsense" })).toHaveLength(31);
   }, 30000);
 });

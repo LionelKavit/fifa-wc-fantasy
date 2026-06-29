@@ -31,9 +31,10 @@ function context(prediction: Prediction | null): ScoutContext {
   const report = advancementProbabilities(snap, { trials: 300, seed: 1 });
   const finish: FinishProbs = new Map(report.teams.map((t) => [t.teamId, t.finish]));
   const ratings = new Map(snap.teams.map((t) => [t.id, 1500 + t.id])); // distinct, ascending
+  const strengths = new Map(snap.teams.map((t) => [t.id, 1 + t.id / 1000])); // distinct, ascending
   // Higher team id ⇒ favored; a simple monotone head-to-head for compare_teams.
   const matchupWinProb = (a: number, b: number) => (a === b ? 0.5 : a > b ? 0.6 : 0.4);
-  return { snapshot: snap, report, prediction, projection: projectR32(snap, finish), ratings, matchupWinProb, poolSize: 10, _eval: null };
+  return { snapshot: snap, report, prediction, projection: projectR32(snap, finish), ratings, strengths, matchupWinProb, poolSize: 10, _eval: null };
 }
 
 const parse = (r: { output: string }) => JSON.parse(r.output);
@@ -45,10 +46,18 @@ describe("scout bracket tools — evaluate_bracket", () => {
     const res = executeTool("evaluate_bracket", {}, context(pred));
     const out = parse(res);
     expect(out.hasBracket).toBe(true);
-    expect(typeof out.projectedScore).toBe("number");
-    expect(out.stillAlivePct).toMatch(/%$/);
+    // honest health signals; no perfect-survival, no projected score
+    expect(out.stillAlivePct).toBeUndefined();
+    expect(out.projectedScore).toBeUndefined();
+    expect(typeof out.picksBusted).toBe("number");
+    expect(typeof out.picksWrong).toBe("number");
+    expect(typeof out.picksAlive).toBe("number");
     expect(out.picks).toHaveLength(1);
-    expect(out.picks[0].match).toBe("M75");
+    // picks are identified by round, not internal match id
+    expect(out.picks[0].match).toBeUndefined();
+    expect(out.picks[0].round).toBe("Round of 32");
+    // per-pick win is shown as a head-to-head percentage vs the predicted opponent
+    expect(out.picks[0].win).toMatch(/%$/);
   }, 20000);
 
   it("reports no bracket when picks are absent", () => {
@@ -84,6 +93,11 @@ describe("scout bracket tools — compare_teams", () => {
     expect(out.teamA).toBe("A1");
     expect(out.teamB).toBe("B1");
     expect(out.headToHead).toMatch(/%/);
+    // exposes the actual model drivers (Elo + strength) for both teams
+    expect(typeof out.drivers.A1.elo).toBe("number");
+    expect(typeof out.drivers.A1.strength).toBe("number");
+    expect(typeof out.drivers.B1.elo).toBe("number");
+    expect(typeof out.drivers.B1.strength).toBe("number");
   });
 
   it("handles a single team and an unknown team", () => {

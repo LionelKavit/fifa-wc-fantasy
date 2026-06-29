@@ -16,8 +16,6 @@ import {
   scorePrediction,
   compareToModel,
   predictedParticipants,
-  evaluatePoolFinish,
-  pickLeverage,
   generateBracket,
   generateByLeverage,
   poissonHeadToHead,
@@ -28,9 +26,6 @@ import {
   type KnockoutStage,
   type Prediction,
   type AdvancementReport,
-  type PoolFinishResult,
-  type PointsRange,
-  type PickLeverage,
 } from "../engine";
 
 /** Modest trial count for the interactive path — balances latency vs. noise. */
@@ -186,89 +181,6 @@ export async function evaluatePrediction(picks: [string, number][]): Promise<Eva
   };
 }
 
-/** Estimate how a complete bracket places in a pool of `poolSize` (win probability,
- * finish distribution, points range), grounded in the Elo model. Incomplete brackets
- * return an incomplete signal. */
-export async function poolFinish(picks: [string, number][], poolSize: number): Promise<PoolFinishResult> {
-  const { snapshot, report } = await getTournamentData();
-  const projection = buildProjection(snapshot, report);
-  return evaluatePoolFinish(snapshot, new Map(picks), {
-    poolSize,
-    matchupWinProb: headToHead,
-    model: buildOutcomeModel(snapshot),
-    projection,
-  });
-}
-
-/** The verdict payload behind the "will this win my pool?" card. */
-export interface PoolVerdict {
-  complete: boolean;
-  user?: { winProbability: number; expectedFinish: number; pointsRange: PointsRange };
-  /** The model's most-likely ("chalk") bracket's win probability in the same pool. */
-  chalkWinProbability?: number;
-}
-
-/** The model's most-likely bracket: the Elo favorite at every match. Independent of
- * the user's picks, so its pool finish can be cached per snapshot + pool size. */
-function chalkPrediction(bracket: Bracket): Prediction {
-  const pred: Prediction = new Map();
-  for (const m of bracket.matches) {
-    const [a, b] = predictedParticipants(bracket, pred, m.id);
-    if (a === null || b === null) continue;
-    pred.set(m.id, headToHead(a, b) >= 0.5 ? a : b);
-  }
-  return pred;
-}
-
-// Chalk-bracket win probability, keyed by snapshot + pool size (it doesn't depend on
-// the user's picks), so the "You vs. the Model" reference is computed at most once.
-const chalkWinProbCache = new Map<string, number>();
-
-/** The "will this win my pool?" verdict: the user's pool finish plus the chalk
- * reference. Incomplete brackets return `{ complete: false }`. The chalk reference is
- * cached per snapshot + pool size so it is never recomputed. */
-export async function poolVerdict(picks: [string, number][], poolSize: number): Promise<PoolVerdict> {
-  const { snapshot, report } = await getTournamentData();
-  const projection = buildProjection(snapshot, report);
-  const model = buildOutcomeModel(snapshot);
-
-  const user = evaluatePoolFinish(snapshot, new Map(picks), { poolSize, matchupWinProb: headToHead, model, projection });
-  if (!user.complete) return { complete: false };
-
-  const cacheKey = `${snapshot.fetchedAt}:${poolSize}`;
-  let chalkWinProbability = chalkWinProbCache.get(cacheKey);
-  if (chalkWinProbability === undefined) {
-    const bracket = buildBracket(snapshot, { projection });
-    const chalk = evaluatePoolFinish(snapshot, chalkPrediction(bracket), { poolSize, matchupWinProb: headToHead, model, projection });
-    chalkWinProbability = chalk.complete ? chalk.winProbability : 0;
-    chalkWinProbCache.set(cacheKey, chalkWinProbability);
-  }
-
-  return {
-    complete: true,
-    user: { winProbability: user.winProbability, expectedFinish: user.expectedFinish, pointsRange: user.pointsRange },
-    chalkWinProbability,
-  };
-}
-
-/** Per-pick leverage on the win probability — which picks help or hurt the user's pool
- * odds. Higher-cost; runs a reduced trial count by default. */
-export async function poolFinishLeverage(
-  picks: [string, number][],
-  poolSize: number,
-  trials = 1500,
-): Promise<PickLeverage[]> {
-  const { snapshot, report } = await getTournamentData();
-  const projection = buildProjection(snapshot, report);
-  return pickLeverage(snapshot, new Map(picks), {
-    poolSize,
-    matchupWinProb: headToHead,
-    model: buildOutcomeModel(snapshot),
-    projection,
-    trials,
-  });
-}
-
 /** Generate a complete, grounded bracket calibrated to risk + pool size, as
  * `[matchId, teamId]` pairs ready to populate the predictor. */
 // Per-team deep-run odds, cached per snapshot — the plausibility input for the generator
@@ -284,17 +196,31 @@ function knockoutOddsByTeam(snapshot: Parameters<typeof projectR32>[0] & { fetch
 
 export type GenerationStrategy = "heuristic" | "leverage";
 
-/** Safety cap on greedy flips for the leverage strategy (it auto-stops earlier). */
-const LEVERAGE_MAX_FLIPS: Record<RiskLevel, number> = { safe: 4, balanced: 7, bold: 10 };
+/** Safety cap on beam search rounds (it auto-stops earlier). A beam needs far fewer
+ * rounds than a hill-climb: it explores W lines per round and composite path moves advance
+ * a dark horse several rounds in a single move. */
+const LEVERAGE_MAX_FLIPS: Record<RiskLevel, number> = { safe: 3, balanced: 4, bold: 5 };
+
+/** Beam width per risk — wider beams explore more contrarian lines (and cost more). */
+const LEVERAGE_BEAM_WIDTH: Record<RiskLevel, number> = { safe: 2, balanced: 2, bold: 3 };
+
+/** Reduced trial count for the beam's many candidate evaluations (CRN keeps rankings
+ * stable at low trials; the final full-trials gate gives the honest reported number). The
+ * per-evaluation cost scales with pool size, so the search stays light. */
+const LEVERAGE_SEARCH_TRIALS = 150;
 
 export async function generatePrediction(
   poolSize: number,
   risk: RiskLevel,
   seed?: number,
   strategy: GenerationStrategy = "heuristic",
+  picks?: [string, number][],
 ): Promise<[string, number][]> {
   const { snapshot, report } = await getTournamentData();
   const projection = buildProjection(snapshot, report);
+
+  // Already-made picks to keep: complete the bracket from the current state (fill the gaps).
+  const locked = picks && picks.length ? new Map(picks) : undefined;
 
   // Marginal probability a team wins a match at each stage (≡ reaching the next stage).
   const oddsByTeam = knockoutOddsByTeam(snapshot);
@@ -316,7 +242,7 @@ export async function generatePrediction(
   };
 
   // The fast heuristic bracket — the default result, and the seed the leverage search
-  // refines (so "Optimize" is never worse than "Build").
+  // refines. Completes from any already-made picks (keeps them, fills the gaps).
   const heuristic = generateBracket(snapshot, {
     poolSize,
     risk,
@@ -326,12 +252,13 @@ export async function generatePrediction(
     projection,
     favor: toIds(signals.favor),
     fade: toIds(signals.fade),
+    locked,
   });
 
   if (strategy === "leverage") {
-    // Maximize pool-win probability directly (slower; opt-in). Reuses the Poisson
-    // head-to-head, reach odds, and the outcome model via evaluatePoolFinish; seeded
-    // from the heuristic bracket so coordinated upsets are already in place.
+    // Maximize pool-win probability directly (slower; opt-in). A beam search seeded from
+    // the heuristic bracket, over single-flip + composite path moves; reuses the Poisson
+    // head-to-head, reach odds, and the outcome model via evaluatePoolFinish.
     const { prediction } = generateByLeverage(snapshot, {
       poolSize,
       matchupWinProb: headToHead,
@@ -340,6 +267,8 @@ export async function generatePrediction(
       projection,
       seed,
       maxFlips: LEVERAGE_MAX_FLIPS[risk],
+      beamWidth: LEVERAGE_BEAM_WIDTH[risk],
+      searchTrials: LEVERAGE_SEARCH_TRIALS,
       start: heuristic,
     });
     return [...prediction.entries()];
@@ -363,6 +292,7 @@ export async function buildScoutBracket(
     model: buildOutcomeModel(snapshot),
     projection: buildProjection(snapshot, report),
     ratings: TEAM_ELO,
+    strengths: STRENGTHS,
     matchupWinProb: headToHead,
     expertNotes: loadKnowledge().snippets,
   };
@@ -371,46 +301,6 @@ export async function buildScoutBracket(
     ctx.championOdds = (await getBracketData()).championOdds;
   }
   return ctx;
-}
-
-export interface CardSummary {
-  champion: string | null;
-  runnerUp: string | null;
-  /** The four semifinalists (abbreviations), as the user's picks imply. */
-  finalFour: string[];
-  projectedScore: number;
-  /** Survival probability through the Final, in [0, 1]. */
-  stillAlive: number;
-  boldness: number;
-}
-
-/** Compact figures for the shareable card, grounded in the same evaluation the
- * predictor shows. Tolerant: invalid/partial picks are scored as-is. */
-export async function cardSummary(picks: [string, number][]): Promise<CardSummary> {
-  const { snapshot, report } = await getTournamentData();
-  const { comparison } = await evaluatePrediction(picks);
-
-  const prediction = new Map(picks);
-  const bracket = buildBracket(snapshot, { projection: buildProjection(snapshot, report) });
-  const abbrOf = (id: number | null): string | null =>
-    id === null ? null : (snapshot.teams.find((t) => t.id === id)?.abbr ?? null);
-
-  const championId = prediction.get("M104") ?? null;
-  const [finalA, finalB] = predictedParticipants(bracket, prediction, "M104");
-  const runnerUpId = championId === null ? null : championId === finalA ? finalB : finalA;
-  const finalFour = ["M101", "M102"]
-    .flatMap((m) => predictedParticipants(bracket, prediction, m))
-    .map(abbrOf)
-    .filter((a): a is string => a !== null);
-
-  return {
-    champion: abbrOf(championId),
-    runnerUp: abbrOf(runnerUpId),
-    finalFour,
-    projectedScore: Math.round(comparison.projectedScore),
-    stillAlive: comparison.headlineSurvival,
-    boldness: comparison.boldnessCount,
-  };
 }
 
 /** Test seam: clear the bracket cache. */

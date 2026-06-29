@@ -73,6 +73,41 @@ export function isPredictionLocked(snapshot: TournamentSnapshot): boolean {
   });
 }
 
+/** Real winners of decided knockout matches (fixture complete with a derivable winner),
+ * matchId → teamId. A live or scheduled match has no winner yet, so it is not decided. */
+export function decidedWinners(bracket: Bracket): Map<string, number> {
+  const out = new Map<string, number>();
+  for (const m of bracket.matches) if (m.winner) out.set(m.id, m.winner.teamId);
+  return out;
+}
+
+/** Whether a match's real result is in — once decided it is locked to that winner. */
+export function isMatchDecided(bracket: Bracket, matchId: string): boolean {
+  return matchById(bracket).get(matchId)?.winner != null;
+}
+
+/**
+ * Overlay the decided real winners onto a prediction (decided results win), clearing any
+ * downstream pick they contradict. This "effective" prediction is what the UI renders and
+ * the model evaluates: a decided match shows its real winner and that winner advances.
+ */
+export function withDecided(bracket: Bracket, prediction: Prediction): Prediction {
+  const decided = decidedWinners(bracket);
+  if (decided.size === 0) return prediction;
+  const child = childMap(bracket);
+  const next = new Map(prediction);
+  for (const m of bracket.matches) {
+    // R32 → Final order, so an upstream decided winner is in place before its child.
+    const w = decided.get(m.id);
+    if (w === undefined) continue;
+    if (next.get(m.id) !== w) {
+      next.set(m.id, w);
+      cascadeClear(next, bracket, child, m.id);
+    }
+  }
+  return next;
+}
+
 /** Clear any downstream picks made invalid by a change at `fromMatchId`. */
 function cascadeClear(picks: Prediction, bracket: Bracket, child: Map<string, string>, fromMatchId: string): void {
   let cur = child.get(fromMatchId);
@@ -89,18 +124,18 @@ function cascadeClear(picks: Prediction, bracket: Bracket, child: Map<string, st
 }
 
 /**
- * Pick a winner for a match. Rejected (prediction returned unchanged) if the
- * prediction is locked or the team is not a current predicted participant.
- * Otherwise sets the pick and cascade-clears now-invalid later picks.
+ * Pick a winner for a match. Rejected (prediction returned unchanged) if the match is
+ * already decided (its real result is in) or the team is not a current predicted
+ * participant. Otherwise sets the pick and cascade-clears now-invalid later picks.
  */
 export function pick(
-  snapshot: TournamentSnapshot,
+  _snapshot: TournamentSnapshot,
   bracket: Bracket,
   prediction: Prediction,
   matchId: string,
   teamId: number,
 ): Prediction {
-  if (isPredictionLocked(snapshot)) return prediction;
+  if (isMatchDecided(bracket, matchId)) return prediction; // a decided match stays decided
   const [a, b] = predictedParticipants(bracket, prediction, matchId);
   if (teamId !== a && teamId !== b) return prediction;
   const next = new Map(prediction);
@@ -109,14 +144,15 @@ export function pick(
   return next;
 }
 
-/** Clear a match's pick (and any now-invalid downstream picks). Rejected if locked. */
+/** Clear a match's pick (and any now-invalid downstream picks). Rejected if the match is
+ * decided (its real result stands). */
 export function clear(
-  snapshot: TournamentSnapshot,
+  _snapshot: TournamentSnapshot,
   bracket: Bracket,
   prediction: Prediction,
   matchId: string,
 ): Prediction {
-  if (isPredictionLocked(snapshot)) return prediction;
+  if (isMatchDecided(bracket, matchId)) return prediction;
   if (!prediction.has(matchId)) return prediction;
   const next = new Map(prediction);
   next.delete(matchId);

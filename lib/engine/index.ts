@@ -23,9 +23,31 @@ export { hasLiveFixtures, liveFixtures, liveFixturesForGroup, type LiveFixture }
 export { rankThirdPlaced, type ThirdPlaceResult } from "./thirdPlace";
 export { buildBracket, projectR32, type R32Projection, type FinishProbs } from "./bracket";
 export {
+  teamRecord,
+  headToHead as wcHeadToHead,
+  topScorers as wcTopScorers,
+  champions as wcChampions,
+  resolveNation as wcResolveNation,
+  historyMeta as wcHistoryMeta,
+  WC_HISTORY_COVERAGE,
+  type WcRecord,
+  type WcHeadToHead,
+  type WcChampion,
+} from "./worldCupHistory";
+export {
+  currentTopScorers,
+  allTimeScoringRecord,
+  type CurrentScorer,
+  type CareerScorer,
+  type ScoringRecord,
+} from "./currentScorers";
+export {
   emptyPrediction,
   predictedParticipants,
   isPredictionLocked,
+  decidedWinners,
+  isMatchDecided,
+  withDecided,
   pick,
   clear,
   completeness,

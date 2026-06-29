@@ -2,7 +2,7 @@ import { describe, it, expect, beforeEach } from "vitest";
 import { GET as getBracket } from "./bracket/route";
 import { POST as postEvaluate } from "./predictor/evaluate/route";
 import { __setTournamentDataForTests, type TournamentData } from "../../lib/server/tournament";
-import { __resetBracketCacheForTests, cardSummary } from "../../lib/server/predictor";
+import { __resetBracketCacheForTests } from "../../lib/server/predictor";
 import { advancementProbabilities, poissonHeadToHead } from "../../lib/engine";
 import { STRENGTHS } from "../../lib/server/model";
 import { executeTool, type ScoutContext } from "../../lib/scout";
@@ -108,15 +108,4 @@ describe("POST /api/predictor/evaluate", () => {
     );
     expect(res.status).toBe(400);
   });
-});
-
-describe("cardSummary (share card figures)", () => {
-  it("returns grounded figures for a prediction", async () => {
-    const s = await cardSummary([["M75", groupTeamId(5, 1)]]); // pick Winner F
-    expect(typeof s.projectedScore).toBe("number");
-    expect(s.stillAlive).toBeGreaterThanOrEqual(0);
-    expect(s.stillAlive).toBeLessThanOrEqual(1);
-    expect(typeof s.boldness).toBe("number");
-    expect(s.champion).toBeNull(); // no M104 pick
-  }, 20000);
 });
